@@ -1,0 +1,24 @@
+Hi, 袁鹏
+服务器IP： 202.120.46.151
+FTP 账号：yuanpeng
+FTP密码：yuanpeng@ji
+FTP端口：21
+
+mysql数据库地址：localhost
+账户 ：yuanpeng
+密码：yuanpeng@ji
+数据库管理地址：https://umji.sjtu.edu.cn/phpmyadmin
+
+
+考虑到该系统功能完整性和稳定性的问题，我先给你创建ji.sjtu.edu.cn/student 作为小范围试用。等功能更加完善了，会逐步迁移到 umji.sjtu.edu.cn/student。
+ji.sjtu.edu.cn 是Oauth 2.0认证，你可以对应着配置试试（仅仅适用本服务器，202.120.46.151）
+您申请的通用统一账户认证Jaccount认证 服务的相关配置已经完成，可以使用了。
+    系统名称：通用统一账户认证
+    clientid ： jaji20150623
+    secretkey:  C8ECB65DE3584F19A1AB31ADD98052F2EC01A1A707EA8301
+    scope：basic, essential,profile    lessons  classes  students_list
+oauth2相关文档说明：http://developer.sjtu.edu.cn/wiki/JAccount#OAuth2_.E5.9C.B0.E5.9D.80
+获取用户信息接口： http://developer.sjtu.edu.cn/wiki/APIs#Profile 
+选课，课程安排相关api：http://developer.sjtu.edu.cn/wiki/EducationAPIs#Lesson_API 
+关于scope的说明文档： http://developer.sjtu.edu.cn/wiki/APIs#API_Scopes
+开发支持（仅供参考）：https://cwiki.apache.org/confluence/display/OLTU/OAuth%202.0%20Client%20Quickstart
