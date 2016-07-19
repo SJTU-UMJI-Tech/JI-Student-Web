@@ -12,19 +12,16 @@
 	<meta name="viewport"
 	      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<title><?php echo $page_name ?></title>
-	<script src="/ji_js/jquery-2.1.4.min.js"></script>
-	<script src="/ji_js/ta/evaluation.js"></script>
-	<script src="/ji_js/base64.js"></script>
-	<script src="/ji_js/confirmLogout.js"></script>
+	<!--<title>--><?php //echo $page_name ?><!--</title>-->
+	<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
 	<noscript>Your browser does not support JavaScript!</noscript>
 	
 	<link rel="stylesheet" type="text/css"
 	      href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/ji_style/ta/evaluation/common.css">
-	<link rel="stylesheet" type="text/css"
-	      href="/ji_style/ta/evaluation/<?php echo $type; ?>/index.css">
+	<!--<link rel="stylesheet" type="text/css" href="/ji_style/ta/evaluation/common.css">-->
+	<!--<link rel="stylesheet" type="text/css"-->
+	<!--      href="/ji_style/ta/evaluation/--><?php //echo $type; ?><!--/index.css">-->
 	<base target="_self">
 </head>
 
@@ -44,52 +41,13 @@
 	<div class='_top' id="Top"><a href="http://umji.sjtu.edu.cn/cn/" target="_blank"><img
 				src="/ji_style/ta/images/JI logo-01.png" height="90"
 				alt="Logo of Joint Institute" title="上海交大密西根学院"></a>
-		<h1 title="Teaching Assistant Evaluation System"><?php echo lang('ta_main_topic'); ?></h1>
+		<h1 title="Teaching Assistant Evaluation System">111</h1>
 	</div>
 	
 	<!-- Nav Bar -->
 	
 	<ul class="nav nav-pills nav-justified">
-		<?php if ($type == 'student'): ?>
-			<li class="<?php echo $banner_id != 1 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/student"><?php echo lang('ta_main_homepage'); ?></a>
-			</li>
-			<li class="<?php echo $banner_id != 2 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/student/evaluation"><?php echo lang('ta_main_evaluation'); ?></a>
-			</li>
-			<li class="<?php echo $banner_id != 3 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/student/feedback/view"><?php echo lang('ta_main_feedback_apply'); ?></a>
-			</li>
-		<?php elseif ($type == 'teacher'): ?>
-			<li class="<?php echo $banner_id != 1 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/teacher"><?php echo lang('ta_main_homepage'); ?></a>
-			</li>
-			<li class="<?php echo $banner_id != 2 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/teacher/evaluation"><?php echo lang('ta_main_evaluation_setup'); ?></a>
-			</li>
-			<li class="<?php echo $banner_id != 3 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/teacher/feedback/view"><?php echo lang('ta_main_feedback_process'); ?></a>
-			</li>
-			<li class="<?php echo $banner_id != 4 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/teacher/report"><?php echo lang('ta_main_report'); ?></a>
-			</li>
-		<?php elseif ($type == 'manage'): ?>
-			<li class="<?php echo $banner_id != 1 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/manage"><?php echo lang('ta_main_homepage'); ?></a>
-			</li>
-			<li class="<?php echo $banner_id != 2 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/manage/evaluation"><?php echo lang('ta_main_evaluation_setup'); ?></a>
-			</li>
-			<li class="<?php echo $banner_id != 3 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/manage/search"><?php echo lang('ta_main_search'); ?></a>
-			</li>
-			<li class="<?php echo $banner_id != 4 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/manage/feedback/view"><?php echo lang('ta_main_feedback_process'); ?></a>
-			</li>
-			<li class="<?php echo $banner_id != 5 ? 'non-' : ''; ?>active">
-				<a href="/ta/evaluation/manage/export"><?php echo lang('ta_main_export'); ?></a>
-			</li>
-		<?php endif ?>
+		
 	</ul>
 	
 	<!-- User Info -->
