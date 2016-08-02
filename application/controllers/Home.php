@@ -20,6 +20,7 @@ class Home extends CI_Controller
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data['page_name'] = 'UM-SJTU JI Online';
+		$this->load->view('home', $data);
 	}
 }
