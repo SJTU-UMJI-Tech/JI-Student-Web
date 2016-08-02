@@ -18,8 +18,10 @@
 	
 	<link rel="shortcut icon" href="/images/favicon.png">
 	
-	<link rel="stylesheet" type="text/css"
-	      href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css">
+	
+	<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	
 	
 	<script src="//cdn.bootcss.com/tether/1.3.3/js/tether.min.js"></script>
 	
@@ -42,10 +44,10 @@
 		</ul>
 		<ul class="nav navbar-nav pull-xs-right">
 			<li class="nav-item active">
-				<a class="nav-link" href="/login">Sign in</a>
+				<a class="nav-link" href="/user/login?uri=<?php echo $_SERVER["REQUEST_URI"];?>">Sign in</a>
 			</li>
 		</ul>
-		
+	
 	
 	</div>
 </nav>

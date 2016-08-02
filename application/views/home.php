@@ -9,6 +9,8 @@
 			career development, scholarships and many other aspects. The website is still under developing, and thus we
 			will be grateful if you could give us some <a href="/feedback">feedback</a>.
 		</p>
+		<p><i class="fa fa-arrows"></i></p>
+		<?php echo $server_time;?>
 	</div>
 </div>
 

@@ -2,7 +2,7 @@
 
 class Front_Controller extends CI_Controller
 {
-	public $site_config;
+	//public $site_config;
 	public $data;
 	
     public function __construct()
@@ -21,16 +21,15 @@ class Front_Controller extends CI_Controller
 
 	    $this->output->enable_profiler(TRUE);
 		
-        //$this->load->model('Mta_site');
-	    //$this->load->library('My_obj');
-        //$this->site_config = $this->Mta_site->get_site_config();
-        //$this->load->vars($this->site_config);
+        $this->load->model('Site_model');
+	    $this->load->library('My_obj');
+        $this->Site_model->load_site_config();
 	    //$this->load->language('ta_main');
-	    //$this->data = array();
+	    $this->data = array();
     }
 	
 	public function get_site_config($key)
 	{
-		return $this->site_config[$key];
+		return $this->Site_model->site_config[$key];
 	}
 }
