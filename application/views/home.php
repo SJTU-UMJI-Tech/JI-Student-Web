@@ -10,7 +10,7 @@
 			will be grateful if you could give us some <a href="/feedback">feedback</a>.
 		</p>
 		<p><i class="fa fa-arrows"></i></p>
-		<?php echo $server_time;?>
+		<?php echo $global_server_time;?>
 	</div>
 </div>
 

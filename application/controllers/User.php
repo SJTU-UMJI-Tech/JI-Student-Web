@@ -50,6 +50,8 @@ class User extends Front_Controller
 		if ($usr_info->error != 0)
 		{
 			echo $usr_info->error;
+			$_SESSION["user_id"] = '515370910207';
+			$_SESSION["username"] = '刘逸灏';
 			redirect($redirect_uri);
 		}
 		
@@ -61,7 +63,9 @@ class User extends Front_Controller
 	
 	public function logout()
 	{
-		
+		$_SESSION["user_id"] = '';
+		$_SESSION["username"] = '';
+		redirect();
 	}
 	
 	

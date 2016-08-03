@@ -16,7 +16,7 @@ class My_obj
 	protected $error_flag = false;
 	/** @var CI_Model */
 	protected $CI;
-
+	
 	/**
 	 * My_obj constructor.
 	 * @param array        $data
@@ -52,7 +52,8 @@ class My_obj
 			$this->CI =& get_instance();
 		}
 	}
-
+	
+	
 	/**
 	 * Return whether the object is error
 	 * @return bool
@@ -71,7 +72,7 @@ class My_obj
 	{
 		return isset($this->$key) && !$this->is_error() ? $this->$key : NULL;
 	}
-
+	
 	public function add_array(&$array)
 	{
 		if (!$this->is_error())
@@ -79,5 +80,5 @@ class My_obj
 			$array[] = &$this;
 		}
 	}
-
+	
 }

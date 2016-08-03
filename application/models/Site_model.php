@@ -43,7 +43,7 @@ class Site_model extends CI_Model
 			$query = $query->where(array('module' => 'global'));
 			$mtime = explode(' ', microtime());
 			$startTime = floor(($mtime[1] + $mtime[0]) * 1000);
-			$this->site_config['server_time'] = $startTime;
+			$this->site_config['global_server_time'] = $startTime;
 		}
 		else
 		{
@@ -140,6 +140,35 @@ class Site_model extends CI_Model
 		}
 		curl_close($ch);
 		return $data;
+	}
+	
+	/**
+	 * @param string       $table
+	 * @param string       $library
+	 * @param array        $keys
+	 * @param bool         $array
+	 * @param string|array $select
+	 * @return My_obj|array
+	 */
+	public function get_object($table, $library = 'My_obj', $keys = array(), $array = false, $select = '*')
+	{
+		$query = $this->db->select($select)->from($table)->where($keys)->get();
+		$this->load->library($library);
+		/** @var My_obj $obj */
+		if (!$array)
+		{
+			$obj = $query->row(0, $library);
+			return $obj;
+		}
+		$obj_list = array();
+		foreach ($query->result($library) as $row)
+		{
+			if (!$obj->is_error())
+			{
+				$obj_list[] = $obj;
+			}
+		}
+		return $obj_list;
 	}
 	
 	
