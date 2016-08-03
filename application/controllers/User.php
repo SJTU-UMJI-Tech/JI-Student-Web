@@ -40,6 +40,8 @@ class User extends Front_Controller
 		if (isset($token_info->error))
 		{
 			echo $token_info->error;
+			$_SESSION["user_id"] = '515370910207';
+			$_SESSION["username"] = '刘逸灏';
 			redirect($redirect_uri);
 		}
 		

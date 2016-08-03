@@ -1,7 +1,7 @@
 <?php include "common/header.php"; ?>
 <div class="container">
 	<div class="jumbotron">
-		<h1>Welcome!</h1>
+		<h1 class="display-2">Welcome!</h1>
 		<hr>
 		<h3>UM-SJTU JI Student Online</h3>
 		<p class="lead">
