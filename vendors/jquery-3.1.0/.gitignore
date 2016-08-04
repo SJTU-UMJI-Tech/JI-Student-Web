@@ -11,8 +11,8 @@
 npm-debug.log
 
 # Ignore everything in dist folder except for eslint config
-/dist/*
-!/dist/.eslintrc
+#/dist/*
+#!/dist/.eslintrc
 
 /node_modules
 

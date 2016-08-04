@@ -50,7 +50,7 @@
 				<a class="nav-link" href="/events">Events</a>
 			</li>
 		</ul>
-		<?php if ($_SESSION['user_id'] == ''): ?>
+		<?php if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] == ''): ?>
 			<ul class="nav navbar-nav pull-xs-right">
 				<li class="nav-item active">
 					<a class="nav-link" href="/user/login?uri=<?php echo $_SERVER["REQUEST_URI"]; ?>">Sign in</a>
