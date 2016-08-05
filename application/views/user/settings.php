@@ -36,7 +36,5 @@
 	</div>
 </div>
 
-<script src="/js/ji_sidebar.js"></script>
-
 
 <?php include dirname(dirname(__FILE__)) . '/common/footer.php'; ?>

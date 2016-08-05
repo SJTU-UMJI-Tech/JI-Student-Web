@@ -30,6 +30,13 @@
 		
 		this.initFrame();
 		
+		this.$bar = this.$container.find(".ji-side-bar");
+		this.initBar();
+		this.$barList = this.$bar.find(".list-group-item");
+		
+		this.$card = this.$container.find(".ji-side-card");
+		this.$cardHeader = this.$card.find(".card-header h5");
+		
 		this.init();
 	}
 	
@@ -50,7 +57,7 @@
 				'<div class="col-xs-3">',
 				'<div class="card ji-side-bar">',
 				'<div class="card-header">',
-				'<h5></h5>',
+				'<h5>', this.option.title, '</h5>',
 				'</div>',
 				'<div class="list-group ">',
 				'</div>',
@@ -66,8 +73,35 @@
 				'</div>'
 			].join('');
 			this.$container.append(html);
-		}
+		},
 		
+		initBar: function ()
+		{
+			var html;
+			for (var key in this.option.type)
+			{
+				html = '<a href="javascript:void(0);" class="list-group-item list-group-item-action" data-text="' + key + '">' + this.option.type[key] + '</a>';
+				this.$bar.append(html);
+			}
+		},
+		
+		addListener: function ()
+		{
+			this.$barList.on('click', $.proxy(this.onClickBarList, this));
+		},
+		
+		onClickBarList: function (e)
+		{
+			this.switchCard($(e.target));
+		},
+		
+		switchCard: function ($barItem)
+		{
+			this.$barList.removeClass('active');
+			$barItem.addClass('active');
+			var text = $barItem.attr('data-text');
+			this.$cardHeader.html(this.option.type[text]);
+		}
 	};
 	
 	$.fn.JIDisplay = function (option)
