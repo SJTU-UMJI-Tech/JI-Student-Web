@@ -200,5 +200,10 @@ class Site_model extends CI_Model
 	{
 		
 	}
+	
+	public function is_login()
+	{
+		return isset($_SESSION['user_id']) && $_SESSION['user_id'] != '';
+	}
 }
 

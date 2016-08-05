@@ -70,5 +70,11 @@ class User extends Front_Controller
 		redirect();
 	}
 	
-	
+	public function settings()
+	{
+		$data = $this->data;
+		$data['page_name'] = 'Settings';
+		$this->load->view('user/settings', $data);
+		
+	}
 }

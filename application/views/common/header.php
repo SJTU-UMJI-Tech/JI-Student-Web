@@ -46,24 +46,27 @@
 	<div class="container">
 		<a class="navbar-brand" href="/">UM-SJTU JI Online</a>
 		<ul class="nav navbar-nav">
-			<li class="nav-item active">
-				<a class="nav-link" href="/events">Events</a>
+			<li class="nav-item">
+				<a class="nav-link" href="/scholarship">Scholarships</a>
 			</li>
 		</ul>
-		<?php if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] == ''): ?>
-			<ul class="nav navbar-nav pull-xs-right">
+		<?php if (!$this->Site_model->is_login()): ?>
+			<ul class="nav navbar-nav pull-xs-right pull-right">
 				<li class="nav-item active">
 					<a class="nav-link" href="/user/login?uri=<?php echo $_SERVER["REQUEST_URI"]; ?>">Sign in</a>
 				</li>
 			</ul>
 		<?php else: ?>
-			<ul class="nav navbar-nav pull-xs-right">
+			<ul class="nav navbar-nav pull-xs-right pull-right">
 				<li class="nav-item dropdown active">
 					<a class="nav-link dropdown-toggle" data-hover="dropdown" data-delay="100"
-					   href="#"><?php echo $_SESSION['username']; ?></a>
+					   href="#">
+						<i class="fa fa-user" aria-hidden="true"></i>
+						<?php echo $_SESSION['username']; ?>
+					</a>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="/user/settings">Settings</a>
+						<a class="dropdown-item" href="#">Notifications</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="/user/logout">Log out</a>
 					</div>
