@@ -36,6 +36,7 @@
 		
 		this.$card = this.$container.find(".ji-side-card");
 		this.$cardHeader = this.$card.find(".card-header h5");
+		this.$cardBody = this.$card.find(".card-body");
 		
 		this.init();
 	}
@@ -55,7 +56,7 @@
 			var html = [
 				'<div class="row">',
 				'<div class="col-xs-3">',
-				'<div class="card ji-side-bar">',
+				'<div class="card ji-side-bar navbar-fixed">',
 				'<div class="card-header">',
 				'<h5>', this.option.title, '</h5>',
 				'</div>',
@@ -65,9 +66,8 @@
 				'</div>',
 				'<div class="col-xs-9">',
 				'<div class="card ji-side-card" data-text="all">',
-				'<div class="card-header">',
-				'<h5></h5>',
-				'</div>',
+				'<div class="card-header"><h5></h5></div>',
+				'<div class="card-body"></div>',
 				'</div>',
 				'</div>',
 				'</div>'
@@ -78,9 +78,9 @@
 		initBar: function ()
 		{
 			var html;
-			for (var key in this.option.type)
+			for (var key in this.option.item)
 			{
-				html = '<a href="javascript:void(0);" class="list-group-item list-group-item-action" data-text="' + key + '">' + this.option.type[key] + '</a>';
+				html = '<a href="javascript:void(0);" class="list-group-item list-group-item-action" data-text="' + key + '">' + this.option.item[key].name + '</a>';
 				this.$bar.append(html);
 			}
 		},
@@ -99,8 +99,40 @@
 		{
 			this.$barList.removeClass('active');
 			$barItem.addClass('active');
-			var text = $barItem.attr('data-text');
-			this.$cardHeader.html(this.option.type[text]);
+			var key = $barItem.attr('data-text');
+			this.$cardHeader.html(this.option.item[key].name);
+			this.$cardBody.html('');
+			this.ajaxGet(key);
+		},
+		
+		ajaxGet: function (key, callback_func)
+		{
+			var item = this.option.item[key];
+			var _this = this;
+			$.ajax
+			 ({
+				 type: 'GET',
+				 url: item.url,
+				 data: {
+					 key: item.key,
+					 page: 1
+				 },
+				 dataType: 'text',
+				 success: function (data)
+				 {
+					 callback_func(_this, data);
+					 console.log(data);
+				 },
+				 error: function ()
+				 {
+					 alert('This is some connection error!');
+				 }
+			 });
+		},
+		
+		ajaxShow: function (_this, data)
+		{
+			
 		}
 	};
 	

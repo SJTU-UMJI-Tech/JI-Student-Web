@@ -8,4 +8,11 @@ class Scholarship extends Front_Controller
 		$data['page_name'] = 'Scholarships';
 		$this->load->view('scholarship/home', $data);
 	}
+	
+	public function ajax()
+	{
+		$key = $this->input->get('key');
+		$page = $this->input->get('page');
+		
+	}
 }
