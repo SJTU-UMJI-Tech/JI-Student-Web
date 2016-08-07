@@ -67,7 +67,7 @@ class User extends Front_Controller
 	{
 		$_SESSION["user_id"] = '';
 		$_SESSION["username"] = '';
-		redirect();
+		redirect(base_url());
 	}
 	
 	public function settings()

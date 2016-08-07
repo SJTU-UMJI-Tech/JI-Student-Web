@@ -1,12 +1,13 @@
 <?php include "common/header.php"; ?>
 
-<script src="/vendors/fullcalendar/fullcalendar.js"></script>
-<link rel="stylesheet" type="text/css" href="/vendors/fullcalendar/fullcalendar.css">
+<link href="//cdn.bootcss.com/fullcalendar/2.9.1/fullcalendar.min.css" rel="stylesheet">
+<script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/fullcalendar/2.9.1/fullcalendar.min.js"></script>
 
 <div class="container">
 	<?php if (!$this->Site_model->is_login()): ?>
 		<div class="jumbotron">
-			<h1 class="display-2">Welcome!</h1>
+			<h1 class="display-3">Welcome!</h1>
 			<hr>
 			<h3>UM-SJTU JI Student Online</h3>
 			<p class="lead">
@@ -20,9 +21,7 @@
 			<?php echo $global_server_time; ?>
 		</div>
 	<?php else: ?>
-		<div id="calendar">
-		
-		</div>
+		<div id="calendar"></div>
 	<?php endif; ?>
 </div>
 

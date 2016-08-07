@@ -161,7 +161,7 @@ class Site_model extends CI_Model
 			return $obj;
 		}
 		$obj_list = array();
-		foreach ($query->result($library) as $row)
+		foreach ($query->result($library) as $obj)
 		{
 			if (!$obj->is_error())
 			{
@@ -169,6 +169,57 @@ class Site_model extends CI_Model
 			}
 		}
 		return $obj_list;
+	}
+	
+	/**
+	 * @param string       $table
+	 * @param string       $library
+	 * @param array        $fields
+	 * @param array|string $keywords
+	 * @param array        $orders
+	 * @param int          $limit
+	 * @param int          $offset
+	 * @param string       $select
+	 * @return string
+	 */
+	public function search_object($table, $library = 'My_obj', $fields, $keywords = array(),
+	                              $orders = array('CREATE_TIMESTAMP', 'DESC'),
+	                              $limit = 0, $offset = 0, $select = '*')
+	{
+		if (is_string($keywords))
+		{
+			$keywords = $this->keywords_arr($keywords);
+		}
+		$this->db->select($select)->from($table);
+		foreach ($keywords as $keyword)
+		{
+			$this->db->group_start();
+			foreach ($fields as $field)
+			{
+				$this->db->or_like($field, $keyword);
+			}
+			$this->db->group_end();
+		}
+		if ($limit > 0)
+		{
+			$this->db->limit($limit);
+		}
+		$this->db->offset($offset);
+		foreach ($orders as $field => $order)
+		{
+			$this->db->order_by($field, $order);
+		}
+		$arr = $this->db->get()->result($library);
+		$obj_list = array();
+		foreach ($arr as $obj)
+		{
+			/** @var My_obj $obj */
+			if (!$obj->is_error())
+			{
+				$obj_list[] = $obj;
+			}
+		}
+		return json_encode($obj_list);
 	}
 	
 	
@@ -191,6 +242,20 @@ class Site_model extends CI_Model
 	{
 		return base64_encode($this->html_purify($string));
 	}
+	
+	public function keywords_arr($keywords)
+	{
+		$arr = array();
+		foreach (explode(' ', $keywords) as $str)
+		{
+			if ($str != '')
+			{
+				$arr[] = $str;
+			}
+		}
+		return $arr;
+	}
+	
 	
 	/**
 	 * 重定向登录

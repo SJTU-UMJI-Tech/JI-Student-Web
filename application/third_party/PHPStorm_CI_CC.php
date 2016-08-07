@@ -76,7 +76,7 @@
  ***************** YOUR LIBRARIES *****************
  ***************** YOUR MODELS *****************
  * @property Site_model          $Site_model
- *
+ * @property Scholarship_model   $Scholarship_model
  */
 class CI_Controller
 {
@@ -137,6 +137,7 @@ class CI_Controller
  ***************** YOUR LIBRARIES *****************
  ***************** YOUR MODELS *****************
  * @property Site_model          $Site_model
+ * @property Scholarship_model   $Scholarship_model
  */
 class CI_Model
 {

@@ -1,31 +1,6 @@
 <?php include dirname(dirname(__FILE__)) . '/common/header.php'; ?>
 <div class="container" id="ji-display">
-	
-<!--	<nav aria-label="...">
-		<ul class="pagination">
-			<li class="page-item disabled">
-				<a class="page-link" href="#" tabindex="-1" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-					<span class="sr-only">Previous</span>
-				</a>
-			</li>
-			<li class="page-item active">
-				<a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-			</li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">4</a></li>
-			<li class="page-item"><a class="page-link" href="#">5</a></li>
-			<li class="page-item">
-				<a class="page-link" href="#" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-					<span class="sr-only">Next</span>
-				</a>
-			</li>
-		</ul>
-	</nav>-->
-	
-	
+
 </div>
 
 <script src="/js/ji-display.js"></script>
@@ -33,12 +8,28 @@
 <script type="text/javascript">
 	$(document).ready(function ()
 	{
+		var generate = function (data)
+		{
+			window.console.log(data);
+			var html = [
+				'<div class="card-block">',
+				'<h4 class="card-title">', data.title, '</h4>',
+				'<p class="card-text">', data.abstract, '</p>',
+				'</div>'
+			].join('');
+			return html;
+		};
+		
 		var display = $("#ji-display").JIDisplay({
 			title: 'Scholarships',
 			item: {
 				all: {
 					name: 'All scholarships',
-					url: '/scholarship/ajax'
+					url: '/scholarship/ajax',
+					sort: ['Newest', 'Oldest'],
+					primary: 'id',
+					limit: 2,
+					generate: generate
 				},
 				undergraduate: {
 					name: 'Undergraduates',
