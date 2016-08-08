@@ -2,7 +2,7 @@
  * Created by liu on 16-8-5.
  * The main display framework in JI-LIFE
  */
-(function (factory)
+;(function (factory)
 {
 	if (typeof define === 'function' && define.amd)
 	{

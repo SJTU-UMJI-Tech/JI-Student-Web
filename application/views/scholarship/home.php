@@ -3,18 +3,29 @@
 
 </div>
 
-<script src="/js/ji-display.js"></script>
+<?php include dirname(dirname(__FILE__)) . '/common/footer.php'; ?>
 
 <script type="text/javascript">
-	$(document).ready(function ()
+	require(['jquery', 'marked', 'bootstrap', 'ji-display'], function ($, marked)
 	{
+		window.console.log(marked);
 		var generate = function (data)
 		{
-			window.console.log(data);
+			//window.console.log(data);
+			var detail_id = 'scholarship-detail-' + data.id;
 			var html = [
 				'<div class="card-block">',
 				'<h4 class="card-title">', data.title, '</h4>',
-				'<p class="card-text">', data.abstract, '</p>',
+				'<p class="card-text">', marked(data.abstract), '</p>',
+				'<div class="card-text text-xs-center">',
+				'<a class="btn btn-link" data-toggle="collapse" data-target="#' + detail_id +
+				'" aria-expanded="false" aria-controls="' + detail_id + '">',
+				'Details&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i>',
+				'</a>',
+				'</div>',
+				'<div class="collapse" id="' + detail_id + '">',
+				'<div class="card-text">', marked(data.content), '</div>',
+				'</div>',
 				'</div>'
 			].join('');
 			return html;
@@ -50,5 +61,3 @@
 		display.switchCard($barItem);
 	});
 </script>
-
-<?php include dirname(dirname(__FILE__)) . '/common/footer.php'; ?>

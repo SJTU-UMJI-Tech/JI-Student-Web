@@ -1,8 +1,6 @@
 <?php include "common/header.php"; ?>
 
 <link href="//cdn.bootcss.com/fullcalendar/2.9.1/fullcalendar.min.css" rel="stylesheet">
-<script src="//cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
-<script src="//cdn.bootcss.com/fullcalendar/2.9.1/fullcalendar.min.js"></script>
 
 <div class="container">
 	<?php if (!$this->Site_model->is_login()): ?>
@@ -25,8 +23,10 @@
 	<?php endif; ?>
 </div>
 
+<?php include "common/footer.php"; ?>
+
 <script type="text/javascript">
-	$(document).ready(function ()
+	require(['jquery', 'moment', 'fullCalendar'], function ($)
 	{
 		$('#calendar').fullCalendar({
 			header: {
@@ -38,6 +38,3 @@
 		});
 	});
 </script>
-
-<?php include "common/footer.php"; ?>
-
