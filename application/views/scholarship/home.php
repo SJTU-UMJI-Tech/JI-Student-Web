@@ -6,7 +6,7 @@
 <?php include dirname(dirname(__FILE__)) . '/common/footer.php'; ?>
 
 <script type="text/javascript">
-	require(['jquery', 'marked', 'bootstrap', 'ji-display'], function ($, marked)
+	require(['jquery', 'marked', 'ji-display'], function ($, marked)
 	{
 		window.console.log(marked);
 		var generate = function (data)
