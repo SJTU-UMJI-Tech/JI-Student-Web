@@ -8,10 +8,10 @@
  * @author     tc-imba
  * @copyright  2016 umji-sjtu
  */
-class Scholarship_model extends CI_Model
+class Scholarships_model extends CI_Model
 {
-	const TABLE   = 'scholarship';
-	const LIBRARY = 'Scholarship_obj';
+	const TABLE   = 'scholarships';
+	const LIBRARY = 'Scholarships_obj';
 	
 	/**
 	 * Scholarship_model constructor.

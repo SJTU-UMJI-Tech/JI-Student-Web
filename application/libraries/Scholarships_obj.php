@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Class Scholarship_obj
+ * Class Scholarships_obj
  *
  * The operations of scholarships
  *
@@ -10,9 +10,9 @@
  * @author     tc-imba
  * @copyright  2016 umji-sjtu
  */
-class Scholarship_obj extends My_obj
+class Scholarships_obj extends My_obj
 {
-	/** -- The vars in the table `scholarship` -- */
+	/** -- The vars in the table `scholarships` -- */
 	/** @var int    int(11)      */
 	public $id;
 	/** @var string varchar(200) */

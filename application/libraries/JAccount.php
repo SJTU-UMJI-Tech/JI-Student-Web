@@ -335,7 +335,7 @@ class JAccountManager
 	}
 	
 	//public boolean logout(HttpServletRequest request, HttpServletResponse response, String returnURL)
-	function logout($returnURL)
+	function logout($returnURL = '')
 	{
 		$lo = isset($_GET["logout"]) ? $_GET["logout"] : NULL;
 		if ($lo != NULL && $lo == "1")

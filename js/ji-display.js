@@ -34,6 +34,7 @@
 		this.$bar = this.$container.find(".ji-side-bar");
 		this.initBar();
 		this.$barList = this.$bar.find(".list-group-item");
+		this.$barList.on('click', $.proxy(this.onClickBarList, this));
 		
 		this.$card = this.$container.find(".ji-side-card");
 		this.$cardName = this.$card.find(".card-name h5");
@@ -48,17 +49,11 @@
 		this.searchResultId = {};
 		this.searchNow = 0;
 		
-		this.init();
 	}
 	
 	JIDisplay.prototype = {
 		
 		constructor: JIDisplay,
-		
-		init: function ()
-		{
-			this.addListener();
-		},
 		
 		initFrame: function ()
 		{
@@ -97,12 +92,6 @@
 			}
 		},
 		
-		
-		addListener: function ()
-		{
-			this.$barList.on('click', $.proxy(this.onClickBarList, this));
-		},
-		
 		onClickBarList: function (e)
 		{
 			this.switchCard($(e.target));
@@ -113,7 +102,11 @@
 			this.$barList.removeClass('active');
 			$barItem.addClass('active');
 			var key = $barItem.attr('data-text');
-			this.item = this.option.item[key];
+			this.item = $.extend(this.option.item[key], this.option.model);
+			if (this.item.custom)
+			{
+				this.item.custom($barItem);
+			}
 			this.$cardName.html(this.item.name);
 			this.refreshSearch();
 			this.$cardBody.html('');
@@ -245,7 +238,7 @@
 		}
 	};
 	
-	$.fn.JIDisplay = function (option)
+	$.fn.jiDisplay = function (option)
 	{
 		return new JIDisplay(this, option);
 	};

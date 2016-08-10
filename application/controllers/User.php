@@ -69,7 +69,7 @@ class User extends Front_Controller
 		$_SESSION["username"] = '';
 		$this->load->library('JAccount');
 		$jam = new JAccountManager('jaji20150623', 'jaccount');
-		$jam->logout('/');
+		$jam->logout();
 	}
 	
 	public function settings()

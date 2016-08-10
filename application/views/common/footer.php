@@ -34,7 +34,7 @@
 	};
 	<?php endif; ?>
 	requirejs.config({
-		baseUrl: "js/",
+		baseUrl: "../js/",
 		shim: {
 			bootstrap: ['jquery', 'tether'],
 			bootstrapHoverDropdown: ['bootstrap'],

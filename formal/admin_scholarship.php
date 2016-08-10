@@ -132,7 +132,7 @@ if (isset($_GET['action'])) {
                 dev_echo(mysqli_error($dbc));
                 if ($data) {
                     if ($data -> num_rows == 0) {
-                        $modify_scholarship_err_msg = "No such scholarship.";
+                        $modify_scholarship_err_msg = "No such scholarships.";
                     } else {
                         $scholarship_info_pre = $data->fetch_array();
                     }

@@ -54,7 +54,7 @@
 					<a class="nav-link" href="/career">Career</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/scholarship">Scholarships</a>
+					<a class="nav-link" href="/scholarships">Scholarships</a>
 				</li>
 			</ul>
 			<ul class="nav navbar-nav pull-md-right">

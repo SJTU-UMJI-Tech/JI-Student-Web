@@ -1,19 +1,26 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Scholarship extends Front_Controller
+class Scholarships extends Front_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-		$this->Site_model->load_site_config('scholarship');
-		$this->load->model('Scholarship_model');
+		$this->Site_model->load_site_config('scholarships');
+		$this->load->model('Scholarships_model');
 	}
 	
 	public function index()
 	{
 		$data = $this->data;
 		$data['page_name'] = 'Scholarships';
-		$this->load->view('scholarship/home', $data);
+		$this->load->view('scholarships/home', $data);
+	}
+	
+	public function create()
+	{
+		$data = $this->data;
+		$data['page_name'] = 'Create scholarships';
+		$this->load->view('scholarships/create', $data);
 	}
 	
 	public function ajax()
@@ -29,10 +36,9 @@ class Scholarship extends Front_Controller
 			$offset = $this->input->get('offset');
 			$order = $this->input->get('order');
 			
-			$data = $this->Scholarship_model->search($keywords, $limit, $offset, $order);
+			$data = $this->Scholarships_model->search($keywords, $limit, $offset, $order);
 			echo $data;
 		}
-		
 		exit();
 	}
 }
