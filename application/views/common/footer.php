@@ -24,21 +24,21 @@
 	};
 	<?php else: ?>
 	paths = {
-		jquery: '/vendors/jquery-3.1.0/dist/jquery.min',
-		tether: '/vendors/tether-1.3.3/dist/js/tether.min',
-		bootstrap: '/vendors/bootstrap-4.0.0-alpha.3/dist/js/bootstrap.min',
-		bootstrapHoverDropdown: '/vendors/bootstrap-hover-dropdown-2.2.1/bootstrap-hover-dropdown.min',
-		moment: '/vendors/moment-2.14.1/min/moment.min',
-		fullCalendar: '/vendors/fullcalendar-2.9.1/dist/fullcalendar.min',
-		marked: '/vendors/marked-0.3.6/marked.min',
-		prettify: "prettify.min",
-		raphael: "raphael.min",
-		underscore: "underscore.min",
-		flowchart: "flowchart.min",
-		jqueryflowchart: "jquery.flowchart.min",
-		sequenceDiagram: "sequence-diagram.min",
-		katex: "//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.1.1/katex.min",
-		editormd: "/vendors/editor.md-1.5.0/editormd.amd"
+		jquery: './lib/jquery-3.1.0.min',
+		tether: './lib/tether-1.3.3.min',
+		bootstrap: './lib/bootstrap-4.0.0-alpha.3.min',
+		bootstrapHoverDropdown: './lib/bootstrap-hover-dropdown-2.2.1.min',
+		moment: './lib/moment-2.14.1.min',
+		fullCalendar: './lib/fullcalendar-2.9.1.min',
+		marked: './lib/marked-0.3.6.min',
+		prettify: './lib/prettify-r298.min',
+		raphael: './lib/raphael-2.2.1.min',
+		underscore: './lib/underscore-1.8.3.min',
+		flowchart: "./lib/flowchart-1.3.4.min",
+		jqueryflowchart: "./lib/jquery.flowchart.min",
+		sequenceDiagram: "./lib/sequence-diagram-1.0.6.min",
+		katex: "./lib/katex-0.6.0.min",
+		editormd: "../vendors/editor.md-1.5.0/editormd.amd.min"
 	};
 	<?php endif; ?>
 	requirejs.config({
@@ -46,14 +46,18 @@
 		shim: {
 			bootstrap: ['jquery', 'tether'],
 			bootstrapHoverDropdown: ['bootstrap'],
-			fullCalendar: ['moment']
+			fullCalendar: ['moment'],
+			flowchart: ['raphael'],
+			sequenceDiagram: ['raphael', 'underscore'],
+			jqueryflowchart: ['flowchart'],
 		},
 		paths: paths,
 		waitSeconds: 30
 	});
-	require(['jquery', 'tether'], function ($, tether)
+	require(['jquery', 'tether', 'raphael'], function ($, tether, raphael)
 	{
 		window.Tether = tether;
+		window.Raphael = raphael;
 	});
 	require(['bootstrap', 'bootstrapHoverDropdown']);
 </script>
