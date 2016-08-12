@@ -38,7 +38,9 @@
 		jqueryflowchart: "./lib/jquery.flowchart.min",
 		sequenceDiagram: "./lib/sequence-diagram-1.0.6.min",
 		katex: "./lib/katex-0.6.0.min",
-		editormd: "../vendors/editor.md-1.5.0/editormd.amd.min"
+		editormd: "../vendors/editor.md-1.5.0/editormd.amd.min",
+		jqueryCookie: './lib/jquery.cookie-1.4.1.min',
+		jqueryMD5: './lib/jquery.md5'
 	};
 	<?php endif; ?>
 	requirejs.config({
@@ -50,6 +52,7 @@
 			flowchart: ['raphael'],
 			sequenceDiagram: ['raphael', 'underscore'],
 			jqueryflowchart: ['flowchart'],
+			jqueryMD5: ['jquery']
 		},
 		paths: paths,
 		waitSeconds: 30

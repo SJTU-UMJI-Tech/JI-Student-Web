@@ -4,66 +4,36 @@
 <link rel="stylesheet" href="/vendors/editor.md-1.5.0/lib/codemirror/codemirror.min.css"/>
 
 
-<div class="container">
+<div class="container" id="ji-editor">
 	
 	<div class="card">
 		<div class="card-header">
-			New scholarships
+			<?php echo $options['title']; ?>
 		</div>
 		<div class="card-block">
-			<div class="form-group">
-				<label>Title</label>
-				<input class="form-control" type="text" placeholder="Title">
-			</div>
-			<div class="form-group">
-				<label>Abstract</label>
-				<textarea class="form-control" type="text" placeholder="Abstract" rows="5"
-				          style="resize: none"></textarea>
-			</div>
-			<div class="form-group">
-				<label>Content</label>
-				<div id="editor-md">
+			<?php foreach ($options['item'] as $item): ?>
+				<div class="form-group">
+					<label><?php echo $item['name']; ?></label>
+					<?php if ($item['type'] == 'text'): ?>
+						<input class="form-control" type="text" placeholder="<?php echo $item['name']; ?>">
+					<?php elseif ($item['type'] == 'textarea'): ?>
+						<textarea class="form-control" type="text" placeholder="<?php echo $item['name']; ?>"
+						          rows="5" style="resize: none"></textarea>
+					<?php elseif ($item['type'] == 'editor'): ?>
+						<div class="editormd" id="editor-md-<?php echo $item['name']; ?>"></div>
+					<?php endif; ?>
 				</div>
-			</div>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </div>
 
 <?php include dirname(dirname(__FILE__)) . '/common/footer.php'; ?>
 
-<!--<script src="/vendors/editor.md-1.5.0/editormd.min.js"></script>-->
-
 <script type="text/javascript">
-	
-	var deps = [
-		"editormd",
-		"../vendors/editor.md-1.5.0/languages/en",
-		"../vendors/editor.md-1.5.0/plugins/link-dialog/link-dialog",
-		"../vendors/editor.md-1.5.0/plugins/reference-link-dialog/reference-link-dialog",
-		"../vendors/editor.md-1.5.0/plugins/image-dialog/image-dialog",
-		"../vendors/editor.md-1.5.0/plugins/code-block-dialog/code-block-dialog",
-		"../vendors/editor.md-1.5.0/plugins/table-dialog/table-dialog",
-		"../vendors/editor.md-1.5.0/plugins/emoji-dialog/emoji-dialog",
-		"../vendors/editor.md-1.5.0/plugins/goto-line-dialog/goto-line-dialog",
-		"../vendors/editor.md-1.5.0/plugins/help-dialog/help-dialog",
-		"../vendors/editor.md-1.5.0/plugins/html-entities-dialog/html-entities-dialog",
-		"../vendors/editor.md-1.5.0/plugins/preformatted-text-dialog/preformatted-text-dialog"
-	];
-	
-	require(deps, function (editormd)
+	require(['jquery', 'ji-editor'], function ($)
 	{
-		editormd.loadCSS("../js/codemirror/addon/fold/foldgutter");
-		
-		
-		//console.log(editormd);
-		testEditor = editormd("editor-md", {
-			width: "100%",
-			height: 640,
-			syncScrolling: "single",
-			path: "../vendors/editor.md-1.5.0/lib/",
-			saveHTMLToTextarea : true,
-			flowchart: true
-			
-		});
+		var options = '<?php echo json_encode($options);?>';
+		var editor = $("#ji-editor").jiEditor(JSON.parse(options));
 	});
 </script>

@@ -20,7 +20,16 @@ class Scholarships extends Front_Controller
 	{
 		$data = $this->data;
 		$data['page_name'] = 'Create scholarships';
-		$this->load->view('scholarships/create', $data);
+		$data['options'] = array(
+			'type'  => 'scholarships',
+			'title' => 'New scholarships',
+			'item'  => array(
+				array('name' => 'Title', 'type' => 'text'),
+				array('name' => 'Abstract', 'type' => 'textarea'),
+				array('name' => 'Content', 'type' => 'editor')
+			)
+		);
+		$this->load->view('common/editor', $data);
 	}
 	
 	public function ajax()
