@@ -157,7 +157,12 @@ class Site_model extends CI_Model
 		/** @var My_obj $obj */
 		if (!$array)
 		{
-			$obj = $query->row(0, $library);
+			if ($query->num_rows() > 0)
+			{
+				$obj = $query->row(0, $library);
+				return $obj;
+			}
+			eval('$obj = new ' . $library.'();');
 			return $obj;
 		}
 		$obj_list = array();

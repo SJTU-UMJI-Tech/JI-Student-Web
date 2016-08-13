@@ -58,7 +58,7 @@
 			
 			var onClickNew = function ($target)
 			{
-				window.location.href = '/scholarships/create';
+				window.location.href = '/scholarships/edit';
 			};
 			
 			var model = {

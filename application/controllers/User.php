@@ -15,8 +15,24 @@ class User extends Front_Controller
 	
 	public function login()
 	{
-		$redirect_uri = base_url('user/auth') . '?uri=' . urlencode($this->input->get('uri'));
-		header('Location:https://jaccount.sjtu.edu.cn/oauth2/authorize?response_type=code&client_id=jaji20150623&redirect_uri=' .
+		if (ENVIRONMENT == 'development')
+		{
+			$user_id = $this->input->get('user_id');
+			$username = $this->input->get('username');
+			if ($user_id)
+			{
+				$_SESSION['user_id'] = $user_id;
+				$_SESSION['username'] = $username;
+				redirect(base_url(''));
+			}
+			header('Location: http://ji.sjtu.edu.cn/student/login.php?type=development');
+			exit();
+		}
+		else
+		{
+			$redirect_uri = base_url('user/auth') . '?uri=' . urlencode($this->input->get('uri'));
+		}
+		header('Location: https://jaccount.sjtu.edu.cn/oauth2/authorize?response_type=code&client_id=jaji20150623&redirect_uri=' .
 		       $redirect_uri);
 	}
 	

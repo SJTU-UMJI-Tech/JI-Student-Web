@@ -8,10 +8,10 @@
 	
 	<div class="card">
 		<div class="card-header">
-			<?php echo $options['title']; ?>
+			<?php echo $option['title']; ?>
 		</div>
 		<div class="card-block">
-			<?php foreach ($options['item'] as $item): ?>
+			<?php foreach ($option['item'] as $item): ?>
 				<div class="form-group">
 					<label><?php echo $item['name']; ?></label>
 					<?php if ($item['type'] == 'text'): ?>
@@ -27,7 +27,7 @@
 				</div>
 			<?php endforeach; ?>
 			<div class="card-text">
-				<button class="btn btn-outline-success">Submit</button>
+				<button class="btn btn-outline-success btn-submit">Submit</button>
 			</div>
 		</div>
 		<div class="card-footer text-xs-center">
@@ -41,14 +41,14 @@
 <script type="text/javascript">
 	require(['jquery', 'ji-editor'], function ($)
 	{
-		var option = '<?php echo json_encode($options);?>';
+		var option = '<?php echo json_encode($option);?>';
 		var editor = $("#ji-editor").jiEditor(JSON.parse(option));
-		editor.unserialize([
-			{name: 'Title', value: 'Test title'},
-			{name: 'Abstract', value: 'Test Abstract'},
-			{name: 'Content', value: '## Test content'}
-		]);
-		editor.unserialize(editor.loadCookie(515370910207, 0));
-		editor.autosave(515370910207, 0, 1000);
+		editor.unserialize({
+			Title: 'Test title',
+			Abstract: 'Test Abstract',
+			Content: '## Test content'
+		});
+		editor.unserialize(editor.loadCookie(515370910207));
+		editor.autosave(515370910207, 1000);
 	});
 </script>

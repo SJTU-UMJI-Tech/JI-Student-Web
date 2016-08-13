@@ -76,7 +76,8 @@
  ***************** YOUR LIBRARIES *****************
  ***************** YOUR MODELS *****************
  * @property Site_model          $Site_model
- * @property Scholarships_model   $Scholarships_model
+ * @property Scholarships_model  $Scholarships_model
+ * @property Privilege_model     $Privilege_model
  */
 class CI_Controller
 {
@@ -137,7 +138,8 @@ class CI_Controller
  ***************** YOUR LIBRARIES *****************
  ***************** YOUR MODELS *****************
  * @property Site_model          $Site_model
- * @property Scholarships_model   $Scholarships_model
+ * @property Scholarships_model  $Scholarships_model
+ * @property Privilege_model     $Privilege_model
  */
 class CI_Model
 {

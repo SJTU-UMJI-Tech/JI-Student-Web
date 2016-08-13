@@ -46,6 +46,9 @@
 		this.optionID = {};
 		
 		this.$autosave = this.$container.find(".autosave");
+		this.$submitBtn = this.$container.find(".btn-submit");
+		
+		this.$submitBtn.on('click', $.proxy(this.onSubmit, this));
 		
 		var _this = this;
 		for (var index in this.option.item)
@@ -77,12 +80,43 @@
 			return markdown;
 		},
 		
+		onSubmit: function ()
+		{
+			var data = this.serialize();
+			var _this = this;
+			$.ajax({
+				type: 'POST',
+				url: this.option.url,
+				data: {
+					id: this.option.id,
+					data: JSON.stringify(data)
+				},
+				dataType: 'text',
+				success: function (data)
+				{
+					if (data[0] == '/')
+					{
+						window.location.href = data;
+					}
+					else
+					{
+						alert(data);
+					}
+				},
+				error: function ()
+				{
+					_this.$cardBody.html('There is some connection error!');
+					window.console.log('There is some connection error!');
+				}
+			});
+		},
+		
 		unserialize: function (data)
 		{
-			for (var index in data)
+			for (var name in data)
 			{
-				var item = this.option.item[this.optionID[data[index].name]];
-				var value = data[index].value;
+				var item = this.option.item[this.optionID[name]];
+				var value = data[name];
 				if (item.type == 'text' || item.type == 'textarea')
 				{
 					item.$element.val(value);
@@ -98,7 +132,7 @@
 		
 		serialize: function ()
 		{
-			var data = [];
+			var data = {};
 			for (var index in this.option.item)
 			{
 				var item = this.option.item[index];
@@ -111,30 +145,30 @@
 				{
 					value = item.editor.getMarkdown();
 				}
-				data.push({name: item.name, value: value});
+				data[item.name] = value;
 			}
 			return data;
 		},
 		
-		saveCookie: function (user, id)
+		saveCookie: function (user)
 		{
-			var name = $.md5(this.option.type + '-' + user + '-' + id);
+			var name = $.md5(this.option.type + '-' + user + '-' + this.option.id);
 			$.cookie(name, JSON.stringify(this.serialize()), {expires: 90});
 		},
 		
-		loadCookie: function (user, id)
+		loadCookie: function (user)
 		{
-			var name = $.md5(this.option.type + '-' + user + '-' + id);
+			var name = $.md5(this.option.type + '-' + user + '-' + this.option.id);
 			var data = $.cookie(name);
 			return data ? JSON.parse(data) : {};
 		},
 		
-		autosave: function (user, id, time)
+		autosave: function (user, time)
 		{
 			var _this = this;
 			setInterval(function ()
 			{
-				_this.saveCookie(user, id);
+				_this.saveCookie(user);
 				var date = new Date((new Date()).getTime() + 3600000 * 8);
 				_this.$autosave.html('Autosaved at ' + date.toUTCString());
 			}, time);
