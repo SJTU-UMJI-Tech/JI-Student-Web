@@ -1,24 +1,24 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Scholarships extends Front_Controller
+class Advising extends Front_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
-		$this->data['type'] = 'scholarships';
-		$this->Site_model->load_site_config('scholarships');
-		$this->load->model('Scholarships_model');
+		$this->data['type'] = 'advising';
+		$this->Site_model->load_site_config('advising');
+		//$this->load->model('Advising_model');
 	}
 	
 	public function redirect()
 	{
-		redirect(base_url('scholarships'));
+		redirect(base_url('advising'));
 	}
 	
 	public function index()
 	{
 		$data = $this->data;
-		$data['page_name'] = 'Scholarships';
+		$data['page_name'] = 'Advising';
 		$this->load->view('common/home', $data);
 	}
 	

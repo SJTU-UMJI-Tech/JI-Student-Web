@@ -31,7 +31,7 @@
 		
 		constructor: JIDisplaySettings,
 		
-		scholarship: function ()
+		scholarships: function ()
 		{
 			//window.console.log(marked);
 			var generate = function (data)

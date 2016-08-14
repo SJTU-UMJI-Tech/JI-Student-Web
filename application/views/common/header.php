@@ -48,7 +48,7 @@
 					<a class="nav-link" href="/orgnization">Orgnizations</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/advicing">Advising</a>
+					<a class="nav-link" href="/advising">Advising</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/career">Career</a>

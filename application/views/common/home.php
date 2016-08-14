@@ -8,6 +8,7 @@
 <script type="text/javascript">
 	require(['jquery', 'ji-display-settings'], function ($)
 	{
-		$.fn.jiDisplaySettings().scholarships();
+		eval('$.fn.jiDisplaySettings().<?php echo $type;?>();');
+		//$.fn.jiDisplaySettings().scholarship();
 	});
 </script>
