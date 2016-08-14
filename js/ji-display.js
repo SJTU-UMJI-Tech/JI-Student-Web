@@ -7,7 +7,7 @@
 	if (typeof define === 'function' && define.amd)
 	{
 		// AMD. Register as anonymous module.
-		define(['jquery'], factory);
+		define(['jquery', 'marked'], factory);
 	}
 	else if (typeof exports === 'object')
 	{
@@ -19,7 +19,7 @@
 		// Browser globals.
 		factory(jQuery);
 	}
-})(function ($)
+})(function ($, marked)
 {
 	'use strict';
 	
@@ -121,14 +121,40 @@
 			$barItem.addClass('active');
 			this.key = $barItem.attr('data-text');
 			this.item = $.extend(this.option.item[this.key], this.option.model);
-			if (this.item.custom)
-			{
-				this.item.custom($barItem);
-			}
 			this.$cardName.html(this.item.name);
-			this.refreshSearch();
 			this.$cardBody.html('');
-			this.ajaxSearch(true);
+			this.$cardFooter.html('');
+			this.$cardFooter.css('display', 'none');
+			this.$cardSearch.css('display', 'none');
+			switch (this.item.type)
+			{
+			case 'list':
+				this.$cardFooter.css('display', 'block');
+				this.$cardSearch.css('display', 'block');
+				this.refreshSearch();
+				this.ajaxSearch(true);
+				break;
+			case 'intro':
+				this.initIntro();
+				break;
+			case 'href':
+				window.location.href = this.item.href;
+				break;
+			default:
+				
+			}
+		},
+		
+		initIntro: function ()
+		{
+			var html = [
+				'<div class="card-block">',
+				'<div class="jumbotron">',
+				marked(this.item.text),
+				'</div>',
+				'</div>'
+			].join('');
+			this.$cardBody.html(html);
 		},
 		
 		refreshSearch: function ()
@@ -214,8 +240,7 @@
 				},
 				error: function ()
 				{
-					_this.$cardBody.html('There is some connection error!');
-					window.console.log('There is some connection error!');
+					_this.$cardFooter.html('There is some connection error!');
 				}
 			});
 		},

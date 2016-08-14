@@ -74,24 +74,29 @@
 				height: '800',
 				item: {
 					all: {
-						name: 'All scholarships'
+						name: 'All scholarships',
+						type: 'list'
 					},
 					
 					undergraduate: {
-						name: 'Undergraduates'
+						name: 'Undergraduates',
+						type: 'list'
 					},
 					
 					graduate: {
-						name: 'Graduates'
+						name: 'Graduates',
+						type: 'list'
 					},
 					
 					my: {
-						name: 'My scholarships'
+						name: 'My scholarships',
+						type: 'list'
 					},
 					
 					new: {
 						name: 'Create scholarships',
-						custom : onClickNew
+						type: 'href',
+						href: '/scholarships/edit'
 					}
 				},
 				model: model
@@ -125,11 +130,14 @@
 				title: 'Advising',
 				item: {
 					info: {
-						name: 'About us'
+						name: 'About us',
+						type: 'intro',
+						text: '# Introduction\n# Introduction\n# Introduction\n# Introduction\n'
 					},
 					
 					members: {
-						name: 'Members'
+						name: 'Members',
+						type: 'list'
 					},
 					
 					calender: {
@@ -140,8 +148,8 @@
 						name: 'Events'
 					},
 					
-					booking:{
-						name:'Booking'
+					booking: {
+						name: 'Booking'
 					},
 					
 					new: {
