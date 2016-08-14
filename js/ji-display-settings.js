@@ -65,12 +65,13 @@
 				url: '/scholarships/ajax',
 				sort: ['Newest', 'Oldest'],
 				primary: 'id',
-				limit: 20,
+				limit: 2,
 				generate: generate
 			};
 			
 			var display = $("#ji-display").jiDisplay({
 				title: 'Scholarships',
+				height: '800',
 				item: {
 					all: {
 						name: 'All scholarships'

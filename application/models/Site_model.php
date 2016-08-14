@@ -185,12 +185,13 @@ class Site_model extends CI_Model
 	 * @param array        $orders
 	 * @param int          $limit
 	 * @param int          $offset
+	 * @param array        $where_in
 	 * @param string       $select
 	 * @return string
 	 */
 	public function search_object($table, $library = 'My_obj', $fields, $keywords = array(),
 	                              $where = array(), $orders = array('CREATE_TIMESTAMP', 'DESC'),
-	                              $limit = 0, $offset = 0, $select = '*')
+	                              $limit = 0, $offset = 0, $where_in = array() ,$select = '*')
 	{
 		if (is_string($keywords))
 		{

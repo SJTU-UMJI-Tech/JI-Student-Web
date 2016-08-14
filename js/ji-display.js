@@ -43,12 +43,16 @@
 		this.$cardSearchInput = null;
 		this.$cardSearchButton = null;
 		this.$cardBody = this.$card.find(".card-body");
+		this.$card.on('scroll', $.proxy(this.onCardScroll, this));
+		this.$cardFooter = this.$card.find(".card-footer");
+		
 		
 		this.searchLock = new Date().getTime();
 		this.searchText = '';
 		this.searchResult = [];
 		this.searchResultId = {};
 		this.searchNow = 0;
+		this.searchEnd = false;
 		
 	}
 	
@@ -68,7 +72,7 @@
 				'</div>',
 				'</div>',
 				'<div class="col-md-9">',
-				'<div class="card ji-side-card" data-text="all">',
+				'<div class="card ji-side-card" style="max-height: ' + this.option.height + 'px;overflow: auto;overflow-x: hidden" data-text="all">',
 				'<div class="card-header">',
 				'<div class="row">',
 				'<div class="card-name col-xs-12 col-md-4"><h5></h5></div>',
@@ -76,6 +80,7 @@
 				'</div>',
 				'</div>',
 				'<div class="card-body"></div>',
+				'<div class="card-footer text-xs-center"></div>',
 				'</div>',
 				'</div>',
 				'</div>'
@@ -96,6 +101,18 @@
 		onClickBarList: function (e)
 		{
 			this.switchCard($(e.target));
+		},
+		
+		onCardScroll: function ()
+		{
+			var $this = this.$card,
+				viewH = $this.height(),
+				contentH = $this.get(0).scrollHeight,
+				scrollTop = $this.scrollTop();
+			if (scrollTop / (contentH - viewH) >= 0.95)
+			{
+				this.ajaxSearch(false);
+			}
 		},
 		
 		switchCard: function ($barItem)
@@ -140,6 +157,7 @@
 			this.$cardSearchButton = this.$cardSearch.find("button");
 			this.$cardSearchInput = this.$cardSearch.find("input");
 			this.$cardSearchInput.on('keyup', $.proxy(this.onSearchChange, this));
+			this.searchEnd = false;
 		},
 		
 		onClickSort: function (e)
@@ -219,24 +237,32 @@
 			{
 				if (this.searchNow == 0)
 				{
-					window.console.log('No data found!');
+					this.$cardFooter.html('No data found!');
 				}
 				else
 				{
-					window.console.log('No more data!');
+					this.$cardFooter.html('No more data!');
 				}
+				this.searchEnd = true;
 				return;
 			}
 			var last = Math.min(this.searchNow + 10, this.searchResult.length);
 			for (index = this.searchNow; index < last; index++)
 			{
+				if (index != this.searchNow || this.searchNow > 0)
+				{
+					this.$cardBody.append('<div class="dropdown-divider"></div>');
+				}
 				var html = this.item.generate(this.searchResult[index]);
 				this.$cardBody.append(html);
-				this.$cardBody.append('<div class="dropdown-divider"></div>');
 			}
-			this.$cardBody.append('<div class="card-block text-xs-center"><div class="card-text">Loading more data</div></div>');
+			this.$cardFooter.html('Loading more data...');
+			//this.$cardBody.append('<div class="card-block text-xs-center"><div class="card-text">Loading more data</div></div>');
 			this.searchNow = last;
-			
+			if (this.$card.height() >= this.$card.get(0).scrollHeight)
+			{
+				this.ajaxSearch(false);
+			}
 		}
 	};
 	
