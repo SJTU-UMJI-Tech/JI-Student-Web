@@ -74,7 +74,7 @@
 				height: '800',
 				item: {
 					all: {
-						name: 'All scholarships'
+						name: 'All Scholarships'
 					},
 					
 					undergraduate: {
@@ -86,11 +86,11 @@
 					},
 					
 					my: {
-						name: 'My scholarships'
+						name: 'My Scholarships'
 					},
 					
 					new: {
-						name: 'Create scholarships',
+						name: 'Create Scholarships',
 						custom : onClickNew
 					}
 				},
@@ -125,7 +125,7 @@
 				title: 'Advising',
 				item: {
 					info: {
-						name: 'About us'
+						name: 'About Us'
 					},
 					
 					members: {
@@ -145,13 +145,72 @@
 					},
 					
 					new: {
-						name: 'Create events',
+						name: 'Create Events',
 						custom: onClickNew
 					}
 				},
 				model: model
 			});
 			var name = 'info';
+			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
+			display.switchCard($barItem);
+		},
+		career: function ()
+		{
+			//window.console.log(marked);
+			var generate = function (data)
+			{
+				1;
+			};
+			
+			var onClickNew = function ($target)
+			{
+				window.location.href = '/career/edit';
+			};
+			
+			var model = {
+				url: '/career/ajax',
+				sort: ['Newest', 'Oldest'],
+				primary: 'id',
+				limit: 20,
+				generate: generate
+			};
+			
+			var display = $("#ji-display").jiDisplay({
+				title: 'Career',
+				item: {
+					info: {
+						name: 'About Us'
+					},
+					
+					announcement: {
+						name: 'Announcement'
+					},
+					
+					jobs: {
+						name: 'Jobs & Internships'
+					},
+					
+					activities: {
+						name: 'Workshops & Activities'
+					},
+					
+					mentors:{
+						name:'Career Mentors'
+					},
+					
+					resources:{
+						name:'Resources'
+					},
+					
+					new: {
+						name: 'Create Announcement',
+						custom: onClickNew
+					}
+				},
+				model: model
+			});
+			var name = 'announcement';
 			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
 			display.switchCard($barItem);
 		}
