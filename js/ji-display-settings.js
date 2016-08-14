@@ -99,6 +99,61 @@
 			var name = 'all';
 			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
 			display.switchCard($barItem);
+		},
+		advising: function ()
+		{
+			//window.console.log(marked);
+			var generate = function (data)
+			{
+				1;
+			};
+			
+			var onClickNew = function ($target)
+			{
+				window.location.href = '/advising/edit';
+			};
+			
+			var model = {
+				url: '/advising/ajax',
+				sort: ['Newest', 'Oldest'],
+				primary: 'id',
+				limit: 20,
+				generate: generate
+			};
+			
+			var display = $("#ji-display").jiDisplay({
+				title: 'Advising',
+				item: {
+					info: {
+						name: 'About us'
+					},
+					
+					members: {
+						name: 'Members'
+					},
+					
+					calender: {
+						name: 'Calender'
+					},
+					
+					events: {
+						name: 'Events'
+					},
+					
+					booking:{
+						name:'Booking'
+					},
+					
+					new: {
+						name: 'Create events',
+						custom: onClickNew
+					}
+				},
+				model: model
+			});
+			var name = 'info';
+			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
+			display.switchCard($barItem);
 		}
 	};
 	
