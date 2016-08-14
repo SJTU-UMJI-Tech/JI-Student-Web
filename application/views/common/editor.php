@@ -23,6 +23,19 @@
 					<?php elseif ($item['type'] == 'editor'): ?>
 						<div class="editormd" id="editor-md-<?php echo $item['name']; ?>"
 						     name="<?php echo $item['name']; ?>"></div>
+					<?php elseif ($item['type'] == 'dropdown'): ?>
+						<div class="input-group-btn ji-dropdown">
+							<button type="button" class="btn btn-secondary dropdown-toggle"
+							        data-toggle="dropdown" aria-haspopup="true"
+							        data-text="<?php echo isset($item['default']) ? $item['default'] : ''; ?>"
+							        aria-expanded="false" name="<?php echo $item['name']; ?>"></button>
+							<div class="dropdown-menu">
+								<?php foreach ($item['text'] as $key => $value): ?>
+									<a class="dropdown-item" href="javascript:void(0);"
+									   data-text="<?php echo $key; ?>"><?php echo $value; ?></a>
+								<?php endforeach; ?>
+							</div>
+						</div>
 					<?php endif; ?>
 				</div>
 			<?php endforeach; ?>
@@ -43,12 +56,13 @@
 	{
 		var option = '<?php echo json_encode($option);?>';
 		var editor = $("#ji-editor").jiEditor(JSON.parse(option));
-		editor.unserialize({
-			Title: 'Test title',
-			Abstract: 'Test Abstract',
-			Content: '## Test content'
-		});
-		editor.unserialize(editor.loadCookie(515370910207));
-		editor.autosave(515370910207, 1000);
+		/*editor.unserialize({
+		 Title: 'Test title',
+		 Abstract: 'Test Abstract',
+		 Content: '## Test content'
+		 });*/
+		editor.unserialize(editor.loadCookie());
+		editor.autosave(1000);
+		console.log(editor.getCookieName());
 	});
 </script>

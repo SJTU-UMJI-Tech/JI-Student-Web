@@ -47,10 +47,22 @@ class Scholarships extends Front_Controller
 			'title' => $title,
 			'item'  => array(
 				array('name' => 'Title', 'type' => 'text'),
+				array(
+					'name'    => 'Category', 'type' => 'dropdown',
+					'text'    => array(
+						'undergraduate' => 'Undergraduates',
+						'graduate'      => 'Graduates',
+						'all'           => 'Both'
+					),
+					'default' => 'all'
+				),
 				array('name' => 'Abstract', 'type' => 'textarea'),
+				array('name' => 'Amount', 'type' => 'text'),
+				array('name' => 'Deadline', 'type' => 'date'),
 				array('name' => 'Content', 'type' => 'editor')
 			),
-			'url'   => '/scholarships/ajax_edit'
+			'url'   => '/scholarships/ajax_edit',
+			'user'  => $_SESSION['user_id']
 		);
 		$this->load->view('common/editor', $data);
 	}
@@ -72,7 +84,8 @@ class Scholarships extends Front_Controller
 				array('name' => 'Abstract', 'type' => 'text', 'value' => $scholarships->abstract),
 				array('name' => 'Content', 'type' => 'md', 'value' => $scholarships->content)
 			),
-			'url'   => '/scholarships/edit'
+			'url'   => '/scholarships/edit',
+			'user'  => $_SESSION['user_id']
 		);
 		$this->load->view('common/viewer', $data);
 	}

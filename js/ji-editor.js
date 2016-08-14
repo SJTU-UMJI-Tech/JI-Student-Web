@@ -46,6 +46,7 @@
 		this.optionID = {};
 		
 		this.$autosave = this.$container.find(".autosave");
+		this.autosaveFlag = false;
 		this.$submitBtn = this.$container.find(".btn-submit");
 		
 		this.$submitBtn.on('click', $.proxy(this.onSubmit, this));
@@ -60,6 +61,20 @@
 		{
 			_this.option.item[_this.optionID[$(this).attr('name')]].editor
 				= _this.initMarkdown($(this).attr('id'));
+		});
+		this.$container.find(".ji-dropdown").each(function ()
+		{
+			var $button = $(this).find("button"),
+				$buttons = $(this).find("a"),
+				text = $button.data('text'),
+				$def = text ? $(this).find("a[data-text=" + text + "]") : $buttons.first();
+			$button.data('text', $def.data('text'))
+			       .html($def.html());
+			$buttons.click(function (e)
+			{
+				$button.data('text', $(e.target).data('text'))
+				       .html($(e.target).html());
+			});
 		});
 	}
 	
@@ -96,6 +111,9 @@
 				{
 					if (data[0] == '/')
 					{
+						var name = _this.getCookieName();
+						$.cookie(name, '', {expires: -1});
+						this.autosaveFlag = false;
 						window.location.href = data;
 					}
 					else
@@ -113,17 +131,28 @@
 		
 		unserialize: function (data)
 		{
+			//console.log(data);
+			if (!data)
+			{
+				return;
+			}
 			for (var name in data)
 			{
 				var item = this.option.item[this.optionID[name]];
 				var value = data[name];
-				if (item.type == 'text' || item.type == 'textarea')
+				switch (item.type)
 				{
+				case 'text':
+				case 'textarea':
 					item.$element.val(value);
-				}
-				else if (item.type == 'editor')
-				{
+					break;
+				case 'editor':
 					item.editor.setValue(value);
+					break;
+				case 'dropdown':
+					item.$element.data('text', value);
+					item.$element.html(item.$element.parent().find("a[data-text=" + value + "]").html());
+					break;
 				}
 			}
 			var date = new Date((new Date()).getTime() + 3600000 * 8);
@@ -137,41 +166,57 @@
 			{
 				var item = this.option.item[index];
 				var value;
-				if (item.type == 'text' || item.type == 'textarea')
+				switch (item.type)
 				{
+				case 'text':
+				case 'textarea':
 					value = item.$element.val();
-				}
-				else if (item.type == 'editor')
-				{
+					break;
+				case 'editor':
 					value = item.editor.getMarkdown();
+					break;
+				case 'dropdown':
+					value = item.$element.data('text');
+					break;
 				}
 				data[item.name] = value;
 			}
+			//console.log(data);
 			return data;
 		},
 		
-		saveCookie: function (user)
+		saveCookie: function ()
 		{
-			var name = $.md5(this.option.type + '-' + user + '-' + this.option.id);
+			var name = this.getCookieName();
 			$.cookie(name, JSON.stringify(this.serialize()), {expires: 90});
 		},
 		
-		loadCookie: function (user)
+		loadCookie: function ()
 		{
-			var name = $.md5(this.option.type + '-' + user + '-' + this.option.id);
+			var name = this.getCookieName();
 			var data = $.cookie(name);
 			return data ? JSON.parse(data) : {};
 		},
 		
-		autosave: function (user, time)
+		autosave: function (time)
 		{
 			var _this = this;
-			setInterval(function ()
+			this.autosaveFlag = true;
+			var intervalId = setInterval(function ()
 			{
-				_this.saveCookie(user);
+				if(!_this.autosaveFlag)
+				{
+					clearInterval(intervalId);
+				}
+				_this.saveCookie();
 				var date = new Date((new Date()).getTime() + 3600000 * 8);
 				_this.$autosave.html('Autosaved at ' + date.toUTCString());
 			}, time);
+		},
+		
+		getCookieName: function ()
+		{
+			return $.md5(this.option.type + '-' + this.option.user + '-' + this.option.id);
 		}
 		
 	};
