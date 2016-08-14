@@ -74,24 +74,29 @@
 				height: '800',
 				item: {
 					all: {
-						name: 'All Scholarships'
+						name: 'All scholarships',
+						type: 'list'
 					},
 					
 					undergraduate: {
-						name: 'Undergraduates'
+						name: 'Undergraduates',
+						type: 'list'
 					},
 					
 					graduate: {
-						name: 'Graduates'
+						name: 'Graduates',
+						type: 'list'
 					},
 					
 					my: {
-						name: 'My Scholarships'
+						name: 'My scholarships',
+						type: 'list'
 					},
 					
 					new: {
-						name: 'Create Scholarships',
-						custom : onClickNew
+						name: 'Create scholarships',
+						type: 'href',
+						href: '/scholarships/edit'
 					}
 				},
 				model: model
@@ -125,11 +130,14 @@
 				title: 'Advising',
 				item: {
 					info: {
-						name: 'About Us'
+						name: 'About us',
+						type: 'intro',
+						text: '# Introduction\n# Introduction\n# Introduction\n# Introduction\n'
 					},
 					
 					members: {
-						name: 'Members'
+						name: 'Members',
+						type: 'list'
 					},
 					
 					calender: {
@@ -140,77 +148,18 @@
 						name: 'Events'
 					},
 					
-					booking:{
-						name:'Booking'
+					booking: {
+						name: 'Booking'
 					},
 					
 					new: {
-						name: 'Create Events',
+						name: 'Create events',
 						custom: onClickNew
 					}
 				},
 				model: model
 			});
 			var name = 'info';
-			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
-			display.switchCard($barItem);
-		},
-		career: function ()
-		{
-			//window.console.log(marked);
-			var generate = function (data)
-			{
-				1;
-			};
-			
-			var onClickNew = function ($target)
-			{
-				window.location.href = '/career/edit';
-			};
-			
-			var model = {
-				url: '/career/ajax',
-				sort: ['Newest', 'Oldest'],
-				primary: 'id',
-				limit: 20,
-				generate: generate
-			};
-			
-			var display = $("#ji-display").jiDisplay({
-				title: 'Career',
-				item: {
-					info: {
-						name: 'About Us'
-					},
-					
-					announcement: {
-						name: 'Announcement'
-					},
-					
-					jobs: {
-						name: 'Jobs & Internships'
-					},
-					
-					activities: {
-						name: 'Workshops & Activities'
-					},
-					
-					mentors:{
-						name:'Career Mentors'
-					},
-					
-					resources:{
-						name:'Resources'
-					},
-					
-					new: {
-						name: 'Create Announcement',
-						custom: onClickNew
-					}
-				},
-				model: model
-			});
-			var name = 'announcement';
 			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
 			display.switchCard($barItem);
 		}
