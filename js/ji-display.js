@@ -26,6 +26,7 @@
 	function JIDisplay($element, option)
 	{
 		this.item = {};
+		this.key = '';
 		this.$container = $element;
 		this.option = option;
 		
@@ -101,8 +102,8 @@
 		{
 			this.$barList.removeClass('active');
 			$barItem.addClass('active');
-			var key = $barItem.attr('data-text');
-			this.item = $.extend(this.option.item[key], this.option.model);
+			this.key = $barItem.attr('data-text');
+			this.item = $.extend(this.option.item[this.key], this.option.model);
 			if (this.item.custom)
 			{
 				this.item.custom($barItem);
@@ -177,7 +178,7 @@
 				url: this.item.url,
 				data: {
 					cmd: 'search',
-					key: this.item.key,
+					key: this.key,
 					keywords: this.searchText,
 					order: this.$cardSearchButton.attr('data-text'),
 					limit: this.item.limit,
@@ -190,6 +191,7 @@
 					{
 						return;
 					}
+					window.console.log(data);
 					_this.ajaxLoad(data);
 				},
 				error: function ()

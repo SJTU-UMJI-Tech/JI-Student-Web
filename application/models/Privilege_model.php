@@ -75,14 +75,26 @@ class Privilege_model extends CI_Model
 		return $result;
 	}
 	
-	public function has_privilege($user, $type, $privilege)
+	public function has_privilege($user, $privilege)
 	{
-		$result = $this->get_privilege($user, $type);
-		if (!is_array($type))
+		$type = array();
+		foreach ($privilege as $key => $value)
 		{
-			$type = explode(',', $type);
+			$type[] = $key;
 		}
-		
+		$result = $this->get_privilege($user, $type);
+		foreach ($privilege as $key => $value)
+		{
+			if (!isset($result[$key]))
+			{
+				return false;
+			}
+			if ($result[$key] > 0 && ($result[$key] & $value) != $value)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }

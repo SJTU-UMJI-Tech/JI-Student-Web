@@ -65,7 +65,7 @@
 				url: '/scholarships/ajax',
 				sort: ['Newest', 'Oldest'],
 				primary: 'id',
-				limit: 2,
+				limit: 20,
 				generate: generate
 			};
 			
@@ -73,19 +73,19 @@
 				title: 'Scholarships',
 				item: {
 					all: {
-						name: 'All scholarships',
+						name: 'All scholarships'
 					},
 					
 					undergraduate: {
-						name: 'Undergraduates',
+						name: 'Undergraduates'
 					},
 					
 					graduate: {
-						name: 'Graduates',
+						name: 'Graduates'
 					},
 					
 					my: {
-						name: 'My scholarships',
+						name: 'My scholarships'
 					},
 					
 					new: {

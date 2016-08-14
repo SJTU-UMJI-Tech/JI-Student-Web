@@ -52,17 +52,18 @@ class Scholarships_model extends CI_Model
 	
 	/**
 	 * @param string|array $keywords
+	 * @param array        $where
 	 * @param int          $limit
 	 * @param int          $offset
 	 * @param string       $order
 	 * @return string
 	 */
-	public function search($keywords, $limit, $offset, $order)
+	public function search($keywords, $where, $limit, $offset, $order)
 	{
 		$fields = array('title', 'abstract');
 		$orders = array('CREATE_TIMESTAMP', $order != 'Oldest' ? 'DESC' : 'ASC');
 		$result = $this->Site_model->search_object($this::TABLE, $this::LIBRARY, $fields, $keywords,
-		                                           $orders, $limit, $offset);
+		                                           $where, $orders, $limit, $offset);
 		return $result;
 	}
 	

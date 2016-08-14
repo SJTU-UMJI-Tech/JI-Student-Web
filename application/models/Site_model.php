@@ -162,7 +162,7 @@ class Site_model extends CI_Model
 				$obj = $query->row(0, $library);
 				return $obj;
 			}
-			eval('$obj = new ' . $library.'();');
+			eval('$obj = new ' . $library . '();');
 			return $obj;
 		}
 		$obj_list = array();
@@ -181,6 +181,7 @@ class Site_model extends CI_Model
 	 * @param string       $library
 	 * @param array        $fields
 	 * @param array|string $keywords
+	 * @param array        $where
 	 * @param array        $orders
 	 * @param int          $limit
 	 * @param int          $offset
@@ -188,7 +189,7 @@ class Site_model extends CI_Model
 	 * @return string
 	 */
 	public function search_object($table, $library = 'My_obj', $fields, $keywords = array(),
-	                              $orders = array('CREATE_TIMESTAMP', 'DESC'),
+	                              $where = array(), $orders = array('CREATE_TIMESTAMP', 'DESC'),
 	                              $limit = 0, $offset = 0, $select = '*')
 	{
 		if (is_string($keywords))
@@ -196,6 +197,15 @@ class Site_model extends CI_Model
 			$keywords = $this->keywords_arr($keywords);
 		}
 		$this->db->select($select)->from($table);
+		foreach ($where as $name => $items)
+		{
+			$this->db->group_start();
+			foreach ($items as $item)
+			{
+				$this->db->or_where($name, $item);
+			}
+			$this->db->group_end();
+		}
 		foreach ($keywords as $keyword)
 		{
 			$this->db->group_start();

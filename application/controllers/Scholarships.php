@@ -76,12 +76,6 @@ class Scholarships extends Front_Controller
 		$this->load->view('common/viewer', $data);
 	}
 	
-	public function test()
-	{
-		$this->load->model('Privilege_model');
-		$this->Privilege_model->get_privilege('515370910207');
-	}
-	
 	public function ajax()
 	{
 		$cmd = $this->input->get('cmd');
@@ -92,8 +86,21 @@ class Scholarships extends Front_Controller
 			$limit = $this->input->get('limit');
 			$offset = $this->input->get('offset');
 			$order = $this->input->get('order');
-			
-			$data = $this->Scholarships_model->search($keywords, $limit, $offset, $order);
+			$where = array();
+			switch ($key)
+			{
+			case 'my':
+				$data = '';
+				echo $data;
+				exit();
+			case 'undergraduate':
+			case 'graduate':
+				$where['type'] = array($key, 'all');
+				break;
+			}
+			$data = $this->Scholarships_model->search($keywords, $where, $limit, $offset, $order);
+			//print_r(json_encode($key));
+			//exit();
 			echo $data;
 		}
 		exit();
