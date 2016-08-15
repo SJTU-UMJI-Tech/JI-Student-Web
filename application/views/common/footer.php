@@ -28,6 +28,7 @@
 		tether: './lib/tether-1.3.3.min',
 		bootstrap: './lib/bootstrap-4.0.0-alpha.3.min',
 		bootstrapHoverDropdown: './lib/bootstrap-hover-dropdown-2.2.1.min',
+		bootstrapDatetimepicker: './lib/bootstrap-datetimepicker-2.3.8',
 		moment: './lib/moment-2.14.1.min',
 		fullCalendar: './lib/fullcalendar-2.9.1.min',
 		marked: './lib/marked-0.3.6.min',
@@ -52,7 +53,8 @@
 			flowchart: ['raphael'],
 			sequenceDiagram: ['raphael', 'underscore'],
 			jqueryflowchart: ['flowchart'],
-			jqueryMD5: ['jquery']
+			jqueryMD5: ['jquery'],
+			//bootstrapDatetimepicker: ['jquery', 'bootstrap']
 		},
 		paths: paths,
 		waitSeconds: 30

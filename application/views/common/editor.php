@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="/vendors/editor.md-1.5.0/css/editormd.min.css"/>
 <link rel="stylesheet" href="/vendors/editor.md-1.5.0/lib/codemirror/codemirror.min.css"/>
-
+<link rel="stylesheet" href="/css/lib/bootstrap-datetimepicker-2.3.8.min.css"/>
 
 <div class="container" id="ji-editor">
 	
@@ -36,6 +36,19 @@
 								<?php endforeach; ?>
 							</div>
 						</div>
+					<?php elseif ($item['type'] == 'date'): ?>
+						<div class="input-append date" id="datetimepicker"
+						     data-date-format="dd-mm-yyyy">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<span class="add-on"><i class="icon-th fa fa-th-list"></i></span>
+								</div>
+								<input class="form-control" type="text" onfocus=this.blur()>
+								<div class="input-group-addon">
+									<span class="add-on"><i class="icon-remove fa fa-times"></i></span>
+								</div>
+							</div>
+						</div>
 					<?php endif; ?>
 				</div>
 			<?php endforeach; ?>
@@ -52,7 +65,7 @@
 <?php include 'footer.php'; ?>
 
 <script type="text/javascript">
-	require(['jquery', 'ji-editor'], function ($)
+	require(['jquery', 'ji-editor', 'bootstrapDatetimepicker'], function ($)
 	{
 		var option = '<?php echo json_encode($option);?>';
 		var editor = $("#ji-editor").jiEditor(JSON.parse(option));
@@ -63,6 +76,17 @@
 		 });*/
 		editor.unserialize(editor.loadCookie());
 		editor.autosave(1000);
-		console.log(editor.getCookieName());
+		window.console.log(editor.getCookieName());
+		$("#datetimepicker").datetimepicker({
+			format: "yyyy-mm-dd",
+			minView: 'month',
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "bottom-right",
+			todayHighlight: true,
+			keyboardNavigation: true,
+			fontAwesome: true
+		});
+		
 	});
 </script>
