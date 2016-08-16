@@ -9,8 +9,8 @@
 		var deps = [
 			"jquery",
 			"editormd",
-			"jqueryCookie",
-			"jqueryMD5",
+			"jquery.cookie",
+			"jquery.md5",
 			"../vendors/editor.md-1.5.0/languages/en",
 			"../vendors/editor.md-1.5.0/plugins/link-dialog/link-dialog",
 			"../vendors/editor.md-1.5.0/plugins/reference-link-dialog/reference-link-dialog",

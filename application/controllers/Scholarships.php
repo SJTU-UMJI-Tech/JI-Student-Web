@@ -59,7 +59,8 @@ class Scholarships extends Front_Controller
 				array('name' => 'Abstract', 'type' => 'textarea'),
 				array('name' => 'Amount', 'type' => 'text'),
 				array('name' => 'Deadline', 'type' => 'date'),
-				array('name' => 'Content', 'type' => 'editor')
+				array('name' => 'Content', 'type' => 'editor'),
+				array('name' => 'Attachment', 'type' => 'file')
 			),
 			'url'   => '/scholarships/ajax_edit',
 			'user'  => $_SESSION['user_id']

@@ -40,8 +40,25 @@
 		sequenceDiagram: "./lib/sequence-diagram-1.0.6.min",
 		katex: "./lib/katex-0.6.0.min",
 		editormd: "../vendors/editor.md-1.5.0/editormd.amd.min",
-		jqueryCookie: './lib/jquery.cookie-1.4.1.min',
-		jqueryMD5: './lib/jquery.md5'
+		'jquery.cookie': './lib/jquery.cookie-1.4.1.min',
+		'jquery.md5': './lib/jquery.md5',
+		'jquery.ui.widget': './lib/jquery.ui.widget',
+		'jquery.iframe-transport': './lib/jquery.iframe-transport',
+		'jquery.fileupload': './lib/jquery.fileupload',
+		'jquery.fileupload-ui': './lib/jquery.fileupload-ui',
+		'jquery.fileupload-audio': './lib/jquery.fileupload-audio',
+		'jquery.fileupload-image': './lib/jquery.fileupload-image',
+		'jquery.fileupload-validate': './lib/jquery.fileupload-validate',
+		'jquery.fileupload-video': './lib/jquery.fileupload-video',
+		'jquery.fileupload-process': './lib/jquery.fileupload-process',
+		
+		
+		'load-image': './lib/load-image-2.6.1.min',
+		'load-image-meta': './lib/load-image-meta-2.6.1.min',
+		'load-image-exif': './lib/load-image-exif-2.6.1.min',
+		'tmpl': './lib/tmpl.min',
+		'canvas-to-blob': './lib/canvas-to-blob.min'
+		
 	};
 	<?php endif; ?>
 	requirejs.config({
