@@ -11,6 +11,8 @@
 			"editormd",
 			"jquery.cookie",
 			"jquery.md5",
+			'bootstrapDatetimepicker',
+			'jquery.fileupload-ui',
 			"../vendors/editor.md-1.5.0/languages/en",
 			"../vendors/editor.md-1.5.0/plugins/link-dialog/link-dialog",
 			"../vendors/editor.md-1.5.0/plugins/reference-link-dialog/reference-link-dialog",
@@ -51,48 +53,91 @@
 		
 		this.$submitBtn.on('click', $.proxy(this.onSubmit, this));
 		
-		var _this = this;
 		for (var index in this.option.item)
 		{
 			this.option.item[index].$element = this.$container.find("[name=" + this.option.item[index].name + "]");
 			this.optionID[this.option.item[index].name] = index;
 		}
-		this.$container.find(".editormd").each(function ()
-		{
-			_this.option.item[_this.optionID[$(this).attr('name')]].editor
-				= _this.initMarkdown($(this).attr('id'));
-		});
-		this.$container.find(".ji-dropdown").each(function ()
-		{
-			var $button = $(this).find("button"),
-				$buttons = $(this).find("a"),
-				text = $button.data('text'),
-				$def = text ? $(this).find("a[data-text=" + text + "]") : $buttons.first();
-			$button.data('text', $def.data('text'))
-			       .html($def.html());
-			$buttons.click(function (e)
-			{
-				$button.data('text', $(e.target).data('text'))
-				       .html($(e.target).html());
-			});
-		});
+		
+		this.initMarkdown();
+		this.initDropdown();
+		this.initDatetimepicker();
+		this.initFileupload();
 	}
 	
 	JIEditor.prototype = {
 		
 		constructor: JIEditor,
 		
-		initMarkdown: function (id)
+		initMarkdown: function ()
 		{
-			var markdown = editormd(id, {
-				width: "100%",
-				height: 640,
-				syncScrolling: "single",
-				path: "../vendors/editor.md-1.5.0/lib/",
-				saveHTMLToTextarea: true,
-				flowchart: true
+			var _this = this;
+			this.$container.find(".ji-markdown").each(function ()
+			{
+				_this.option.item[_this.optionID[$(this).attr('name')]].editor
+					= editormd($(this).attr('id'), {
+					width: "100%",
+					height: 800,
+					syncScrolling: "single",
+					path: "../vendors/editor.md-1.5.0/lib/",
+					saveHTMLToTextarea: true,
+					flowchart: true
+				});
 			});
-			return markdown;
+		},
+		
+		initDropdown: function ()
+		{
+			this.$container.find(".ji-dropdown").each(function ()
+			{
+				var $button = $(this).find("button"),
+					$buttons = $(this).find("a"),
+					text = $button.data('text'),
+					$def = text ? $(this).find("a[data-text=" + text + "]") : $buttons.first();
+				$button.data('text', $def.data('text'))
+				       .html($def.html());
+				$buttons.click(function (e)
+				{
+					$button.data('text', $(e.target).data('text'))
+					       .html($(e.target).html());
+				});
+			});
+		},
+		
+		initDatetimepicker: function ()
+		{
+			this.$container.find(".ji-date").each(function ()
+			{
+				var format, minView;
+				if ($(this).attr('type') == 'date')
+				{
+					format = "yyyy-mm-dd";
+					minView = 'month';
+				}
+				else
+				{
+					format = "yyyy-mm-dd hh:ii";
+					minView = 'hour';
+				}
+				$(this).datetimepicker({
+					format: format,
+					minView: minView,
+					autoclose: true,
+					todayBtn: true,
+					pickerPosition: "bottom-right",
+					todayHighlight: true,
+					keyboardNavigation: true,
+					fontAwesome: true
+				});
+			});
+		},
+		
+		initFileupload: function ()
+		{
+			this.$container.find(".ji-file").fileupload({
+				dataType: 'json',
+				url: '/upload/'
+			});
 		},
 		
 		onSubmit: function ()
@@ -145,9 +190,10 @@
 				case 'text':
 				case 'textarea':
 				case 'date':
+				case 'time':
 					item.$element.val(value);
 					break;
-				case 'editor':
+				case 'markdown':
 					item.editor.setValue(value);
 					break;
 				case 'dropdown':
@@ -172,18 +218,35 @@
 				case 'text':
 				case 'textarea':
 				case 'date':
+				case 'time':
 					value = item.$element.val();
 					break;
-				case 'editor':
+				case 'markdown':
 					value = item.editor.getMarkdown();
 					break;
 				case 'dropdown':
 					value = item.$element.data('text');
 					break;
+				case 'file':
+					value = this.serializeFile(item.$element);
 				}
 				data[item.name] = value;
 			}
 			//console.log(data);
+			return data;
+		},
+		
+		serializeFile: function ($element)
+		{
+			var data = [];
+			$element.find(".template-download").each(function ()
+			{
+				data.push({
+					title: $(this).find(".name a").attr('title'),
+					url: $(this).find(".name a").attr('href'),
+					size: $(this).find(".size").html()
+				});
+			});
 			return data;
 		},
 		
@@ -206,7 +269,7 @@
 			this.autosaveFlag = true;
 			var intervalId = setInterval(function ()
 			{
-				if(!_this.autosaveFlag)
+				if (!_this.autosaveFlag)
 				{
 					clearInterval(intervalId);
 				}

@@ -2,12 +2,34 @@
 
 class Scholarships extends Front_Controller
 {
+	public $editor_create;
+	
 	function __construct()
 	{
 		parent::__construct();
 		$this->data['type'] = 'scholarships';
 		$this->Site_model->load_site_config('scholarships');
 		$this->load->model('Scholarships_model');
+		
+		$this->editor_create = array(
+			array('name' => 'title', 'label' => 'Title', 'type' => 'text'),
+			array(
+				'name'    => 'category',
+				'label'   => 'Category',
+				'type'    => 'dropdown',
+				'option'  => array(
+					'undergraduate' => 'Undergraduates',
+					'graduate'      => 'Graduates',
+					'all'           => 'Both'
+				),
+				'default' => 'all'
+			),
+			array('name' => 'abstract', 'label' => 'Abstract', 'type' => 'textarea'),
+			array('name' => 'amount', 'label' => 'Amount', 'type' => 'text'),
+			array('name' => 'deadline', 'label' => 'Deadline', 'type' => 'date', ),
+			array('name' => 'content', 'label' => 'Content', 'type' => 'markdown'),
+			array('name' => 'attachment', 'label' => 'Attachment', 'type' => 'file')
+		);
 	}
 	
 	public function redirect()
@@ -45,23 +67,7 @@ class Scholarships extends Front_Controller
 			'id'    => $id,
 			'type'  => 'scholarships',
 			'title' => $title,
-			'item'  => array(
-				array('name' => 'Title', 'type' => 'text'),
-				array(
-					'name'    => 'Category', 'type' => 'dropdown',
-					'text'    => array(
-						'undergraduate' => 'Undergraduates',
-						'graduate'      => 'Graduates',
-						'all'           => 'Both'
-					),
-					'default' => 'all'
-				),
-				array('name' => 'Abstract', 'type' => 'textarea'),
-				array('name' => 'Amount', 'type' => 'text'),
-				array('name' => 'Deadline', 'type' => 'date'),
-				array('name' => 'Content', 'type' => 'editor'),
-				array('name' => 'Attachment', 'type' => 'file')
-			),
+			'item'  => $this->editor_create,
 			'url'   => '/scholarships/ajax_edit',
 			'user'  => $_SESSION['user_id']
 		);
@@ -81,10 +87,7 @@ class Scholarships extends Front_Controller
 			'id'    => $id,
 			'type'  => 'scholarships',
 			'title' => $data['page_name'],
-			'item'  => array(
-				array('name' => 'Abstract', 'type' => 'text', 'value' => $scholarships->abstract),
-				array('name' => 'Content', 'type' => 'md', 'value' => $scholarships->content)
-			),
+			'item'  => $this->fill_option($this->editor_create, $scholarships),
 			'url'   => '/scholarships/edit',
 			'user'  => $_SESSION['user_id']
 		);
@@ -110,7 +113,7 @@ class Scholarships extends Front_Controller
 				exit();
 			case 'undergraduate':
 			case 'graduate':
-				$where['type'] = array($key, 'all');
+				$where['category'] = array($key, 'all');
 				break;
 			}
 			$data = $this->Scholarships_model->search($keywords, $where, $limit, $offset, $order);

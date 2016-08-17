@@ -15,15 +15,15 @@
 		<div class="card-block">
 			<?php foreach ($option['item'] as $item): ?>
 				<div class="form-group">
-					<label><?php echo $item['name']; ?></label>
+					<label><?php echo $item['label']; ?></label>
 					<?php if ($item['type'] == 'text'): ?>
-						<input class="form-control" type="text" placeholder="<?php echo $item['name']; ?>"
+						<input class="form-control" type="text" placeholder="<?php echo $item['label']; ?>"
 						       name="<?php echo $item['name']; ?>">
 					<?php elseif ($item['type'] == 'textarea'): ?>
-						<textarea class="form-control" type="text" placeholder="<?php echo $item['name']; ?>"
-						          rows="5" name="<?php echo $item['name']; ?>" style="resize: none"></textarea>
-					<?php elseif ($item['type'] == 'editor'): ?>
-						<div class="editormd" id="editor-md-<?php echo $item['name']; ?>"
+						<textarea class="form-control" type="text" placeholder="<?php echo $item['label']; ?>"
+						          rows="8" name="<?php echo $item['name']; ?>" style="resize: none"></textarea>
+					<?php elseif ($item['type'] == 'markdown'): ?>
+						<div class="editormd ji-markdown" id="editor-md-<?php echo $item['name']; ?>"
 						     name="<?php echo $item['name']; ?>"></div>
 					<?php elseif ($item['type'] == 'dropdown'): ?>
 						<div class="input-group-btn ji-dropdown">
@@ -32,21 +32,21 @@
 							        data-text="<?php echo isset($item['default']) ? $item['default'] : ''; ?>"
 							        aria-expanded="false" name="<?php echo $item['name']; ?>"></button>
 							<div class="dropdown-menu">
-								<?php foreach ($item['text'] as $key => $value): ?>
+								<?php foreach ($item['option'] as $key => $value): ?>
 									<a class="dropdown-item" href="javascript:void(0);"
 									   data-text="<?php echo $key; ?>"><?php echo $value; ?></a>
 								<?php endforeach; ?>
 							</div>
 						</div>
-					<?php elseif ($item['type'] == 'date'): ?>
-						<div class="input-append date ji-date">
+					<?php elseif ($item['type'] == 'date' || $item['type'] == 'time'): ?>
+						<div class="input-append date ji-date" type="<?php echo $item['type']; ?>">
 							<div class="input-group">
 								<div class="input-group-addon">
 									<span class="add-on"><i class="icon-th fa fa-th-list"></i></span>
 								</div>
-								<input class="form-control" type="text" onfocus=this.blur()
+								<input class="form-control" type="text" onfocus="this.blur()"
 								       name="<?php echo $item['name']; ?>"
-								       placeholder="<?php echo $item['name']; ?>">
+								       placeholder="<?php echo $item['label']; ?>">
 								<div class="input-group-addon">
 									<span class="add-on"><i class="icon-remove fa fa-times"></i></span>
 								</div>
@@ -76,7 +76,7 @@
 										<i class="fa fa-trash" aria-hidden="true"></i>
 										<span>Delete</span>
 									</button>
-									<input type="checkbox" class="toggle" >
+									<input type="checkbox" class="toggle">
 									<span>Select All</span>
 									<!-- The global file processing state -->
 									<span class="fileupload-process"></span>
@@ -86,8 +86,8 @@
 									<!-- The global progress bar -->
 									<progress class="progress progress-striped progress-success active"
 									          role="progressbar" max="100" value="0"
-									          <!--aria-valuemin="0" aria-valuemax="100"-->>
-										<div class="progress-bar progress-bar-success" style="width:0%;"></div>
+									<!--aria-valuemin="0" aria-valuemax="100"-->>
+									<div class="progress-bar progress-bar-success" style="width:0%;"></div>
 									</progress>
 									<!-- The extended global progress state -->
 									<div class="progress-extended">&nbsp;</div>
@@ -95,10 +95,10 @@
 							</div>
 							<!-- The table listing the files available for upload/download -->
 							<table role="presentation" class="table table-striped">
-								<tbody class="files"></tbody>
+								<tbody class="files" name="<?php echo $item['name']; ?>"></tbody>
 							</table>
 						</form>
-						
+					
 					<?php endif; ?>
 				</div>
 			<?php endforeach; ?>
@@ -127,20 +127,17 @@
 		editor.unserialize(editor.loadCookie());
 		editor.autosave(1000);
 		window.console.log(editor.getCookieName());
-		$(".ji-date").datetimepicker({
-			format: "yyyy-mm-dd",
-			minView: 'month',
-			autoclose: true,
-			todayBtn: true,
-			pickerPosition: "bottom-right",
-			todayHighlight: true,
-			keyboardNavigation: true,
-			fontAwesome: true
-		});
-		$('.ji-file').fileupload({
-			dataType: 'json',
-			url: '/upload/',
-		});
+		/*$(".ji-date").datetimepicker({
+		 format: "yyyy-mm-dd",
+		 minView: 'month',
+		 autoclose: true,
+		 todayBtn: true,
+		 pickerPosition: "bottom-right",
+		 todayHighlight: true,
+		 keyboardNavigation: true,
+		 fontAwesome: true
+		 });*/
+		
 	});
 </script>
 
@@ -174,6 +171,7 @@
         </td>
     </tr>
 {% } %}
+
 </script>
 
 <script id="template-download" type="text/x-tmpl">
@@ -217,4 +215,5 @@
         </td>
     </tr>
 {% } %}
+
 </script>
