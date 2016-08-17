@@ -151,11 +151,14 @@
                         .find('.progress').addClass(
                             !$.support.transition && 'progress-animated'
                         )
-                        .attr('aria-valuenow', 100)
+                        .attr('value', 100)
+                        .find('.progress-bar')
+                        .css('width', '100%');
+                        /*.attr('aria-valuenow', 100)
                         .children().first().css(
                             'width',
                             '100%'
-                        );
+                        );*/
                 }
                 return that._trigger('sent', e, data);
             },
@@ -283,11 +286,14 @@
                 if (data.context) {
                     data.context.each(function () {
                         $(this).find('.progress')
-                            .attr('aria-valuenow', progress)
+                               .attr('value', progress)
+                               .find('.progress-bar')
+                               .css('width', progress + '%');
+                            /*.attr('aria-valuenow', progress)
                             .children().first().css(
                                 'width',
                                 progress + '%'
-                            );
+                            );*/
                     });
                 }
             },
@@ -309,11 +315,14 @@
                 }
                 globalProgressNode
                     .find('.progress')
-                    .attr('aria-valuenow', progress)
+	                .attr('value', progress)
+	                .find('.progress-bar')
+	                .css('width', progress + '%');
+                    /*.attr('aria-valuenow', progress)
                     .children().first().css(
                         'width',
                         progress + '%'
-                    );
+                    );*/
             },
             // Callback for uploads start, equivalent to the global ajaxStart event:
             start: function (e) {
@@ -344,8 +353,11 @@
                 that._transition($(this).find('.fileupload-progress')).done(
                     function () {
                         $(this).find('.progress')
-                            .attr('aria-valuenow', '0')
-                            .children().first().css('width', '0%');
+                               .attr('value', 0)
+                               .find('.progress-bar')
+                               .css('width', '0%');
+                            /*.attr('aria-valuenow', '0')
+                            .children().first().css('width', '0%');*/
                         $(this).find('.progress-extended').html('&nbsp;');
                         deferred.resolve();
                     }
@@ -595,6 +607,7 @@
                         .find('.delete').click();
                     fileUploadButtonBar.find('.toggle')
                         .prop('checked', false);
+	                //filesList.find('.delete').click();
                 }
             });
             this._on(fileUploadButtonBar.find('.toggle'), {

@@ -144,6 +144,7 @@
 				{
 				case 'text':
 				case 'textarea':
+				case 'date':
 					item.$element.val(value);
 					break;
 				case 'editor':
@@ -170,6 +171,7 @@
 				{
 				case 'text':
 				case 'textarea':
+				case 'date':
 					value = item.$element.val();
 					break;
 				case 'editor':

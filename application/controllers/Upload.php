@@ -5,11 +5,12 @@ class Upload extends Front_Controller
 	
 	public function index()
 	{
+		error_reporting(0);
 		$this->load->library('UploadHandler');
 		$upload_handler = new UploadHandler(
 			array(
 				'upload_dir'              => './files/',
-				'upload_url'              => base_url('files'),
+				'upload_url'              => base_url('files') . '/',
 				'script_url'              => base_url('upload'),
 				'discard_aborted_uploads' => false,
 				'print_response'          => true

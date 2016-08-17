@@ -39,53 +39,56 @@
 							</div>
 						</div>
 					<?php elseif ($item['type'] == 'date'): ?>
-						<div class="input-append date" id="datetimepicker"
-						     data-date-format="dd-mm-yyyy">
+						<div class="input-append date ji-date">
 							<div class="input-group">
 								<div class="input-group-addon">
 									<span class="add-on"><i class="icon-th fa fa-th-list"></i></span>
 								</div>
-								<input class="form-control" type="text" onfocus=this.blur()>
+								<input class="form-control" type="text" onfocus=this.blur()
+								       name="<?php echo $item['name']; ?>"
+								       placeholder="<?php echo $item['name']; ?>">
 								<div class="input-group-addon">
 									<span class="add-on"><i class="icon-remove fa fa-times"></i></span>
 								</div>
 							</div>
 						</div>
 					<?php elseif ($item['type'] == 'file'): ?>
-						<form id="fileupload" action="/upload" method="POST"
+						<form class="ji-file" action="" method="POST"
 						      enctype="multipart/form-data">
 							<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 							<div class="row fileupload-buttonbar">
-								<div class="col-lg-7">
+								<div class="col-xs-12">
 									<!-- The fileinput-button span is used to style the file input field as button -->
 									<button class="btn btn-outline-success fileinput-button">
-										<i class="glyphicon glyphicon-plus"></i>
+										<i class="fa fa-plus" aria-hidden="true"></i>
 										<span>Add files...</span>
 										<input type="file" name="files[]" multiple>
 									</button>
 									<button type="submit" class="btn btn-outline-primary start">
-										<i class="glyphicon glyphicon-upload"></i>
+										<i class="fa fa-upload" aria-hidden="true"></i>
 										<span>Start upload</span>
 									</button>
 									<button type="reset" class="btn btn-outline-warning cancel">
-										<i class="glyphicon glyphicon-ban-circle"></i>
+										<i class="fa fa-ban" aria-hidden="true"></i>
 										<span>Cancel upload</span>
 									</button>
 									<button type="button" class="btn btn-outline-danger delete">
-										<i class="glyphicon glyphicon-trash"></i>
+										<i class="fa fa-trash" aria-hidden="true"></i>
 										<span>Delete</span>
 									</button>
-									<input type="checkbox" class="toggle" style="display: none">
+									<input type="checkbox" class="toggle" >
+									<span>Select All</span>
 									<!-- The global file processing state -->
 									<span class="fileupload-process"></span>
 								</div>
 								<!-- The global progress state -->
-								<div class="col-lg-5 fileupload-progress fade">
+								<div class="col-xs-12 fileupload-progress fade">
 									<!-- The global progress bar -->
-									<div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
-									     aria-valuemax="100">
+									<progress class="progress progress-striped progress-success active"
+									          role="progressbar" max="100" value="0"
+									          <!--aria-valuemin="0" aria-valuemax="100"-->>
 										<div class="progress-bar progress-bar-success" style="width:0%;"></div>
-									</div>
+									</progress>
 									<!-- The extended global progress state -->
 									<div class="progress-extended">&nbsp;</div>
 								</div>
@@ -124,7 +127,7 @@
 		editor.unserialize(editor.loadCookie());
 		editor.autosave(1000);
 		window.console.log(editor.getCookieName());
-		$("#datetimepicker").datetimepicker({
+		$(".ji-date").datetimepicker({
 			format: "yyyy-mm-dd",
 			minView: 'month',
 			autoclose: true,
@@ -134,7 +137,7 @@
 			keyboardNavigation: true,
 			fontAwesome: true
 		});
-		$('#fileupload').fileupload({
+		$('.ji-file').fileupload({
 			dataType: 'json',
 			url: '/upload/',
 		});
@@ -153,18 +156,18 @@
         </td>
         <td>
             <p class="size">Processing...</p>
-            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+            <progress class="progress progress-striped progress-success active" role="progressbar" max="100" value="0"><div class="progress-bar progress-success" style="width:0%;"></div></progress>
         </td>
         <td>
             {% if (!i && !o.options.autoUpload) { %}
-                <button class="btn btn-primary start" disabled>
-                    <i class="glyphicon glyphicon-upload"></i>
+                <button class="btn btn-outline-primary start" disabled>
+                    <i class="fa fa-upload" aria-hidden="true"></i>
                     <span>Start</span>
                 </button>
             {% } %}
             {% if (!i) { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
+                <button class="btn btn-outline-warning cancel">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
                     <span>Cancel</span>
                 </button>
             {% } %}
@@ -200,14 +203,14 @@
         </td>
         <td>
             {% if (file.deleteUrl) { %}
-                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                    <i class="glyphicon glyphicon-trash"></i>
+                <button class="btn btn-outline-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
                     <span>Delete</span>
                 </button>
                 <input type="checkbox" name="delete" value="1" class="toggle">
             {% } else { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
+                <button class="btn btn-outline-warning cancel">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
                     <span>Cancel</span>
                 </button>
             {% } %}
