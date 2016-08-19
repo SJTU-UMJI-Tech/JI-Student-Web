@@ -26,7 +26,7 @@ class Scholarships extends Front_Controller
 			),
 			array('name' => 'abstract', 'label' => 'Abstract', 'type' => 'textarea'),
 			array('name' => 'amount', 'label' => 'Amount', 'type' => 'text'),
-			array('name' => 'deadline', 'label' => 'Deadline', 'type' => 'date', ),
+			array('name' => 'deadline', 'label' => 'Deadline', 'type' => 'date',),
 			array('name' => 'content', 'label' => 'Content', 'type' => 'markdown'),
 			array('name' => 'attachment', 'label' => 'Attachment', 'type' => 'file')
 		);
@@ -82,6 +82,7 @@ class Scholarships extends Front_Controller
 		{
 			$this->redirect();
 		}
+		//print_r($scholarships);
 		$data['page_name'] = $scholarships->title;
 		$data['option'] = array(
 			'id'    => $id,
@@ -138,7 +139,8 @@ class Scholarships extends Front_Controller
 				exit();
 			}
 		}
-		$id = $this->Scholarships_model->edit_by_id($id, $data['Title'], $data['Abstract'], $data['Content']);
+		$info = $this->process_option('scholarships', $id, $this->editor_create, $data);
+		
 		if ($id > 0)
 		{
 			echo '/scholarships/check?id=' . $id;

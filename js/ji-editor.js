@@ -241,11 +241,15 @@
 			var data = [];
 			$element.find(".template-download").each(function ()
 			{
-				data.push({
-					title: $(this).find(".name a").attr('title'),
-					url: $(this).find(".name a").attr('href'),
-					size: $(this).find(".size").html()
-				});
+				var size = $(this).find(".size").html();
+				if (size)
+				{
+					data.push({
+						//title: $(this).find(".name a").attr('title'),
+						url: $(this).find(".delete").data('url'),
+						size: size
+					});
+				}
 			});
 			return data;
 		},

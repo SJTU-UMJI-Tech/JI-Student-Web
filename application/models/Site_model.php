@@ -238,6 +238,18 @@ class Site_model extends CI_Model
 		return json_encode($obj_list);
 	}
 	
+	public function create_object($table, $data)
+	{
+		$this->db->insert($table, $data);
+		return $this->db->insert_id();
+	}
+	
+	public function edit_object($table, $data, $id)
+	{
+		$this->db->update($table, $data, array('id' => $id));
+		return $id;
+	}
+	
 	
 	/**
 	 * 净化 HTML
