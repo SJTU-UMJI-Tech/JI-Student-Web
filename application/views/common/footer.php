@@ -20,7 +20,7 @@
 		bootstrapHoverDropdown: '//cdn.bootcss.com/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min',
 		moment: '//cdn.bootcss.com/moment.js/2.14.1/moment.min',
 		fullCalendar: '//cdn.bootcss.com/fullcalendar/2.9.1/fullcalendar.min',
-		marked: '//cdn.bootcss.com/marked/0.3.6/marked.min',./lib
+		marked: '//cdn.bootcss.com/marked/0.3.6/marked.min'
 	};
 	<?php else: ?>
 	paths = {
@@ -65,7 +65,7 @@
 		baseUrl: "../js/",
 		shim: {
 			bootstrap: ['jquery', 'tether'],
-			bootstrapHoverDropdown: ['bootstrap'],
+			bootstrapHoverDropdown: ['jquery', 'bootstrap'],
 			fullCalendar: ['moment'],
 			flowchart: ['raphael'],
 			sequenceDiagram: ['raphael', 'underscore'],
@@ -81,5 +81,8 @@
 		window.Tether = tether;
 		window.Raphael = raphael;
 	});
-	require(['bootstrap', 'bootstrapHoverDropdown']);
+	require(['jquery', 'bootstrap', 'bootstrapHoverDropdown'], function ($)
+	{
+		//$("[data-hover='dropdown']").dropdownHover();
+	});
 </script>

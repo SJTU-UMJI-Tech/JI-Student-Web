@@ -77,6 +77,17 @@ class Advising extends Front_Controller
 		$this->load->view('common/viewer', $data);
 	}
 	
+	public function ajax_intro()
+	{
+		error_reporting(0);
+		echo '
+# Advising Center
+The advising center is ...
+
+		';
+		exit();
+	}
+	
 	public function ajax()
 	{
 		$cmd = $this->input->get('cmd');

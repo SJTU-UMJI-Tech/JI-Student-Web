@@ -33,10 +33,8 @@
 		
 		scholarships: function ()
 		{
-			//window.console.log(marked);
 			var generate = function (data)
 			{
-				//window.console.log(data);
 				var detail_id = 'scholarships-detail-' + data.id;
 				var html = [
 					'<div class="card-block">',
@@ -56,13 +54,8 @@
 				return html;
 			};
 			
-			var onClickNew = function ($target)
-			{
-				window.location.href = '/scholarships/edit';
-			};
-			
 			var model = {
-				url: '/scholarships/ajax',
+				url: '/scholarships/ajax_search',
 				sort: ['Newest', 'Oldest'],
 				primary: 'id',
 				limit: 2,
@@ -132,12 +125,18 @@
 					info: {
 						name: 'About us',
 						type: 'intro',
-						text: '# Introduction\n# Introduction\n# Introduction\n# Introduction\n'
+						url: '/advising/ajax_intro',
+						//text: '# Introduction\n# Introduction\n# Introduction\n# Introduction\n'
 					},
 					
 					members: {
 						name: 'Members',
-						type: 'list'
+						type: 'list',
+						url: '/advising/ajax_member',
+						//sort: ['Newest', 'Oldest'],
+						primary: 'id',
+						limit: 0,
+						generate: generate
 					},
 					
 					calender: {
@@ -154,15 +153,17 @@
 					
 					new: {
 						name: 'Create events',
-						custom: onClickNew
+						type: 'href',
+						href: '/advising/edit'
 					}
 				},
-				model: model
+				//model: model
 			});
 			var name = 'info';
 			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
 			display.switchCard($barItem);
 		},
+		
 		career: function ()
 		{
 			//window.console.log(marked);

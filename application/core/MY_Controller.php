@@ -96,13 +96,11 @@ class Front_Controller extends CI_Controller
 				break;
 			case 'file':
 				$files[$key] = $value;
-				//$value = base64_encode(json_encode($value));
 				$value = '';
 				break;
 			}
 			$new_data[$option['name']] = $value;
 		}
-		
 		
 		if ($id <= 0)
 		{
@@ -113,7 +111,6 @@ class Front_Controller extends CI_Controller
 		{
 			$option = $options[$key];
 			$dir = $this::UPLOAD_DIR . $table . '/' . $id . '/';
-			$url = base_url('upload?dir=' . base64_encode($dir));
 			if (!is_dir($dir))
 			{
 				mkdir($dir, 0755, true);
@@ -127,16 +124,15 @@ class Front_Controller extends CI_Controller
 				$filename = urldecode($query['file']);
 				if (!isset($query['dir']))
 				{
-					if (!rename('./temp_files/' . $filename, $dir . $filename))
+					if (!rename('./uploads/temp/' . $filename, $dir . $filename))
 					{
 						unset($value[$index]);
 						continue;
 					}
-					rename('./temp_files/thumbnail/' . $filename,
+					rename('./uploads/temp/thumbnail/' . $filename,
 					       $dir . 'thumbnail/' . $filename);
 					$query['dir'] = $dir;
 					$parsed = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
-					echo $parsed;
 				}
 				$value[$index]['url'] = base_url('upload?' . $parsed);
 			}

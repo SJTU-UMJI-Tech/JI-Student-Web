@@ -147,14 +147,40 @@
 		
 		initIntro: function ()
 		{
-			var html = [
-				'<div class="card-block">',
-				'<div class="jumbotron">',
-				marked(this.item.text),
-				'</div>',
-				'</div>'
-			].join('');
-			this.$cardBody.html(html);
+			var _this = this;
+			var func = function ()
+			{
+				var html = [
+					'<div class="card-block">',
+					'<div class="jumbotron">',
+					marked(_this.item.text),
+					'</div>',
+					'</div>'
+				].join('');
+				_this.$cardBody.html(html);
+			};
+			if (this.item.text)
+			{
+				func();
+			}
+			else
+			{
+				$.ajax({
+					type: 'GET',
+					url: _this.item.url,
+					dataType: 'text',
+					success: function (data)
+					{
+						_this.item.text = data;
+						func();
+					},
+					error: function ()
+					{
+						_this.$cardFooter.html('There is some connection error!');
+						_this.$cardFooter.css('display', 'block');
+					}
+				});
+			}
 		},
 		
 		refreshSearch: function ()

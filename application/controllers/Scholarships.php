@@ -56,7 +56,7 @@ class Scholarships extends Front_Controller
 			}
 			$title = 'Edit -> ' . $scholarships->title;
 			$item = $this->fill_option($this->editor_create, $scholarships);
-			echo json_encode($item);
+			//echo json_encode($item);
 		}
 		else
 		{
@@ -98,8 +98,9 @@ class Scholarships extends Front_Controller
 		$this->load->view('common/viewer', $data);
 	}
 	
-	public function ajax()
+	public function ajax_search()
 	{
+		error_reporting(0);
 		$cmd = $this->input->get('cmd');
 		$key = $this->input->get('key');
 		if ($cmd == 'search')
@@ -130,6 +131,7 @@ class Scholarships extends Front_Controller
 	
 	public function ajax_edit()
 	{
+		error_reporting(0);
 		$data = json_decode($this->input->post('data'), true);
 		
 		$id = $this->input->post('id');
@@ -143,6 +145,12 @@ class Scholarships extends Front_Controller
 			}
 		}
 		$info = $this->process_option('scholarships', $id, $this->editor_create, $data);
+		
+		if ($info != 'success')
+		{
+			echo $info;
+			exit();
+		}
 		
 		if ($id > 0)
 		{

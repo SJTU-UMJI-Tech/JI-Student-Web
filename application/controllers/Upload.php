@@ -13,13 +13,13 @@ class Upload extends Front_Controller
 		}
 		else
 		{
-			$dir = './temp_files/';
+			$dir = './uploads/temp/';
 		}
 		$this->load->library('UploadHandler');
 		$upload_handler = new UploadHandler(
 			array(
 				'upload_dir'              => $dir,
-				'upload_url'              => base_url('temp_files') . '/',
+				'upload_url'              => base_url('uploads/temp') . '/',
 				'script_url'              => base_url('upload'),
 				'discard_aborted_uploads' => false,
 				'print_response'          => true,
