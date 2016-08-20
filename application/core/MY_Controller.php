@@ -1,0 +1,146 @@
+<?php if (!defined('BASEPATH'))
+{
+	exit('No direct script access allowed');
+}
+
+class Front_Controller extends CI_Controller
+{
+	//public $site_config;
+	public $data;
+	
+	const UPLOAD_DIR = './uploads/';
+	
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Site_model');
+		
+		/** 设置语言 */
+		if (!isset($_SESSION['language']))
+		{
+			$_SESSION['language'] = $this->config->item('language');
+		}
+		else
+		{
+			$this->config->set_item('language', $_SESSION['language']);
+		}
+		
+		$this->output->enable_profiler(true);
+		
+		$this->load->library('My_obj');
+		$this->Site_model->load_site_config();
+		//$this->load->language('ta_main');
+		$this->data = array();
+	}
+	
+	public function get_site_config($key)
+	{
+		return $this->Site_model->site_config[$key];
+	}
+	
+	protected function fill_option(&$options, $object)
+	{
+		foreach ($options as $index => $option)
+		{
+			$name = $option['name'];
+			if (isset($object->$name))
+			{
+				$value = $object->$name;
+				switch ($option['type'])
+				{
+				case 'file':
+					$value = json_decode(base64_decode($value), true);
+				}
+				$options[$index]['value'] = $value;
+			}
+		}
+		return $options;
+	}
+	
+	protected function process_option($table, &$id, $options, $data)
+	{
+		$files = array();
+		$new_data = array();
+		foreach ($options as $key => $option)
+		{
+			$exist = isset($data[$option['name']]);
+			$value = $exist ? $data[$option['name']] : '';
+			switch ($option['type'])
+			{
+			case 'text':
+			case 'textarea':
+			case 'markdown':
+				$value = $this->Site_model->html_purify($value);
+				if (isset($option['min']) && strlen($value) < $option['min']
+				    || isset($option['max']) && strlen($value) > $option['max']
+				)
+				{
+					return 'text length error';
+				}
+				break;
+			case 'date':
+			case 'time':
+				$time = strtotime($value);
+				if ($time <= 0)
+				{
+					return 'time format error';
+				}
+				if ($option['type'] == 'date')
+				{
+					$value = date('Y-m-d', $time);
+				}
+				else
+				{
+					$value = date('Y-m-d H:i', $time);
+				}
+				break;
+			case 'file':
+				$files[$key] = $value;
+				$value = '';
+				break;
+			}
+			$new_data[$option['name']] = $value;
+		}
+		
+		if ($id <= 0)
+		{
+			$id = $this->Site_model->create_object($table, $new_data);
+		}
+		
+		foreach ($files as $key => $value)
+		{
+			$option = $options[$key];
+			$dir = $this::UPLOAD_DIR . $table . '/' . $id . '/';
+			if (!is_dir($dir))
+			{
+				mkdir($dir, 0755, true);
+				mkdir($dir . '/thumbnail', 0755, true);
+			}
+			foreach ($value as $index => $file)
+			{
+				$parsed = parse_url($file['url']);
+				$query = array();
+				parse_str($parsed['query'], $query);
+				$filename = urldecode($query['file']);
+				if (!isset($query['dir']))
+				{
+					if (!rename('./uploads/temp/' . $filename, $dir . $filename))
+					{
+						unset($value[$index]);
+						continue;
+					}
+					rename('./uploads/temp/thumbnail/' . $filename,
+					       $dir . 'thumbnail/' . $filename);
+					$query['dir'] = $dir;
+					$parsed = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
+				}
+				$value[$index]['url'] = base_url('upload?' . $parsed);
+			}
+			$new_data[$option['name']] = base64_encode(json_encode($value));
+		}
+		
+		$id = $this->Site_model->edit_object($table, $new_data, $id);
+		
+		return 'success';
+	}
+}
