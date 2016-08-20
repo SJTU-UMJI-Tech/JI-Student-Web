@@ -45,10 +45,15 @@ class Front_Controller extends CI_Controller
 			$name = $option['name'];
 			if (isset($object->$name))
 			{
-				$options[$index]['value'] = $object->$name;
+				$value = $object->$name;
+				switch ($option['type'])
+				{
+				case 'file':
+					$value = json_decode(base64_decode($value), true);
+				}
+				$options[$index]['value'] = $value;
 			}
 		}
-		print_r($options);
 		return $options;
 	}
 	
@@ -122,9 +127,6 @@ class Front_Controller extends CI_Controller
 				$filename = urldecode($query['file']);
 				if (!isset($query['dir']))
 				{
-					echo './temp_files/' . $filename;
-					echo '<br>';
-					echo $dir . $filename;
 					if (!rename('./temp_files/' . $filename, $dir . $filename))
 					{
 						unset($value[$index]);
@@ -133,9 +135,10 @@ class Front_Controller extends CI_Controller
 					rename('./temp_files/thumbnail/' . $filename,
 					       $dir . 'thumbnail/' . $filename);
 					$query['dir'] = $dir;
-					$parsed = http_build_query($query);
+					$parsed = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
+					echo $parsed;
 				}
-				$file['url'] = base_url('upload?' . $parsed);
+				$value[$index]['url'] = base_url('upload?' . $parsed);
 			}
 			$new_data[$option['name']] = base64_encode(json_encode($value));
 		}

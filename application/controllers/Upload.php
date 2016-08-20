@@ -9,7 +9,7 @@ class Upload extends Front_Controller
 		$dir = $this->input->get('dir');
 		if ($dir)
 		{
-			$dir = base64_decode($dir);
+			$dir = urldecode($dir);
 		}
 		else
 		{

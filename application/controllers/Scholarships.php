@@ -55,11 +55,14 @@ class Scholarships extends Front_Controller
 				$this->redirect();
 			}
 			$title = 'Edit -> ' . $scholarships->title;
+			$item = $this->fill_option($this->editor_create, $scholarships);
+			echo json_encode($item);
 		}
 		else
 		{
 			$id = 0;
 			$title = 'New scholarships';
+			$item = $this->editor_create;
 		}
 		$data = $this->data;
 		$data['page_name'] = 'Edit scholarships';
@@ -67,7 +70,7 @@ class Scholarships extends Front_Controller
 			'id'    => $id,
 			'type'  => 'scholarships',
 			'title' => $title,
-			'item'  => $this->editor_create,
+			'item'  => $item,
 			'url'   => '/scholarships/ajax_edit',
 			'user'  => $_SESSION['user_id']
 		);

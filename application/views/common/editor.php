@@ -117,27 +117,18 @@
 <script type="text/javascript">
 	require(['jquery', 'ji-editor', 'bootstrapDatetimepicker', 'jquery.fileupload-ui'], function ($)
 	{
-		var option = '<?php echo json_encode($option);?>';
-		var editor = $("#ji-editor").jiEditor(JSON.parse(option));
-		/*editor.unserialize({
-		 Title: 'Test title',
-		 Abstract: 'Test Abstract',
-		 Content: '## Test content'
-		 });*/
-		editor.unserialize(editor.loadCookie());
-		editor.autosave(1000);
+		var option = JSON.parse('<?php echo json_encode($option);?>');
+		var editor = $("#ji-editor").jiEditor(option);
+		if (option.id > 0)
+		{
+			editor.unserialize(editor.loadOptionData());
+		}
+		else
+		{
+			editor.unserialize(editor.loadCookie());
+			editor.autosave(1000);
+		}
 		window.console.log(editor.getCookieName());
-		/*$(".ji-date").datetimepicker({
-		 format: "yyyy-mm-dd",
-		 minView: 'month',
-		 autoclose: true,
-		 todayBtn: true,
-		 pickerPosition: "bottom-right",
-		 todayHighlight: true,
-		 keyboardNavigation: true,
-		 fontAwesome: true
-		 });*/
-		
 	});
 </script>
 
@@ -172,6 +163,7 @@
     </tr>
 {% } %}
 
+
 </script>
 
 <script id="template-download" type="text/x-tmpl">
@@ -197,7 +189,7 @@
             {% } %}
         </td>
         <td>
-            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+            <span class="size" data-size="{%=file.size%}">{%=o.formatFileSize(file.size)%}</span>
         </td>
         <td>
             {% if (file.deleteUrl) { %}
@@ -215,5 +207,6 @@
         </td>
     </tr>
 {% } %}
+
 
 </script>

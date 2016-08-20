@@ -1,5 +1,6 @@
 /**
  * Created by liu on 2016/8/11.
+ * Version 0.1-alpha
  */
 ;(function (factory)
 {
@@ -9,6 +10,7 @@
 		var deps = [
 			"jquery",
 			"editormd",
+			"tmpl",
 			"jquery.cookie",
 			"jquery.md5",
 			'bootstrapDatetimepicker',
@@ -37,7 +39,7 @@
 		// Browser globals.
 		factory(jQuery);
 	}
-})(function ($, editormd)
+})(function ($, editormd, tmpl)
 {
 	editormd.loadCSS("../vendors/editor.md-1.5.0/lib/codemirror/addon/fold/foldgutter");
 	
@@ -46,6 +48,8 @@
 		this.$container = $element;
 		this.option = option;
 		this.optionID = {};
+		
+		this.downloadTemplate = tmpl('template-download');
 		
 		this.$autosave = this.$container.find(".autosave");
 		this.autosaveFlag = false;
@@ -184,6 +188,10 @@
 			for (var name in data)
 			{
 				var item = this.option.item[this.optionID[name]];
+				if (!item)
+				{
+					continue;
+				}
 				var value = data[name];
 				switch (item.type)
 				{
@@ -200,10 +208,79 @@
 					item.$element.data('text', value);
 					item.$element.html(item.$element.parent().find("a[data-text=" + value + "]").html());
 					break;
+				case 'file':
+					this.unserializeFile(item.$element, value);
+					break;
 				}
 			}
 			var date = new Date((new Date()).getTime() + 3600000 * 8);
 			this.$autosave.html('Loaded at ' + date.toUTCString());
+		},
+		
+		formatFileSize: function (bytes)
+		{
+			if (typeof bytes !== 'number')
+			{
+				return '';
+			}
+			if (bytes >= 1000000000)
+			{
+				return (bytes / 1000000000).toFixed(2) + ' GB';
+			}
+			if (bytes >= 1000000)
+			{
+				return (bytes / 1000000).toFixed(2) + ' MB';
+			}
+			return (bytes / 1000).toFixed(2) + ' KB';
+		},
+		
+		parseQuery: function (query)
+		{
+			var reg = /([^=&\s]+)[=\s]*([^=&\s]*)/g;
+			var obj = {};
+			while (reg.exec(query))
+			{
+				obj[RegExp.$1] = RegExp.$2;
+			}
+			return obj;
+		},
+		
+		unserializeFile: function ($element, value)
+		{
+			//value = JSON.parse(value);
+			var files = [];
+			for (var index in value)
+			{
+				var url = value[index].url,
+					pos = url.lastIndexOf('?'),
+					query = pos >= 0 ? url.substr(pos + 1) : '';
+				query = this.parseQuery(query);
+				url += (pos >= 0 ? '&' : '?') + 'download=1';
+				var name = query.file;
+				if (!name)
+				{
+					continue;
+				}
+				//url = pos >= 0 ? url.substr(0, pos + 1) : url;
+				var file = {
+					size: value[index].size,
+					name: decodeURI(name),
+					url: url,
+					deleteType: 'DELETE',
+					deleteUrl: value[index].url
+				};
+				if (name.match(/\.(gif|jpe?g|png)$/i))
+				{
+					file.thumbnailUrl = url + '&version=thumbnail';
+				}
+				files.push(file);
+			}
+			console.log(files);
+			var html = this.downloadTemplate({
+				files: files,
+				formatFileSize: this.formatFileSize
+			});
+			$element.html(html).find(".template-download").addClass('in');
 		},
 		
 		serialize: function ()
@@ -241,7 +318,7 @@
 			var data = [];
 			$element.find(".template-download").each(function ()
 			{
-				var size = $(this).find(".size").html();
+				var size = $(this).find(".size").data('size');
 				if (size)
 				{
 					data.push({
@@ -252,6 +329,7 @@
 				}
 			});
 			return data;
+			//return JSON.stringify(data);
 		},
 		
 		saveCookie: function ()
@@ -265,6 +343,20 @@
 			var name = this.getCookieName();
 			var data = $.cookie(name);
 			return data ? JSON.parse(data) : {};
+		},
+		
+		loadOptionData: function ()
+		{
+			var data = {};
+			for (var index in this.option.item)
+			{
+				var name = this.option.item[index].name;
+				if (name)
+				{
+					data[name] = this.option.item[index].value;
+				}
+			}
+			return data;
 		},
 		
 		autosave: function (time)
