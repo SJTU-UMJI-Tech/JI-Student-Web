@@ -6,24 +6,26 @@ class Upload extends Front_Controller
 	public function index()
 	{
 		error_reporting(0);
+		/** @TODO permission delete */
 		$dir = $this->input->get('dir');
 		if ($dir)
 		{
-			$dir = urldecode($dir);
+			$new_dir = urldecode($dir);
 		}
 		else
 		{
-			$dir = './uploads/temp/';
+			$new_dir = './uploads/temp/';
 		}
 		$this->load->library('UploadHandler');
 		$upload_handler = new UploadHandler(
 			array(
-				'upload_dir'              => $dir,
+				'upload_dir'              => $new_dir,
 				'upload_url'              => base_url('uploads/temp') . '/',
 				'script_url'              => base_url('upload'),
 				'discard_aborted_uploads' => false,
 				'print_response'          => true,
-				'download_via_php'        => true
+				'download_via_php'        => true,
+				'delete_protection'       => $dir != ''
 			),
 			true
 		);

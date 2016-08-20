@@ -161,7 +161,9 @@ class UploadHandler
 					'max_height' => 80
 				)
 			),
-			'print_response'                   => true
+			'print_response'                   => true,
+			// Protect the file from being deleted
+			'delete_protection'                => false
 		);
 		if ($options)
 		{
@@ -1624,18 +1626,21 @@ class UploadHandler
 		$response = array();
 		foreach ($file_names as $file_name)
 		{
-			$file_path = $this->get_upload_path($file_name);
-			$success = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
-			if ($success)
+			if (!$this->options['delete_protection'])
 			{
-				foreach ($this->options['image_versions'] as $version => $options)
+				$file_path = $this->get_upload_path($file_name);
+				$success = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
+				if ($success)
 				{
-					if (!empty($version))
+					foreach ($this->options['image_versions'] as $version => $options)
 					{
-						$file = $this->get_upload_path($file_name, $version);
-						if (is_file($file))
+						if (!empty($version))
 						{
-							unlink($file);
+							$file = $this->get_upload_path($file_name, $version);
+							if (is_file($file))
+							{
+								unlink($file);
+							}
 						}
 					}
 				}
