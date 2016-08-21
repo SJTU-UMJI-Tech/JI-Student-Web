@@ -62,28 +62,40 @@
 				generate: generate
 			};
 			
+			var config = {
+				category: 'event',
+				id: 'id',
+				title: 'title',
+				abstract: 'abstract',
+				detail: 'content'
+			};
+			
 			var display = $("#ji-display").jiDisplay({
 				title: 'Scholarships',
 				height: '800',
 				item: {
 					all: {
 						name: 'All scholarships',
-						type: 'list'
+						type: 'list',
+						config: config
 					},
 					
 					undergraduate: {
 						name: 'Undergraduates',
-						type: 'list'
+						type: 'list',
+						config: config
 					},
 					
 					graduate: {
 						name: 'Graduates',
-						type: 'list'
+						type: 'list',
+						config: config
 					},
 					
 					my: {
 						name: 'My scholarships',
-						type: 'list'
+						type: 'list',
+						config: config
 					},
 					
 					new: {
@@ -171,12 +183,12 @@
 			{
 				1;
 			};
-	
+			
 			var onClickNew = function ($target)
 			{
 				window.location.href = '/career/edit';
 			};
-	
+			
 			var model = {
 				url: '/career/ajax',
 				sort: ['Newest', 'Oldest'],
@@ -184,34 +196,34 @@
 				limit: 20,
 				generate: generate
 			};
-	
+			
 			var display = $("#ji-display").jiDisplay({
 				title: 'Career',
 				item: {
 					info: {
 						name: 'About Us'
 					},
-			
+					
 					announcement: {
 						name: 'Announcement'
 					},
-			
+					
 					jobs: {
 						name: 'Jobs & Internships'
 					},
-			
+					
 					activities: {
 						name: 'Workshops & Activities'
 					},
-			
-					mentors:{
-						name:'Career Mentors'
+					
+					mentors: {
+						name: 'Career Mentors'
 					},
-			
-					resources:{
-						name:'Resources'
+					
+					resources: {
+						name: 'Resources'
 					},
-			
+					
 					new: {
 						name: 'Create Announcement',
 						custom: onClickNew

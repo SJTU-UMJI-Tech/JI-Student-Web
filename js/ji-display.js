@@ -212,6 +212,28 @@
 			this.searchEnd = false;
 		},
 		
+		generateListEvent: function (data)
+		{
+			var config = this.item.config;
+			var detail_id = 'ji-display-event-detail-' + data[config.id];
+			var html = [
+				'<div class="card-block">',
+				'<h4 class="card-title">', data[config.title], '</h4>',
+				'<p class="card-text">', marked(data[config.abstract]), '</p>',
+				'<div class="card-text text-xs-center">',
+				'<a class="btn btn-link" data-toggle="collapse" data-target="#' + detail_id +
+				'" aria-expanded="false" aria-controls="' + detail_id + '">',
+				'Details&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i>',
+				'</a>',
+				'</div>',
+				'<div class="collapse" id="' + detail_id + '">',
+				'<div class="card-text">', marked(data[config.detail]), '</div>',
+				'</div>',
+				'</div>'
+			].join('');
+			return html;
+		},
+		
 		onClickSort: function (e)
 		{
 			var text = $(e.target).attr('data-text');
