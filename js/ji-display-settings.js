@@ -201,19 +201,27 @@
 				title: 'Career',
 				item: {
 					info: {
-						name: 'About Us'
+						name: 'About us',
+						type: 'intro',
+						url: '/career/ajax_intro',
 					},
 					
 					announcement: {
-						name: 'Announcement'
+						name: 'Announcement',
+						type: 'list',
+						config: config
 					},
 					
 					jobs: {
-						name: 'Jobs & Internships'
+						name: 'Jobs & Internships',
+						type:'list',
+						config: config
 					},
 					
 					activities: {
-						name: 'Workshops & Activities'
+						name: 'Workshops & Activities',
+						type: 'list',
+						config: config
 					},
 					
 					mentors: {
@@ -221,7 +229,9 @@
 					},
 					
 					resources: {
-						name: 'Resources'
+						name: 'Resources',
+						type: 'list',
+						config: config
 					},
 					
 					new: {
@@ -232,6 +242,53 @@
 				model: model
 			});
 			var name = 'announcement';
+			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
+			display.switchCard($barItem);
+		},
+		
+		CPC: function ()
+		{
+			//window.console.log(marked);
+			var generate = function (data)
+			{
+				1;
+			};
+			
+			var onClickNew = function ($target)
+			{
+				window.location.href = '/CPC/edit';
+			};
+			
+			var model = {
+				url: '/CPC/ajax',
+				sort: ['Newest', 'Oldest'],
+				primary: 'id',
+				limit: 20,
+				generate: generate
+			};
+			
+			var display = $("#ji-display").jiDisplay({
+				title: 'CPC',
+				item: {
+					info: {
+						name: '党委简介'
+					},
+					
+					theorem: {
+						name: '理论学习'
+					},
+					
+					statistic: {
+						name: '信息统计'
+					},
+					
+					resources: {
+						name: '相关文件下载'
+					}
+				},
+				model: model
+			});
+			var name = 'info';
 			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
 			display.switchCard($barItem);
 		}
