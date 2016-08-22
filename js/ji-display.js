@@ -212,6 +212,17 @@
 			this.searchEnd = false;
 		},
 		
+		generateList: function (data)
+		{
+			switch (this.item.config.category)
+			{
+			case 'event':
+				return this.generateListEvent(data);
+			case 'namecard':
+				
+			}
+		},
+		
 		generateListEvent: function (data)
 		{
 			var config = this.item.config;
@@ -220,17 +231,23 @@
 				'<div class="card-block">',
 				'<h4 class="card-title">', data[config.title], '</h4>',
 				'<p class="card-text">', marked(data[config.abstract]), '</p>',
-				'<div class="card-text text-xs-center">',
-				'<a class="btn btn-link" data-toggle="collapse" data-target="#' + detail_id +
-				'" aria-expanded="false" aria-controls="' + detail_id + '">',
-				'Details&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i>',
-				'</a>',
-				'</div>',
-				'<div class="collapse" id="' + detail_id + '">',
-				'<div class="card-text">', marked(data[config.detail]), '</div>',
-				'</div>',
-				'</div>'
 			].join('');
+			if (data[config.detail])
+			{
+				html += [
+					'<div class="card-text text-xs-center">',
+					'<a class="btn btn-link" data-toggle="collapse" data-target="#' + detail_id +
+					'" aria-expanded="false" aria-controls="' + detail_id + '">',
+					'Details&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"></i>',
+					'</a>',
+					'</div>',
+					'<div class="collapse" id="' + detail_id + '">',
+					'<div class="card-text">', marked(data[config.detail]), '</div>',
+					'</div>'
+				].join('');
+				
+			}
+			html += '</div>';
 			return html;
 		},
 		
@@ -326,7 +343,7 @@
 				{
 					this.$cardBody.append('<div class="dropdown-divider"></div>');
 				}
-				var html = this.item.generate(this.searchResult[index]);
+				var html = this.generateList(this.searchResult[index]);
 				this.$cardBody.append(html);
 			}
 			this.$cardFooter.html('Loading more data...');
