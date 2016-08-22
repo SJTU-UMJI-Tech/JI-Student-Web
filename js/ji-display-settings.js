@@ -203,25 +203,22 @@
 					info: {
 						name: 'About us',
 						type: 'intro',
-						url: '/career/ajax_intro',
+						url: '/career/ajax_intro'
 					},
 					
 					announcement: {
 						name: 'Announcement',
-						type: 'list',
-						config: config
+						type: 'list'
 					},
 					
 					jobs: {
 						name: 'Jobs & Internships',
-						type:'list',
-						config: config
+						type:'list'
 					},
 					
 					activities: {
 						name: 'Workshops & Activities',
-						type: 'list',
-						config: config
+						type: 'list'
 					},
 					
 					mentors: {
@@ -230,8 +227,7 @@
 					
 					resources: {
 						name: 'Resources',
-						type: 'list',
-						config: config
+						type: 'list'
 					},
 					
 					new: {
