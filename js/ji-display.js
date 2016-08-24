@@ -7,7 +7,7 @@
 	if (typeof define === 'function' && define.amd)
 	{
 		// AMD. Register as anonymous module.
-		define(['jquery', 'marked'], factory);
+		define(['jquery', 'marked', 'bootstrap-treeview'], factory);
 	}
 	else if (typeof exports === 'object')
 	{
@@ -140,6 +140,9 @@
 			case 'href':
 				window.location.href = this.item.href;
 				break;
+			case 'filetree':
+				this.initFileTree();
+				break;
 			default:
 				
 			}
@@ -181,6 +184,40 @@
 					}
 				});
 			}
+		},
+		
+		initFileTree: function ()
+		{
+			var decode = function (data)
+			{
+				data.text = decodeURIComponent(data.text);
+				for (var index in data.nodes)
+				{
+					data.nodes[index] = decode(data.nodes[index]);
+				}
+				return data;
+			};
+			var html = [
+				'<div class="filetree">',
+				
+				'</div>'
+			].join('');
+			this.$cardBody.html(html);
+			var _this = this;
+			$.ajax({
+				type: 'GET',
+				url: this.item.url,
+				dataType: 'text',
+				success: function (data)
+				{
+					_this.$cardBody.find(".filetree").treeview({data: decode(JSON.parse(data))});
+				},
+				error: function ()
+				{
+					_this.$cardFooter.html('There is some connection error!');
+					_this.$cardFooter.css('display', 'block');
+				}
+			});
 		},
 		
 		refreshSearch: function ()
@@ -250,6 +287,7 @@
 			html += '</div>';
 			return html;
 		},
+		
 		
 		onClickSort: function (e)
 		{

@@ -213,7 +213,7 @@
 					
 					jobs: {
 						name: 'Jobs & Internships',
-						type:'list'
+						type: 'list'
 					},
 					
 					activities: {
@@ -256,7 +256,7 @@
 			};
 			
 			var model = {
-				url: '/CPC/ajax',
+				//url: '/CPC/ajax',
 				sort: ['Newest', 'Oldest'],
 				primary: 'id',
 				limit: 20,
@@ -271,7 +271,9 @@
 					},
 					
 					theorem: {
-						name: '理论学习'
+						name: '理论学习',
+						type: 'filetree',
+						url: '/CPC/ajax_theorem'
 					},
 					
 					statistic: {

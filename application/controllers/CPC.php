@@ -88,6 +88,17 @@ CPC is ...
 		exit();
 	}
 	
+	public function ajax_theorem()
+	{
+		//error_reporting(0);
+		$this->load->model('Upload_model');
+		$data = $this->Upload_model->get_file_tree('./uploads/CPC');
+		//print_r($data);
+		echo json_encode($data);
+		//echo '[{"text": "Parent 2"},{"text": "Parent 3"},{"text": "Parent 4"},{"text": "Parent 5"}]';
+		exit();
+	}
+	
 	public function ajax()
 	{
 		$cmd = $this->input->get('cmd');

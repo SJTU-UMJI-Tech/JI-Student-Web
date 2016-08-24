@@ -29,6 +29,8 @@
 		bootstrap: 'lib/bootstrap-4.0.0-alpha.3.min',
 		bootstrapHoverDropdown: 'lib/bootstrap-hover-dropdown-2.2.1.min',
 		bootstrapDatetimepicker: 'lib/bootstrap-datetimepicker-2.3.8',
+		'bootstrap-treeview':'lib/bootstrap-treeview-1.2.0.min',
+		
 		moment: 'lib/moment-2.14.1.min',
 		fullCalendar: 'lib/fullcalendar-2.9.1.min',
 		marked: 'lib/marked-0.3.6.min',
