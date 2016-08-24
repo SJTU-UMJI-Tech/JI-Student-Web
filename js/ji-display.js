@@ -210,7 +210,7 @@
 				dataType: 'text',
 				success: function (data)
 				{
-					_this.$cardBody.find(".filetree").treeview({data: decode(JSON.parse(data))});
+					_this.$cardBody.find(".filetree").treeview({data: JSON.parse(data)});
 				},
 				error: function ()
 				{

@@ -42,8 +42,7 @@ class Upload_model extends CI_Model
 				continue;
 			}
 			$node = new stdClass();
-			//echo mb_detect_encoding($file, "auto");
-			$node->text = rawurlencode($file);
+			$node->text = iconv('GB2312', 'UTF-8', $file);
 			//$node->text = $file;
 			$dir = $path . $file . '/';
 			if (is_dir($dir))
