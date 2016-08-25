@@ -18,6 +18,21 @@ class Upload_model extends CI_Model
 		parent::__construct();
 	}
 	
+	private function get_icon($filename)
+	{
+		$pos = strrpos($filename, '.');
+		if ($pos !== false)
+		{
+			switch (substr($filename, $pos + 1))
+			{
+			case 'pdf':
+				return 'fa fa-file-pdf-o';
+			case 'ppt':
+				return 'fa fa-file-powerpoint-o';
+			}
+		}
+		return 'fa fa-file';
+	}
 	
 	public function get_file_tree($path = './', $hidden = false)
 	{
@@ -43,11 +58,17 @@ class Upload_model extends CI_Model
 			}
 			$node = new stdClass();
 			$node->text = iconv('GB2312', 'UTF-8', $file);
-			//$node->text = $file;
-			$dir = $path . $file . '/';
+			$dir = $path . $node->text . '/';
 			if (is_dir($dir))
 			{
 				$node->nodes = $this->get_file_tree($dir);
+				$node->icon = 'fa fa-folder-o';
+			}
+			else
+			{
+				$node->href = '/upload?file=' . html_escape($node->text) . '&dir=' . urlencode($path)
+				              . '&download=1';
+				$node->icon = $this->get_icon($node->text);
 			}
 			$nodes[] = $node;
 		}

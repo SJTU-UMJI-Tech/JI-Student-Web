@@ -210,7 +210,10 @@
 				dataType: 'text',
 				success: function (data)
 				{
-					_this.$cardBody.find(".filetree").treeview({data: JSON.parse(data)});
+					_this.$cardBody.find(".filetree").treeview({
+						data: JSON.parse(data),
+						enableLinks: true,
+					});
 				},
 				error: function ()
 				{
