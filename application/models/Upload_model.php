@@ -66,7 +66,7 @@ class Upload_model extends CI_Model
 			}
 			else
 			{
-				$node->href = '/upload?file=' . html_escape($node->text) . '&dir=' . urlencode($path)
+				$node->href = '/upload?file=' . urlencode($node->text) . '&dir=' . urlencode($path)
 				              . '&download=1';
 				$node->icon = $this->get_icon($node->text);
 			}

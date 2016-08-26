@@ -90,7 +90,7 @@ CPC is ...
 	
 	public function ajax_theorem()
 	{
-		//error_reporting(0);
+		error_reporting(0);
 		$this->load->model('Upload_model');
 		$data = $this->Upload_model->get_file_tree('./uploads/CPC');
 		//print_r($data);

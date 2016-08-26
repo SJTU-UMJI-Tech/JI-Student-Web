@@ -213,6 +213,8 @@
 					_this.$cardBody.find(".filetree").treeview({
 						data: JSON.parse(data),
 						enableLinks: true,
+						expandIcon: 'fa fa-plus',
+						collapseIcon: 'fa fa-minus',
 					});
 				},
 				error: function ()
