@@ -30,7 +30,9 @@ class Front_Controller extends CI_Controller
 		$this->load->library('My_obj');
 		$this->Site_model->load_site_config();
 		//$this->load->language('ta_main');
-		$this->data = array();
+		$this->data = array(
+			'type' => 'default'
+		);
 	}
 	
 	public function get_site_config($key)
@@ -133,7 +135,7 @@ class Front_Controller extends CI_Controller
 					rename('./uploads/temp/thumbnail/' . $filename,
 					       $dir . 'thumbnail/' . $filename);
 					$query['dir'] = $dir;
-					$url = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
+					$url = http_build_query($query, NULL, '&', PHP_QUERY_RFC3986);
 				}
 				$value[$index]['url'] = base_url('upload?' . $url);
 			}
@@ -143,5 +145,12 @@ class Front_Controller extends CI_Controller
 		$id = $this->Site_model->edit_object($table, $new_data, $id);
 		
 		return 'success';
+	}
+	
+	protected function validate_privilege($privilege, $extra = array())
+	{
+		$this->load->model('Privilege_model');
+		$extra += array($this->data['type'] => $privilege);
+		return $this->Privilege_model->has_privilege($_SESSION['user_id'], $extra);
 	}
 }
