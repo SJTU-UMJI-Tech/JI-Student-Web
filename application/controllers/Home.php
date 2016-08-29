@@ -2,7 +2,10 @@
 
 class Home extends Front_Controller
 {
-	
+	public function redirect()
+	{
+		redirect(base_url(''));
+	}
 	
 	public function index()
 	{

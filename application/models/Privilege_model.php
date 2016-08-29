@@ -84,7 +84,7 @@ class Privilege_model extends CI_Model
 				}
 			}
 		}
-		print_r($result);
+		//print_r($result);
 		return $result;
 	}
 	

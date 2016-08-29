@@ -39,6 +39,7 @@ class Scholarships extends Front_Controller
 	
 	public function index()
 	{
+		$this->validate_privilege('read');
 		$data = $this->data;
 		$data['page_name'] = 'Scholarships';
 		$this->load->view('common/home', $data);

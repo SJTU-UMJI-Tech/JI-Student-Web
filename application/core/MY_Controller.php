@@ -3,10 +3,12 @@
 	exit('No direct script access allowed');
 }
 
-class Front_Controller extends CI_Controller
+abstract class Front_Controller extends CI_Controller
 {
 	//public $site_config;
 	public $data;
+	
+	abstract public function redirect();
 	
 	const UPLOAD_DIR = './uploads/';
 	
@@ -151,6 +153,13 @@ class Front_Controller extends CI_Controller
 	{
 		$this->load->model('Privilege_model');
 		$extra += array($this->data['type'] => $privilege);
-		return $this->Privilege_model->has_privilege($_SESSION['user_id'], $extra);
+		if (!$_SESSION['user_id'])
+		{
+			redirect('user/login?uri=' . $_SERVER['REQUEST_URI']);
+		}
+		if (!$this->Privilege_model->has_privilege($_SESSION['user_id'], $extra))
+		{
+			$this->redirect();
+		}
 	}
 }
