@@ -96,6 +96,7 @@ class Privilege_model extends CI_Model
 			$type[] = $key;
 		}
 		$result = $this->get_privilege($user, $type);
+		print_r($result);
 		foreach ($privilege as $key => $value)
 		{
 			if (!isset($result[$key]))
