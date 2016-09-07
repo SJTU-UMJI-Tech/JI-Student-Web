@@ -149,17 +149,25 @@ abstract class Front_Controller extends CI_Controller
 		return 'success';
 	}
 	
-	protected function validate_privilege($privilege, $extra = array())
+	protected function validate_privilege($privilege, $redirect = true, $extra = array())
 	{
 		$this->load->model('Privilege_model');
 		$extra += array($this->data['type'] => $privilege);
-		if (!$_SESSION['user_id'])
-		{
-			redirect('user/login?uri=' . $_SERVER['REQUEST_URI']);
-		}
 		if (!$this->Privilege_model->has_privilege($_SESSION['user_id'], $extra))
 		{
-			$this->redirect();
+			if ($redirect)
+			{
+				if (!$_SESSION['user_id'])
+				{
+					redirect('user/login?uri=' . $_SERVER['REQUEST_URI']);
+				}
+				else
+				{
+					$this->redirect();
+				}
+			}
+			return false;
 		}
+		return true;
 	}
 }

@@ -93,8 +93,11 @@
 			var html;
 			for (var key in this.option.item)
 			{
-				html = '<a href="javascript:void(0);" class="list-group-item list-group-item-action" data-text="' + key + '">' + this.option.item[key].name + '</a>';
-				this.$bar.append(html);
+				if (!this.option.item[key].hide)
+				{
+					html = '<a href="javascript:void(0);" class="list-group-item list-group-item-action" data-text="' + key + '">' + this.option.item[key].name + '</a>';
+					this.$bar.append(html);
+				}
 			}
 		},
 		

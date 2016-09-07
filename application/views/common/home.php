@@ -11,7 +11,9 @@
 <script type="text/javascript">
 	require(['jquery', 'ji-display-settings'], function ($)
 	{
-		eval('$.fn.jiDisplaySettings().<?php echo $type;?>();');
+		var data = JSON.parse('<?php echo isset($data) ? json_encode($data) : '{}';?>');
+		console.log(data);
+		eval('$.fn.jiDisplaySettings().<?php echo $type;?>(data);');
 		//$.fn.jiDisplaySettings().scholarship();
 	});
 </script>

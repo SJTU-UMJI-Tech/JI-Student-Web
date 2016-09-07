@@ -42,11 +42,15 @@ class Scholarships extends Front_Controller
 		$this->validate_privilege('read');
 		$data = $this->data;
 		$data['page_name'] = 'Scholarships';
+		$data['data'] = array(
+			'new' => $this->validate_privilege('write')
+		);
 		$this->load->view('common/home', $data);
 	}
 	
 	public function edit()
 	{
+		$this->validate_privilege('admin_write');
 		$id = $this->input->get('id');
 		if ($id > 0)
 		{
@@ -80,6 +84,7 @@ class Scholarships extends Front_Controller
 	
 	public function check()
 	{
+		$this->validate_privilege('read');
 		$id = $this->input->get('id');
 		$scholarships = $this->Scholarships_model->get_by_id($id);
 		if ($scholarships->is_error())
@@ -102,6 +107,7 @@ class Scholarships extends Front_Controller
 	public function ajax_search()
 	{
 		error_reporting(0);
+		$this->validate_privilege('read', false);
 		$cmd = $this->input->get('cmd');
 		$key = $this->input->get('key');
 		if ($cmd == 'search')
@@ -133,6 +139,7 @@ class Scholarships extends Front_Controller
 	public function ajax_edit()
 	{
 		error_reporting(0);
+		$this->validate_privilege('admin_write', false);
 		$data = json_decode($this->input->post('data'), true);
 		
 		$id = $this->input->post('id');

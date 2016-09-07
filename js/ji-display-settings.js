@@ -31,7 +31,7 @@
 		
 		constructor: JIDisplaySettings,
 		
-		scholarships: function ()
+		scholarships: function (data)
 		{
 			var generate = function (data)
 			{
@@ -101,7 +101,8 @@
 					new: {
 						name: 'Create scholarships',
 						type: 'href',
-						href: '/scholarships/edit'
+						href: '/scholarships/edit',
+						hide: !data.new
 					}
 				},
 				model: model

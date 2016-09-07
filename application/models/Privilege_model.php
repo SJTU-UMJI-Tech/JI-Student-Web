@@ -96,7 +96,8 @@ class Privilege_model extends CI_Model
 			$type[] = $key;
 		}
 		$result = $this->get_privilege($user, $type);
-		print_r($result);
+		//print_r($result);
+		//print_r($privilege);
 		foreach ($privilege as $key => $value)
 		{
 			if (!isset($result[$key]))
@@ -107,7 +108,7 @@ class Privilege_model extends CI_Model
 			{
 				$value = $this->str2privilege($value);
 			}
-			if ($result[$key] > 0 && ($result[$key] & $value) != $value)
+			if ($result[$key] >= 0 && ($result[$key] & $value) != $value)
 			{
 				return false;
 			}
