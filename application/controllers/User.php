@@ -8,9 +8,9 @@ class User extends Front_Controller
 		$this->Site_model->load_site_config('user');
 	}
 	
-	public function redirect()
+	protected function redirect()
 	{
-		redirect(base_url(''));
+		$this->__redirect();
 	}
 	
 	public function index()

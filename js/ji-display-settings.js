@@ -95,7 +95,8 @@
 					my: {
 						name: 'My scholarships',
 						type: 'list',
-						config: config
+						config: config,
+						hide: true/** @TODO will be developed later */
 					},
 					
 					new: {

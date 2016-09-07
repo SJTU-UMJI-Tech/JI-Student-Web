@@ -10,9 +10,9 @@ class CPC extends Front_Controller
 		//$this->load->model('CPC_model');
 	}
 	
-	public function redirect()
+	protected function redirect()
 	{
-		redirect(base_url('CPC'));
+		$this->__redirect('CPC');
 	}
 	
 	public function index()

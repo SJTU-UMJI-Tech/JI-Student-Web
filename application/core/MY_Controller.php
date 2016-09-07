@@ -8,7 +8,16 @@ abstract class Front_Controller extends CI_Controller
 	//public $site_config;
 	public $data;
 	
-	abstract public function redirect();
+	abstract protected function redirect();
+	
+	protected function __redirect($url = '')
+	{
+		$redirect_url = base_url($url);
+		if ($redirect_url != base_url($_SERVER['REQUEST_URI']))
+		{
+			redirect($redirect_url);
+		}
+	}
 	
 	const UPLOAD_DIR = './uploads/';
 	

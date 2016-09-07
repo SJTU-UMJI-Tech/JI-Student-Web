@@ -2,9 +2,9 @@
 
 class Home extends Front_Controller
 {
-	public function redirect()
+	protected function redirect()
 	{
-		redirect(base_url(''));
+		$this->__redirect();
 	}
 	
 	public function index()

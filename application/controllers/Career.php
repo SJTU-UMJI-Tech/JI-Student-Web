@@ -10,9 +10,9 @@ class Career extends Front_Controller
 		//$this->load->model('Career_model');
 	}
 	
-	public function redirect()
+	protected function redirect()
 	{
-		redirect(base_url('career'));
+		$this->__redirect('career');
 	}
 	
 	public function index()

@@ -2,9 +2,9 @@
 
 class Orgnization extends Front_Controller
 {
-	public function redirect()
+	protected function redirect()
 	{
-		redirect(base_url('orgnization'));
+		$this->__redirect('orgnization');
 	}
 	
 	public function index()

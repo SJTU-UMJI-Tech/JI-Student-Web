@@ -32,9 +32,9 @@ class Scholarships extends Front_Controller
 		);
 	}
 	
-	public function redirect()
+	protected function redirect()
 	{
-		redirect(base_url('scholarships'));
+		$this->__redirect('scholarships');
 	}
 	
 	public function index()
