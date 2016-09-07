@@ -17,6 +17,10 @@ abstract class Front_Controller extends CI_Controller
 		{
 			redirect($redirect_url);
 		}
+		else
+		{
+			redirect(base_url(''));
+		}
 	}
 	
 	const UPLOAD_DIR = './uploads/';
