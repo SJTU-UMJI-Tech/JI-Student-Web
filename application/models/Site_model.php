@@ -59,6 +59,7 @@ class Site_model extends CI_Model
 			$this->site_config[$setting['obj']] = $setting['value'];
 		}
 		$this->load->vars($this->site_config);
+		return $this->site_config;
 	}
 	
 	/**

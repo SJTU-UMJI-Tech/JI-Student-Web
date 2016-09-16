@@ -19,10 +19,10 @@
 	<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<?php else: ?>
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap-4.0.0-alpha.3.min.css">
-	<link rel="stylesheet" type="text/css" href="/vendors/Font-Awesome-4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap-4.0.0-alpha.3.min.css">
+	<link rel="stylesheet" type="text/css" href="./vendors/Font-Awesome-4.6.3/css/font-awesome.min.css">
 	<?php endif; ?>
-	<link rel="stylesheet" type="text/css" href="/css/common.css">
+	<link rel="stylesheet" type="text/css" href="./css/common.css">
 	<base target="_self">
 </head>
 
