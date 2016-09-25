@@ -40,7 +40,11 @@ abstract class Front_Controller extends CI_Controller
 			$this->config->set_item('language', $_SESSION['language']);
 		}
 		
-		$this->output->enable_profiler(true);
+		if (ENVIRONMENT == 'development')
+		{
+			$this->output->enable_profiler(true);
+		}
+		
 		
 		$this->load->library('My_obj');
 		$this->Site_model->load_site_config();
@@ -170,7 +174,7 @@ abstract class Front_Controller extends CI_Controller
 		{
 			if ($redirect)
 			{
-				if($this->input->get('logout')=='1')
+				if ($this->input->get('logout') == '1')
 				{
 					redirect(base_url());
 				}

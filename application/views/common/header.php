@@ -13,7 +13,6 @@
 	      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="shortcut icon" href="<?php echo ROOT_DIR; ?>/images/favicon.png">
 	<title><?php echo $page_name; ?></title>
-	
 	<!-- Load the global libraries -->
 	<?php if (ENVIRONMENT == 'production'): ?>
 		<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css">
@@ -36,7 +35,7 @@
 			        aria-label="Toggle navigation">
 				&#9776;
 			</button>
-			<a class="navbar-brand" href="<?php echo ROOT_DIR; ?>/">UM-SJTU JI Online</a>
+			<a class="navbar-brand" href="<?php echo ROOT_DIR; ?>/">UM-SJTU JI LIFE</a>
 		</div>
 		<div class="collapse navbar-collapse navbar-toggleable-sm">
 			<ul class="nav navbar-nav">
@@ -44,9 +43,9 @@
 					<a class="nav-link" href="<?php echo ROOT_DIR; ?>/" style="color: transparent">1</a>
 				</li>
 				<li class="dropdown-divider hidden-md-up"></li>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo ROOT_DIR; ?>/orgnization">Orgnizations</a>
-				</li>
+				<!--<li class="nav-item">
+					<a class="nav-link" href="<?php /*echo ROOT_DIR; */?>/orgnization">Orgnizations</a>
+				</li>-->
 				<li class="nav-item">
 					<a class="nav-link" href="<?php echo ROOT_DIR; ?>/CPC">CPC</a>
 				</li>

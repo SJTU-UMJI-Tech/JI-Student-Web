@@ -12,8 +12,9 @@
 	require(['jquery', 'ji-display-settings'], function ($)
 	{
 		var data = JSON.parse('<?php echo isset($data) ? json_encode($data) : '{}';?>');
-		console.log(data);
-		eval('$.fn.jiDisplaySettings().<?php echo $type;?>(data);');
+		window.console.log(data);
+		var settings = $.fn.jiDisplaySettings({ROOT_DIR:'<?php echo ROOT_DIR; ?>'});
+		eval('settings.<?php echo $type;?>(data);');
 		//$.fn.jiDisplaySettings().scholarship();
 	});
 </script>
