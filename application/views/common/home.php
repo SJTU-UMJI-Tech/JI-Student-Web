@@ -1,6 +1,6 @@
 <?php include dirname(dirname(__FILE__)) . '/common/header.php'; ?>
 
-<link rel="stylesheet" type="text/css" href="/css/bootstrap-treeview-1.2.0.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo ROOT_DIR; ?>/css/bootstrap-treeview-1.2.0.min.css">
 
 <div class="container" id="ji-display">
 

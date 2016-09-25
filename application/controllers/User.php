@@ -24,6 +24,7 @@ class User extends Front_Controller
 	public function jiaccount()
 	{
 		$uri = $this->input->get('url');
+		$logout = $this->input->get('logout');
 		if (!filter_var($uri, FILTER_VALIDATE_URL))
 		{
 			echo 'url validation failed!';
@@ -33,10 +34,22 @@ class User extends Front_Controller
 			'uri'       => $uri,
 			'auth_type' => 'jiaccount'
 		);
-		redirect(base_url('user/login?' . http_build_query($query)));
+		if ($logout == '1')
+		{
+			redirect(base_url('user/logout?' . http_build_query($query)));
+		}
+		else
+		{
+			redirect(base_url('user/login?' . http_build_query($query)));
+		}
 	}
 	
-	protected function redirect_jiaccount($url, $query)
+	public function jiaccount_logout()
+	{
+		$this->jiaccount_redirect($this->input->get('uri'), array('logout' => '1'));
+	}
+	
+	protected function jiaccount_redirect($url, $query = array())
 	{
 		$parsed = parse_url($url);
 		if (!isset($parsed['query']))
@@ -64,10 +77,10 @@ class User extends Front_Controller
 			{
 				$_SESSION['user_id'] = $this->input->get('user_id');
 				$_SESSION['username'] = $this->input->get('name');
-				redirect(base_url(''));
+				redirect(base_url($this->input->get('uri')));
 			}
 			header('Location: ' . $this::JIACCOUNT_URL . '/user/jiaccount?url='
-			       . urlencode(base_url($this->input->get('uri'))));
+			       . urlencode(base_url('user/login') . '?uri=' . $this->input->get('uri')));
 			exit();
 			
 		}
@@ -146,7 +159,7 @@ class User extends Front_Controller
 			'uri'       => $this->input->get('uri'),
 			'auth_type' => $this->input->get('auth_type')
 		);
-		$redirect_uri = '/user/auth1?uri=' . http_build_query($redirect_query);
+		$redirect_uri = ROOT_DIR . '/user/auth1?' . http_build_query($redirect_query);
 		$this->load->library('JAccount');
 		$jam = new JAccountManager('jaji20150623', 'jaccount');
 		$ht = $jam->checkLogin($redirect_uri);
@@ -168,7 +181,7 @@ class User extends Front_Controller
 			{
 				$query = array('result' => 'fail');
 			}
-			$this->redirect_jiaccount($redirect_query['uri'], $query);
+			$this->jiaccount_redirect($redirect_query['uri'], $query);
 		}
 		else
 		{
@@ -184,11 +197,33 @@ class User extends Front_Controller
 	
 	public function logout()
 	{
-		$_SESSION["user_id"] = '';
-		$_SESSION["username"] = '';
+		$uri = $this->input->get('uri');
+		if (ENVIRONMENT == 'development')
+		{
+			if(!(isset($_SESSION["user_id"])&&$_SESSION["user_id"]))
+			{
+				redirect(base_url($uri));
+				exit();
+			}
+			$_SESSION["user_id"] = '';
+			$_SESSION["username"] = '';
+			header('Location: ' . $this::JIACCOUNT_URL . '/user/jiaccount?logout=1&url='
+			       . urlencode(base_url('user/logout') . '?uri=' . $this->input->get('uri')));
+		}
+		$auth_type = $this->input->get('auth_type');
 		$this->load->library('JAccount');
 		$jam = new JAccountManager('jaji20150623', 'jaccount');
-		$jam->logout();
+		if ($auth_type == 'jiaccount')
+		{
+			$redirect_uri = ROOT_DIR . '/user/jiaccount_logout?uri=' . urlencode($uri);
+			$jam->logout($redirect_uri);
+		}
+		else
+		{
+			$_SESSION["user_id"] = '';
+			$_SESSION["username"] = '';
+			$jam->logout(ROOT_DIR . $this->input->get('uri'));
+		}
 	}
 	
 	public function settings()

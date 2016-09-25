@@ -170,9 +170,13 @@ abstract class Front_Controller extends CI_Controller
 		{
 			if ($redirect)
 			{
-				if (!$_SESSION['user_id'])
+				if($this->input->get('logout')=='1')
 				{
-					redirect('user/login?uri=' . $_SERVER['REQUEST_URI']);
+					redirect(base_url());
+				}
+				else if (!$_SESSION['user_id'])
+				{
+					redirect('user/login?uri=' . $this->Site_model->get_relative_url());
 				}
 				else
 				{

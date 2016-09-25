@@ -192,7 +192,7 @@ class Site_model extends CI_Model
 	 */
 	public function search_object($table, $library = 'My_obj', $fields, $keywords = array(),
 	                              $where = array(), $orders = array('CREATE_TIMESTAMP', 'DESC'),
-	                              $limit = 0, $offset = 0, $where_in = array() ,$select = '*')
+	                              $limit = 0, $offset = 0, $where_in = array(), $select = '*')
 	{
 		if (is_string($keywords))
 		{
@@ -299,5 +299,17 @@ class Site_model extends CI_Model
 	{
 		return isset($_SESSION['user_id']) && $_SESSION['user_id'] != '';
 	}
+	
+	public function get_relative_url()
+	{
+		$url = $_SERVER["REQUEST_URI"];
+		if (ROOT_DIR != '')
+		{
+			$pattern = preg_replace('/\//', '\\/', ROOT_DIR);
+			$url = preg_replace('/^' . $pattern . '\//', '/', $url);
+		}
+		return $url;
+	}
+	
 }
 
