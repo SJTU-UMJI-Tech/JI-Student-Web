@@ -270,7 +270,7 @@
 			};
 			
 			var display = $("#ji-display").jiDisplay({
-				title: 'CPC',
+				title: '党委建设',
 				item: {
 					info: {
 						name: '党委简介',
