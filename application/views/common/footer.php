@@ -29,7 +29,7 @@
 		bootstrap: 'lib/bootstrap-4.0.0-alpha.3.min',
 		bootstrapHoverDropdown: 'lib/bootstrap-hover-dropdown-2.2.1.min',
 		bootstrapDatetimepicker: 'lib/bootstrap-datetimepicker-2.3.8',
-		'bootstrap-treeview':'lib/bootstrap-treeview-1.2.0.min',
+		'bootstrap-treeview': 'lib/bootstrap-treeview-1.2.0.min',
 		
 		moment: 'lib/moment-2.14.1.min',
 		fullCalendar: 'lib/fullcalendar-2.9.1.min',
@@ -59,7 +59,11 @@
 		'load-image-meta': 'lib/load-image-meta-2.6.1.min',
 		'load-image-exif': 'lib/load-image-exif-2.6.1.min',
 		'tmpl': 'lib/tmpl.min',
-		'canvas-to-blob': 'lib/canvas-to-blob.min'
+		'canvas-to-blob': 'lib/canvas-to-blob.min',
+		
+		'lodash': 'lib/lodash.min',
+		'jszip': 'lib/jszip',
+		'xlsx': 'lib/xlsx-0.8.0.full.min',
 		
 	};
 	<?php endif; ?>
@@ -73,6 +77,7 @@
 			sequenceDiagram: ['raphael', 'underscore'],
 			jqueryflowchart: ['flowchart'],
 			'jquery.md5': ['jquery'],
+			'xlsx': {deps: ['jszip'], exports: 'XLSX'},
 			//bootstrapDatetimepicker: ['jquery', 'bootstrap']
 		},
 		paths: paths,
