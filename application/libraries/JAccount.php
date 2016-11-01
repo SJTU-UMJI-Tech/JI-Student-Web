@@ -227,6 +227,9 @@ class JAccountManager
 				}
 				$rurl = $scheme . '://' . $_SERVER["HTTP_HOST"];
 				$rurl = $rurl . $returnURL;
+				/*echo $returnURL . '<br>';
+				echo $rurl;
+				exit();*/
 				$JAcc_redirectURL =
 					$this->uaBaseURL . "jalogin?sid=" . $this->siteID . "&returl=" . $this->encrypt($rurl) . "&se=" .
 					$this->encrypt(session_id());

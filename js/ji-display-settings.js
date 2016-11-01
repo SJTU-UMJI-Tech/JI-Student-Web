@@ -22,9 +22,13 @@
 {
 	'use strict';
 	
-	function JIDisplaySettings()
+	function JIDisplaySettings(option)
 	{
-		
+		this.ROOT_DIR = '';
+		if (option && option.hasOwnProperty('ROOT_DIR'))
+		{
+			this.ROOT_DIR = option.ROOT_DIR;
+		}
 	}
 	
 	JIDisplaySettings.prototype = {
@@ -55,7 +59,7 @@
 			};
 			
 			var model = {
-				url: '/scholarships/ajax_search',
+				url: this.ROOT_DIR + '/scholarships/ajax_search',
 				sort: ['Newest', 'Oldest'],
 				primary: 'id',
 				limit: 2,
@@ -102,7 +106,7 @@
 					new: {
 						name: 'Create scholarships',
 						type: 'href',
-						href: '/scholarships/edit',
+						href: this.ROOT_DIR + '/scholarships/edit',
 						hide: !data.new
 					}
 				},
@@ -122,7 +126,7 @@
 			
 			var onClickNew = function ($target)
 			{
-				window.location.href = '/advising/edit';
+				window.location.href = this.ROOT_DIR + '/advising/edit';
 			};
 			
 			var model = {
@@ -139,14 +143,14 @@
 					info: {
 						name: 'About us',
 						type: 'intro',
-						url: '/advising/ajax_intro',
+						url: this.ROOT_DIR + '/advising/ajax_intro',
 						//text: '# Introduction\n# Introduction\n# Introduction\n# Introduction\n'
 					},
 					
 					members: {
 						name: 'Members',
 						type: 'list',
-						url: '/advising/ajax_member',
+						url: this.ROOT_DIR + '/advising/ajax_member',
 						//sort: ['Newest', 'Oldest'],
 						primary: 'id',
 						limit: 0,
@@ -168,7 +172,7 @@
 					new: {
 						name: 'Create events',
 						type: 'href',
-						href: '/advising/edit'
+						href: this.ROOT_DIR + '/advising/edit'
 					}
 				},
 				//model: model
@@ -188,11 +192,11 @@
 			
 			var onClickNew = function ($target)
 			{
-				window.location.href = '/career/edit';
+				window.location.href = this.ROOT_DIR + '/career/edit';
 			};
 			
 			var model = {
-				url: '/career/ajax',
+				url: this.ROOT_DIR + '/career/ajax',
 				sort: ['Newest', 'Oldest'],
 				primary: 'id',
 				limit: 20,
@@ -205,7 +209,7 @@
 					info: {
 						name: 'About us',
 						type: 'intro',
-						url: '/career/ajax_intro'
+						url: this.ROOT_DIR + '/career/ajax_intro'
 					},
 					
 					announcement: {
@@ -266,16 +270,18 @@
 			};
 			
 			var display = $("#ji-display").jiDisplay({
-				title: 'CPC',
+				title: '党委建设',
 				item: {
 					info: {
-						name: '党委简介'
+						name: '党委简介',
+						type: 'intro',
+						url: this.ROOT_DIR + '/CPC/ajax_intro'
 					},
 					
 					theorem: {
 						name: '理论学习',
 						type: 'filetree',
-						url: '/CPC/ajax_theorem'
+						url: this.ROOT_DIR + '/CPC/ajax_theorem'
 					},
 					
 					statistic: {
@@ -294,9 +300,9 @@
 		}
 	};
 	
-	$.fn.jiDisplaySettings = function ()
+	$.fn.jiDisplaySettings = function (option)
 	{
-		return new JIDisplaySettings();
+		return new JIDisplaySettings(option);
 	};
 	
 });
