@@ -2,6 +2,11 @@
 
 class Orgnization extends Front_Controller
 {
+	protected function redirect()
+	{
+		$this->__redirect('orgnization');
+	}
+	
 	public function index()
 	{
 		$this->load->view('common/header');

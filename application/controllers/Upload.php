@@ -2,6 +2,10 @@
 
 class Upload extends Front_Controller
 {
+	protected function redirect()
+	{
+		$this->__redirect();
+	}
 	
 	public function index()
 	{

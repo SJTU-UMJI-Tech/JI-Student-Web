@@ -3,10 +3,25 @@
 	exit('No direct script access allowed');
 }
 
-class Front_Controller extends CI_Controller
+abstract class Front_Controller extends CI_Controller
 {
 	//public $site_config;
 	public $data;
+	
+	abstract protected function redirect();
+	
+	protected function __redirect($url = '')
+	{
+		$redirect_url = base_url($url);
+		if ($redirect_url != base_url($_SERVER['REQUEST_URI']))
+		{
+			redirect($redirect_url);
+		}
+		else
+		{
+			redirect(base_url(''));
+		}
+	}
 	
 	const UPLOAD_DIR = './uploads/';
 	
@@ -25,12 +40,18 @@ class Front_Controller extends CI_Controller
 			$this->config->set_item('language', $_SESSION['language']);
 		}
 		
-		$this->output->enable_profiler(true);
+		if (ENVIRONMENT == 'development')
+		{
+			$this->output->enable_profiler(true);
+		}
+		
 		
 		$this->load->library('My_obj');
 		$this->Site_model->load_site_config();
 		//$this->load->language('ta_main');
-		$this->data = array();
+		$this->data = array(
+			'type' => 'default'
+		);
 	}
 	
 	public function get_site_config($key)
@@ -118,7 +139,8 @@ class Front_Controller extends CI_Controller
 			}
 			foreach ($value as $index => $file)
 			{
-				$parsed = parse_url($file['url']);
+				$url = $file['url'];
+				$parsed = parse_url($url);
 				$query = array();
 				parse_str($parsed['query'], $query);
 				$filename = urldecode($query['file']);
@@ -132,9 +154,9 @@ class Front_Controller extends CI_Controller
 					rename('./uploads/temp/thumbnail/' . $filename,
 					       $dir . 'thumbnail/' . $filename);
 					$query['dir'] = $dir;
-					$parsed = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
+					$url = http_build_query($query, NULL, '&', PHP_QUERY_RFC3986);
 				}
-				$value[$index]['url'] = base_url('upload?' . $parsed);
+				$value[$index]['url'] = base_url('upload?' . $url);
 			}
 			$new_data[$option['name']] = base64_encode(json_encode($value));
 		}
@@ -142,5 +164,31 @@ class Front_Controller extends CI_Controller
 		$id = $this->Site_model->edit_object($table, $new_data, $id);
 		
 		return 'success';
+	}
+	
+	protected function validate_privilege($privilege, $redirect = true, $extra = array())
+	{
+		$this->load->model('Privilege_model');
+		$extra += array($this->data['type'] => $privilege);
+		if (!$this->Privilege_model->has_privilege($_SESSION['user_id'], $extra))
+		{
+			if ($redirect)
+			{
+				if ($this->input->get('logout') == '1')
+				{
+					redirect(base_url());
+				}
+				else if (!$_SESSION['user_id'])
+				{
+					redirect('user/login?uri=' . $this->Site_model->get_relative_url());
+				}
+				else
+				{
+					$this->redirect();
+				}
+			}
+			return false;
+		}
+		return true;
 	}
 }

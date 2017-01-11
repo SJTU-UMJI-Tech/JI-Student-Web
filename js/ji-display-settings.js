@@ -22,16 +22,20 @@
 {
 	'use strict';
 	
-	function JIDisplaySettings()
+	function JIDisplaySettings(option)
 	{
-		
+		this.ROOT_DIR = '';
+		if (option && option.hasOwnProperty('ROOT_DIR'))
+		{
+			this.ROOT_DIR = option.ROOT_DIR;
+		}
 	}
 	
 	JIDisplaySettings.prototype = {
 		
 		constructor: JIDisplaySettings,
 		
-		scholarships: function ()
+		scholarships: function (data)
 		{
 			var generate = function (data)
 			{
@@ -55,11 +59,19 @@
 			};
 			
 			var model = {
-				url: '/scholarships/ajax_search',
+				url: this.ROOT_DIR + '/scholarships/ajax_search',
 				sort: ['Newest', 'Oldest'],
 				primary: 'id',
 				limit: 2,
 				generate: generate
+			};
+			
+			var config = {
+				category: 'event',
+				id: 'id',
+				title: 'title',
+				abstract: 'abstract',
+				detail: 'content'
 			};
 			
 			var display = $("#ji-display").jiDisplay({
@@ -68,28 +80,34 @@
 				item: {
 					all: {
 						name: 'All scholarships',
-						type: 'list'
+						type: 'list',
+						config: config
 					},
 					
 					undergraduate: {
 						name: 'Undergraduates',
-						type: 'list'
+						type: 'list',
+						config: config
 					},
 					
 					graduate: {
 						name: 'Graduates',
-						type: 'list'
+						type: 'list',
+						config: config
 					},
 					
 					my: {
 						name: 'My scholarships',
-						type: 'list'
+						type: 'list',
+						config: config,
+						hide: true/** @TODO will be developed later */
 					},
 					
 					new: {
 						name: 'Create scholarships',
 						type: 'href',
-						href: '/scholarships/edit'
+						href: this.ROOT_DIR + '/scholarships/edit',
+						hide: !data.new
 					}
 				},
 				model: model
@@ -108,7 +126,7 @@
 			
 			var onClickNew = function ($target)
 			{
-				window.location.href = '/advising/edit';
+				window.location.href = this.ROOT_DIR + '/advising/edit';
 			};
 			
 			var model = {
@@ -125,14 +143,14 @@
 					info: {
 						name: 'About us',
 						type: 'intro',
-						url: '/advising/ajax_intro',
+						url: this.ROOT_DIR + '/advising/ajax_intro',
 						//text: '# Introduction\n# Introduction\n# Introduction\n# Introduction\n'
 					},
 					
 					members: {
 						name: 'Members',
 						type: 'list',
-						url: '/advising/ajax_member',
+						url: this.ROOT_DIR + '/advising/ajax_member',
 						//sort: ['Newest', 'Oldest'],
 						primary: 'id',
 						limit: 0,
@@ -154,7 +172,7 @@
 					new: {
 						name: 'Create events',
 						type: 'href',
-						href: '/advising/edit'
+						href: this.ROOT_DIR + '/advising/edit'
 					}
 				},
 				//model: model
@@ -171,47 +189,53 @@
 			{
 				1;
 			};
-	
+			
 			var onClickNew = function ($target)
 			{
-				window.location.href = '/career/edit';
+				window.location.href = this.ROOT_DIR + '/career/edit';
 			};
-	
+			
 			var model = {
-				url: '/career/ajax',
+				url: this.ROOT_DIR + '/career/ajax',
 				sort: ['Newest', 'Oldest'],
 				primary: 'id',
 				limit: 20,
 				generate: generate
 			};
-	
+			
 			var display = $("#ji-display").jiDisplay({
 				title: 'Career',
 				item: {
 					info: {
-						name: 'About Us'
+						name: 'About us',
+						type: 'intro',
+						url: this.ROOT_DIR + '/career/ajax_intro'
 					},
-			
+					
 					announcement: {
-						name: 'Announcement'
+						name: 'Announcement',
+						type: 'list'
 					},
-			
+					
 					jobs: {
-						name: 'Jobs & Internships'
+						name: 'Jobs & Internships',
+						type: 'list'
 					},
-			
+					
 					activities: {
-						name: 'Workshops & Activities'
+						name: 'Workshops & Activities',
+						type: 'list'
 					},
-			
-					mentors:{
-						name:'Career Mentors'
+					
+					mentors: {
+						name: 'Career Mentors'
 					},
-			
-					resources:{
-						name:'Resources'
+					
+					resources: {
+						name: 'Resources',
+						type: 'list'
 					},
-			
+					
 					new: {
 						name: 'Create Announcement',
 						custom: onClickNew
@@ -222,12 +246,63 @@
 			var name = 'announcement';
 			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
 			display.switchCard($barItem);
+		},
+		
+		CPC: function ()
+		{
+			//window.console.log(marked);
+			var generate = function (data)
+			{
+				1;
+			};
+			
+			var onClickNew = function ($target)
+			{
+				window.location.href = '/CPC/edit';
+			};
+			
+			var model = {
+				//url: '/CPC/ajax',
+				sort: ['Newest', 'Oldest'],
+				primary: 'id',
+				limit: 20,
+				generate: generate
+			};
+			
+			var display = $("#ji-display").jiDisplay({
+				title: '党委建设',
+				item: {
+					info: {
+						name: '党委简介',
+						type: 'intro',
+						url: this.ROOT_DIR + '/CPC/ajax_intro'
+					},
+					
+					theorem: {
+						name: '理论学习',
+						type: 'filetree',
+						url: this.ROOT_DIR + '/CPC/ajax_theorem'
+					},
+					
+					statistic: {
+						name: '信息统计'
+					},
+					
+					resources: {
+						name: '相关文件下载'
+					}
+				},
+				model: model
+			});
+			var name = 'info';
+			var $barItem = display.$bar.find(".list-group-item[data-text='" + name + "']");
+			display.switchCard($barItem);
 		}
 	};
 	
-	$.fn.jiDisplaySettings = function ()
+	$.fn.jiDisplaySettings = function (option)
 	{
-		return new JIDisplaySettings();
+		return new JIDisplaySettings(option);
 	};
 	
 });

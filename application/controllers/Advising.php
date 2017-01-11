@@ -10,9 +10,9 @@ class Advising extends Front_Controller
 		//$this->load->model('Advising_model');
 	}
 	
-	public function redirect()
+	protected function redirect()
 	{
-		redirect(base_url('advising'));
+		$this->__redirect('advising');
 	}
 	
 	public function index()
