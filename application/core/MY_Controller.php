@@ -29,7 +29,7 @@ abstract class Front_Controller extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Site_model');
-		
+		$this->load->switch_view_on();
 		/** 设置语言 */
 		if (!isset($_SESSION['language']))
 		{
