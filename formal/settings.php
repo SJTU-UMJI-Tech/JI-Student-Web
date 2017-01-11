@@ -34,11 +34,11 @@
 		$_SESSION["user_id"] = "5123709181";
 	}
 	elseif ($using_data_for == "server") {
-		$GLOBALS['redirect_uri'] = 'http://ji.sjtu.edu.cn/student/login.php';
+		$GLOBALS['redirect_uri'] = 'http://www.umji.sjtu.edu.cn/student/login.php';
 		$GLOBALS['DEV'] = true;
 	}
 	elseif ($using_data_for == "server_online") {
-		$GLOBALS['redirect_uri'] = 'http://ji.sjtu.edu.cn/student/login.php';
+		$GLOBALS['redirect_uri'] = 'http://www.umji.sjtu.edu.cn/student/login.php';
 		$GLOBALS['DEV'] = false;
 	}
 ?>
