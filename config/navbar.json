@@ -1,0 +1,27 @@
+{
+  "children": [
+    {
+      "name": "Organizations",
+      "icon": "fa-th-large",
+      "href": "/",
+      "children": [
+        {
+          "name": "Student Union"
+        },
+        {
+          "name": "SSTIA"
+        },
+        {
+          "name": "Volunteer"
+        }
+      ]
+    },
+    {
+      "name": "CPC"
+    },
+    {
+      "name": "Scholarships"
+    }
+  ],
+  "version": "0.0.1"
+}

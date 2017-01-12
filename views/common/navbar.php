@@ -31,7 +31,7 @@
                 </div>
             </li>
             <!-- menu -->
-            <li class="active">
+            <!--<li class="active">
                 <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -256,7 +256,8 @@
             </li>
             <li class="special_link">
                 <a href="package.html"><i class="fa fa-database"></i> <span class="nav-label">Package</span></a>
-            </li>
+            </li>-->
+            <?php echo $nav;?>
         </ul>
     
     </div>
