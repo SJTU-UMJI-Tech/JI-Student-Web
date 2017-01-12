@@ -6,13 +6,13 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <?php if ($this->Site_model->is_login()): ?>
-                        <span>
-                            <img alt="image" class="img-circle" src="img/profile_small.jpg"/>
-                        </span>
+                        <span><img alt="image" class="img-circle" src="img/profile_small.jpg"/></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
-                                <span class="block m-t-xs"><strong class="font-bold"><?php echo $_SESSION['user_name']; ?></strong></span>
-                                <span class="text-muted text-xs block"><?php echo $_SESSION['user_type']; ?><b class="caret"></b></span>
+                                <span class="block m-t-xs"><strong
+                                            class="font-bold"><?php echo $_SESSION['user_name']; ?></strong></span>
+                                <span class="text-muted text-xs block"><?php echo $_SESSION['user_type']; ?><b
+                                            class="caret"></b></span>
                             </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -22,6 +22,8 @@
                             <li class="divider"></li>
                             <li><a href="login.html">Logout</a></li>
                         </ul>
+                    <?php else: ?>
+                        <a href="<?php echo ROOT_DIR; ?>/user/login">Login</a>
                     <?php endif; ?>
                 </div>
                 <div class="logo-element">

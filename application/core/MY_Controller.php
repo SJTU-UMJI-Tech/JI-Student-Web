@@ -42,11 +42,12 @@ abstract class Front_Controller extends CI_Controller
 		
 		if (ENVIRONMENT == 'development')
 		{
-			$this->output->enable_profiler(true);
+			//$this->output->enable_profiler(true);
 		}
-		
-		
-		$this->load->library('My_obj');
+        $this->output->enable_profiler(true);
+        
+        
+        $this->load->library('My_obj');
 		$this->Site_model->load_site_config();
 		//$this->load->language('ta_main');
 		$this->data = array(
