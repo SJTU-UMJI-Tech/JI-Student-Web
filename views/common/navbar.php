@@ -27,7 +27,7 @@
                     <?php endif; ?>
                 </div>
                 <div class="logo-element">
-                    IN+
+                    JI-LIFE
                 </div>
             </li>
             <!-- menu -->

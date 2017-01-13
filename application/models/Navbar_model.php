@@ -43,8 +43,13 @@ class Navbar_model extends CI_Model
         {
             $html .= (isset($value['active']) && $value['active'] ? '<li class="active">' : '<li>');
             $html .= '<a href="' . (isset($value['href']) ? base_url($value['href']) : 'javascript:void(0);') . '">';
-            if ($depth == 0) $html .= '<i class="fa ' . (isset($value['icon']) ? $value['icon'] : '') . '"></i>';
-            $html .= '<span class="nav-label">' . (isset($value['name']) ? $value['name'] : '') . '</span>';
+            if (isset($value['icon'])) $html .= '<i class="fa ' . $value['icon'] . '"></i>';
+            if (isset($value['name']))
+            {
+                if ($depth == 0) $html .= '<span class="nav-label">' . $value['name'] . '</span>';
+                else $html .= $value['name'];
+            }
+            //$html .= '<span class="nav-label">' . (isset($value['name']) ? $value['name'] : '') . '</span>';
             if (isset($value['children'])) $html .= '<span class="fa arrow"></span>';
             $html .= '</a>';
             if (isset($value['children']))

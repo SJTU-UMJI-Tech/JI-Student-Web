@@ -3,10 +3,32 @@
     {
       "name": "Organizations",
       "icon": "fa-th-large",
-      "href": "/",
+      "href": "/organizations",
       "children": [
         {
-          "name": "Student Union"
+          "name": "Student Union",
+          "children": [
+            {
+              "icon": "fa-twitter",
+              "name": "Tech Dept"
+            },
+            {
+              "icon": "fa-usd",
+              "name": "外联部"
+            },
+            {
+              "icon": "fa-chain",
+              "name": "内联部"
+            },
+            {
+              "icon": "fa-clipboard",
+              "name": "新闻部"
+            },
+            {
+              "icon": "fa-apple",
+              "name": "事业部"
+            }
+          ]
         },
         {
           "name": "SSTIA"
