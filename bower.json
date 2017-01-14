@@ -1,0 +1,22 @@
+{
+  "name": "ji-life",
+  "version": "0.2.0",
+  "description": "A website for ALL students in JI",
+  "homepage": "http://www.umji.sjtu.edu.cn",
+  "authors": [
+    "tc-imba",
+    "AuroraZK"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "JI"
+  ],
+  "ignore": [
+    "**/.*",
+    "test",
+    "Gemfile"
+  ],
+  "dependencies": {
+    "requirejs": "^2.3.2"
+  }
+}
