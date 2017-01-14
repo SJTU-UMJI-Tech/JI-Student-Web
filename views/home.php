@@ -959,7 +959,7 @@
                 };
                 toastr.success('A Web Service For All JIers', 'Welcome to JI-Life');
                 
-            }, 1300);
+            }, 1000);
             
             
             /*var data1 = [

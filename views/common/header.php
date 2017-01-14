@@ -23,17 +23,17 @@
     <link href="<?php echo ROOT_DIR; ?>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo ROOT_DIR; ?>/font-awesome/css/font-awesome.css" rel="stylesheet">
     
-    <!-- Toastr Stylesheet -->
+    <!-- Toastr Stylesheet, changed in style.css -->
     <link href="<?php echo ROOT_DIR; ?>/css/plugins/toastr/toastr.min.css" rel="stylesheet">
-    
-    <!-- Gritter Stylesheet -->
-    <link href="<?php echo ROOT_DIR; ?>/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
     
     <!-- Inspinia Stylesheet -->
     <link href="<?php echo ROOT_DIR; ?>/css/animate.css" rel="stylesheet">
     <link href="<?php echo ROOT_DIR; ?>/css/style.css" rel="stylesheet">
 
+    
 </head>
+
+
 
 <body>
 <div id="wrapper">
