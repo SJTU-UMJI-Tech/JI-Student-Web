@@ -1,49 +1,49 @@
 {
-  "children": [
-    {
+  "children": {
+    "org": {
       "name": "Organizations",
       "icon": "fa-th-large",
       "href": "/organizations",
-      "children": [
-        {
+      "children": {
+        "stu-un": {
           "name": "Student Union",
-          "children": [
-            {
+          "children": {
+            "tech": {
               "icon": "fa-twitter",
               "name": "Tech Dept"
             },
-            {
+            "wailian": {
               "icon": "fa-usd",
               "name": "外联部"
             },
-            {
+            "neilian": {
               "icon": "fa-chain",
               "name": "内联部"
             },
-            {
+            "news": {
               "icon": "fa-clipboard",
               "name": "新闻部"
             },
-            {
+            "career": {
               "icon": "fa-apple",
               "name": "事业部"
             }
-          ]
+          }
         },
-        {
+        "sstia": {
           "name": "SSTIA"
         },
-        {
+        "vol": {
           "name": "Volunteer"
         }
-      ]
+      }
     },
-    {
+    "cpc": {
       "name": "CPC"
     },
-    {
+    "scholar": {
       "name": "Scholarships"
     }
-  ],
+  },
   "version": "0.0.1"
 }

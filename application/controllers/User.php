@@ -4,6 +4,8 @@ class User extends Front_Controller
 {
     const OAUTH_VER     = 2.0;
     const JIACCOUNT_URL = 'http://www.umji.sjtu.edu.cn/student';
+    const OAUTH2_URL    = 'https://jaccount.sjtu.edu.cn/oauth2/';
+    
     
     public function __construct()
     {
@@ -19,6 +21,12 @@ class User extends Front_Controller
     public function index()
     {
         
+    }
+    
+    private function oauth2_url($str)
+    {
+        if ($str && $str[0] == '/') $str = substr($str, 1);
+        return $this::OAUTH2_URL . $str;
     }
     
     public function jiaccount()
@@ -69,7 +77,6 @@ class User extends Front_Controller
     
     public function login()
     {
-        
         /** In the development mode, we will use ji-account api to login */
         if (ENVIRONMENT == 'development')
         {
@@ -107,7 +114,7 @@ class User extends Front_Controller
             );
             //echo 'https://jaccount.sjtu.edu.cn/oauth2/authorize?' . http_build_query($query);
             //exit();
-            header('Location: https://jaccount.sjtu.edu.cn/oauth2/authorize?' . http_build_query($query));
+            header('Location: ' . $this->oauth2_url('authorize?' . http_build_query($query)));
             exit();
         }
         else if ($this::OAUTH_VER >= 1.0)
@@ -128,7 +135,7 @@ class User extends Front_Controller
         
         $auth_code = $this->input->get('code');
         
-        $url = 'https://jaccount.sjtu.edu.cn/oauth2/token';
+        $url = $this->oauth2_url('token');
         $post_data = array(
             'grant_type'    => 'authorization_code',
             'code'          => $auth_code,
@@ -201,7 +208,7 @@ class User extends Front_Controller
         );
         $redirect_uri = ROOT_DIR . '/user/auth1?' . http_build_query($redirect_query);
         $this->load->library('JAccount');
-        $jam = new JAccountManager('jaji20150623', 'jaccount');
+        $jam = new JAccountManager($this->get_site_config('user_client_id'), 'jaccount');
         $ht = $jam->checkLogin($redirect_uri);
         /*print_r($ht);
         print_r($redirect_query);
@@ -235,9 +242,23 @@ class User extends Front_Controller
         }
     }
     
+    protected function remove_sessions()
+    {
+        unset($_SESSION["user_id"]);
+        unset($_SESSION["user_name"]);
+        unset($_SESSION["user_type"]);
+        
+    }
+    
     public function logout()
     {
         $uri = $this->input->get('uri');
+        $auth_type = $this->input->get('auth_type');
+        
+        if (!$this->Site_model->is_login() && $auth_type != 'jiaccount')
+        {
+            header('Location: ' . base_url($uri));
+        }
         if (ENVIRONMENT == 'development')
         {
             if (!(isset($_SESSION["user_id"]) && $_SESSION["user_id"]))
@@ -245,24 +266,30 @@ class User extends Front_Controller
                 redirect(base_url($uri));
                 exit();
             }
-            $_SESSION["user_id"] = '';
-            $_SESSION["username"] = '';
+            $this->remove_sessions();
             header('Location: ' . $this::JIACCOUNT_URL . '/user/jiaccount?logout=1&url='
                    . urlencode(base_url('user/logout') . '?uri=' . $this->input->get('uri')));
         }
-        $auth_type = $this->input->get('auth_type');
+        
         $this->load->library('JAccount');
-        $jam = new JAccountManager('jaji20150623', 'jaccount');
+        $jam = new JAccountManager($this->get_site_config('user_client_id'), 'jaccount');
         if ($auth_type == 'jiaccount')
         {
-            $redirect_uri = ROOT_DIR . '/user/jiaccount_logout?uri=' . urlencode($uri);
-            $jam->logout($redirect_uri);
+            $redirect_uri = '/user/jiaccount_logout?uri=' . urlencode($uri);
         }
         else
         {
-            $_SESSION["user_id"] = '';
-            $_SESSION["username"] = '';
-            $jam->logout(ROOT_DIR . $this->input->get('uri'));
+            $this->remove_sessions();
+            $redirect_uri = $this->input->get('uri');
+        }
+        if ($this::OAUTH_VER >= 2.0)
+        {
+            $query = array('post_logout_redirect_uri' => base_url($redirect_uri));
+            header('Location: ' . $this->oauth2_url('logout?' . http_build_query($query)));
+        }
+        else if ($this::OAUTH_VER >= 1.0)
+        {
+            $jam->logout(ROOT_DIR . $redirect_uri);
         }
     }
     
