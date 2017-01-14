@@ -29,3 +29,8 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /node_modules
 
 /application/config/database.php
+/uploads/*
+!uploads/.gitkeep
+/temp_files/*
+!temp_files/.gitkeep
+
