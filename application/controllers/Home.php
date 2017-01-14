@@ -16,7 +16,7 @@ class Home extends Front_Controller
         $str = $this->Navbar_model->generate_navbar($nav);
         //print_r($nav);
         //echo $str;
-        $data['nav'] = $str;
+        $data['navbar'] = $str;
         $this->load->view('home', $data);
     }
     
