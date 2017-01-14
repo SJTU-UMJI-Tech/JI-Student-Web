@@ -1,0 +1,38 @@
+<script id="scoreboard-template" type="text/x-handlebars-template">
+
+    <input type="text" class="form-control input-sm m-b-xs" id="filter"
+           placeholder="Search in table">
+
+    <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Core GPA</th>
+            <th data-hide="phone,tablet">Core Credits</th>
+            <th>Total GPA</th>
+            <th data-hide="phone,tablet">Total Credits</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each rows}}
+            <tr class="gradeX">
+                <td>{{#with No}}{{this}}{{/with}}</td>
+                <td>{{#with name}}{{this}}{{/with}}</td>
+                <td class="center">{{#with core}}{{this}}{{/with}}</td>
+                <td class="center">{{#with core-credits}}{{this}}{{/with}}</td>
+                <td class="center">{{#with total}}{{this}}{{/with}}</td>
+                <td class="center">{{#with total-credits}}{{this}}{{/with}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="6">
+                <ul class="pagination pull-right"></ul>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+</script>

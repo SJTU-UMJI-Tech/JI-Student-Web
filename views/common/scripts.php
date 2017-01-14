@@ -11,6 +11,7 @@
 
 <!-- Close the div in header.php -->
 </div>
+</div>
 
 <!-- requireJS -->
 <script src="<?php echo ROOT_DIR ?>/js/bower/requirejs/require.js"></script>
@@ -37,6 +38,8 @@
             'gitter': 'plugins/gritter/jquery.gritter.min',
             'toastr': 'plugins/toastr/toastr.min',
             
+            'footable': 'plugins/footable/footable.all.min',
+            'handlebars': 'bower/handlebars/handlebars.amd.min',
             
             'inspinia': 'inspinia'
         },
@@ -45,7 +48,9 @@
             'bootstrap': ['jquery'],
             'metisMenu': ['jquery'],
             'slimscroll': ['jquery'],
-            'gitter': ['jquery', formCSSPath('/js/plugins/gritter/jquery.gritter.css')],
+            'gitter': ['jquery', formCSSPath('js/plugins/gritter/jquery.gritter.css')],
+            
+            'footable': ['jquery', formCSSPath('css/plugins/footable/footable.core.css')],
             'inspinia': ['bootstrap', 'metisMenu', 'slimscroll']
         },
         waitSeconds: 30

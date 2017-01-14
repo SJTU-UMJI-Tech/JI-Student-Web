@@ -2,13 +2,15 @@
 
 class GPA extends Front_Controller
 {
-	protected function redirect()
-	{
-		$this->__redirect('gpa');
-	}
-	
-	public function index()
-	{
-		$this->load->view('common/header');
-	}
+    protected function redirect()
+    {
+        $this->__redirect('gpa');
+    }
+    
+    public function index()
+    {
+        
+        $this->load->view('gpa/home', $this->data);
+        
+    }
 }
