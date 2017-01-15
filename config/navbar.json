@@ -7,42 +7,170 @@
       "children": [
         {
           "name": "Student Union",
+          "icon":"fa-sitemap",
           "children": [
             {
-              "icon": "fa-twitter",
-              "name": "Tech Dept"
+              "icon": "fa-chain",
+              "name": "Org Dept"
             },
             {
               "icon": "fa-usd",
-              "name": "外联部"
+              "name": "Liaison Dept"
             },
             {
-              "icon": "fa-chain",
-              "name": "内联部"
+              "icon":"fa-paper-plane-o",
+              "name":"Pub Dept"
             },
             {
               "icon": "fa-clipboard",
-              "name": "新闻部"
+              "name": "Media Dept"
             },
+
             {
               "icon": "fa-apple",
-              "name": "事业部"
+              "name": "Career Dept"
+            },
+            {
+              "icon":"fa-usb",
+              "name":"Club Dept"
+            },
+            {
+              "icon":"fa-google-wallet",
+              "name":"Art Dept"
+            },
+            {
+              "icon":"fa-soccer-ball-o",
+              "name":"Sport Dept"
+            },
+            {
+              "icon": "fa-twitter",
+              "name": "Tech Dept"
             }
           ]
         },
-        {
+        { "icon":"fa-github",
           "name": "SSTIA"
         },
-        {
+        { "icon":"fa-heart",
           "name": "Volunteer"
         }
       ]
     },
     {
-      "name": "CPC"
+      "icon":"fa-flag",
+      "name": "CPC",
+      "children":[
+        {
+          "icon":"fa-id-card-o",
+          "name":"About us"
+        },
+        {
+          "icon":"fa-file-word-o",
+          "name":"Theories"
+        },
+        {
+          "icon":"fa-file-excel-o",
+          "name":"Statistics"
+        },
+        {
+          "icon":"fa-file-pdf-o",
+          "name":"Documents"
+        }
+      ]
     },
     {
-      "name": "Scholarships"
+      "icon":"fa-info-circle",
+      "name":"Advising",
+      "children":[
+        {
+          "icon":"fa-id-card-o",
+          "name":"About Us"
+        },
+        {
+          "icon":"fa-users",
+          "name":"Members"
+        },
+        {
+          "icon":"fa-calendar",
+          "name":"Calendar"
+        },
+        {
+          "icon":"fa-calendar-minus-o",
+          "name":"Events"
+        },
+        {
+          "icon":"fa-calendar-check-o",
+          "name":"Booking"
+        },
+        {
+          "icon":"fa-pencil-square-o",
+          "name":"Create Events"
+        }
+      ]
+    },
+    {
+      "icon":"fa-tty",
+      "name":"Career",
+      "children":[
+        {
+          "icon":"fa-id-card-o",
+          "name":"About Us"
+        },
+        {
+          "icon":"fa-newspaper-o",
+          "name":"Announcement"
+        },
+        {
+          "icon":"fa-handshake-o",
+          "name":"Job&Internship"
+        },
+        {
+          "icon":"fa-object-group",
+          "name":"Workshop&Activity"
+        },
+        {
+          "icon":"fa-id-badge",
+          "name":"Career Mentors"
+        },
+        {
+          "icon":"fa-book",
+          "name":"Resources"
+        },
+        {
+          "icon":"fa-pencil-square-o",
+          "name":"New Announcement"
+        }
+      ]
+    },
+    {
+      "icon":"fa-trophy",
+      "name": "Scholarships",
+      "children":[
+        {
+          "icon":"fa-id-card-o",
+          "name":"About Us"
+        },
+        {
+          "icon":"fa-trophy",
+          "name":"All Scholarships"
+        },
+        {
+          "icon":"fa-hourglass-start",
+          "name":"Undergraduates"
+        },
+        {
+          "icon":"fa-hourglass-end",
+          "name":"Graduates"
+        },
+        {
+          "icon":"fa-sign-language",
+          "name":"My Scholarships"
+        },
+        {
+          "icon":"fa-pencil-square-o",
+          "name":"Create Scholarships"
+        }
+      ]
     }
   ],
   "version": "0.0.1"
