@@ -77,6 +77,7 @@
  ***************** YOUR MODELS *****************
  * @property Site_model          $Site_model
  * @property Navbar_model        $Navbar_model
+ * @property GPA_model           $GPA_model
  * @property Scholarships_model  $Scholarships_model
  * @property Privilege_model     $Privilege_model
  */
@@ -140,6 +141,7 @@ class CI_Controller
  ***************** YOUR MODELS *****************
  * @property Site_model          $Site_model
  * @property Navbar_model        $Navbar_model
+ * @property GPA_model           $GPA_model
  * @property Scholarships_model  $Scholarships_model
  * @property Privilege_model     $Privilege_model
  */

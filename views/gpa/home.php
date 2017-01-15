@@ -18,6 +18,7 @@
             var source = $("#ji-ibox-template").html();
             var template = Handlebars.compile(source);
             Handlebars.registerPartial('scoreboard', $("#scoreboard-template").html());
+            
             var config = {
                 "id": "scoreboard",
                 "title": "UM-SJTU-JI GPA SCOREBOARD",

@@ -3,7 +3,7 @@
     <input type="text" class="form-control input-sm m-b-xs" id="filter"
            placeholder="Search in table">
 
-    <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+    <table class="footable table table-stripped" data-page-size="15" data-filter=#filter>
         <thead>
         <tr>
             <th>No.</th>
@@ -19,10 +19,10 @@
             <tr>
                 <td>{{#with No}}{{this}}{{/with}}</td>
                 <td>{{#with name}}{{this}}{{/with}}</td>
-                <td class="center">{{#with core}}{{this}}{{/with}}</td>
-                <td class="center">{{#with core_credits}}{{this}}{{/with}}</td>
-                <td class="center">{{#with total}}{{this}}{{/with}}</td>
-                <td class="center">{{#with total_credits}}{{this}}{{/with}}</td>
+                <td class="center">{{#with core_gpa}}{{this}}{{/with}}</td>
+                <td class="center">{{#with core_credit}}{{this}}{{/with}}</td>
+                <td class="center">{{#with total_gpa}}{{this}}{{/with}}</td>
+                <td class="center">{{#with total_credit}}{{this}}{{/with}}</td>
             </tr>
         {{/each}}
         </tbody>
