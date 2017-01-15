@@ -1,22 +1,15 @@
-<?php include VIEW_DIR . 'common/header.php'; ?>
+<?php include dirname(dirname(__FILE__)) . '/common/header.php'; ?>
 
 <div id="body-wrapper" class="wrapper wrapper-content animated fadeInRight">
 
 
 </div>
 
+<?php include dirname(dirname(__FILE__)) . '/common/scripts.php'; ?>
 
-<div id="scoreboard">
+<?php include dirname(dirname(__FILE__)) . '/common/templates/ibox.hbs'; ?>
 
-</div>
-
-
-<?php include VIEW_DIR . 'common/scripts.php'; ?>
-
-<?php include VIEW_DIR . 'templates/ibox.hbs'; ?>
-
-<?php include 'scoreboard.hbs'; ?>
-
+<?php include 'templates/scoreboard.hbs'; ?>
 
 <script type="text/javascript">
     
@@ -27,15 +20,11 @@
             Handlebars.registerPartial('scoreboard', $("#scoreboard-template").html());
             var config = {
                 "id": "scoreboard",
+                "title": "UM-SJTU-JI GPA SCOREBOARD",
                 "body": {
                     "template": "scoreboard",
                     "data": {
-                        "rows": [
-                            {"No": 1},
-                            {"No": 2},
-                            {"No": 3},
-                            {"No": 4}
-                        ]
+                        "rows": <?php echo $scoreboard;?>
                     }
                 }
             };
