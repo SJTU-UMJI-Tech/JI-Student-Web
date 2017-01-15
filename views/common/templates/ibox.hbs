@@ -24,7 +24,13 @@
             </div>
         </div>
         <div class="ibox-content">
-            {{#with body}}{{> (lookup . 'template') data}}{{/with}}
+            {{#with body}}
+                {{#if template}}
+                    {{> (lookup . 'template') data}}
+                {{else if html}}
+                    {{{html}}}
+                {{/if}}
+            {{/with}}
         </div>
     </div>
 

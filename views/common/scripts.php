@@ -37,7 +37,7 @@
             'jquery-ui': 'plugins/jquery-ui/jquery-ui.min',
             'gitter': 'plugins/gritter/jquery.gritter.min',
             'toastr': 'plugins/toastr/toastr.min',
-            
+            'chartjs':'plugins/chartJs/Chart.min',
             'footable': 'plugins/footable/footable.all.min',
             'handlebars': 'bower/handlebars/handlebars.amd.min',
             
