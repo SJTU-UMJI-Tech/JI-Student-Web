@@ -1,4 +1,16 @@
-<!--Close the div in header.php-->
+<!-- footer -->
+<div class="footer">
+    <span>
+        <strong>Copyleft</strong> UM-SJTU JI Student Life 2016-2017
+    </span>
+    <span class="pull-right">
+        developed by <strong>Peng</strong>, <strong>Zhuangzhuang</strong>,
+        <strong>tc-imba</strong> and <strong>AuroraZK</strong>
+    </span>
+</div>
+
+<!-- Close the div in header.php -->
+</div>
 </div>
 
 <!-- requireJS -->
@@ -26,6 +38,8 @@
             'gitter': 'plugins/gritter/jquery.gritter.min',
             'toastr': 'plugins/toastr/toastr.min',
             
+            'footable': 'plugins/footable/footable.all.min',
+            'handlebars': 'bower/handlebars/handlebars.amd.min',
             
             'inspinia': 'inspinia'
         },
@@ -34,7 +48,9 @@
             'bootstrap': ['jquery'],
             'metisMenu': ['jquery'],
             'slimscroll': ['jquery'],
-            'gitter': ['jquery',formCSSPath('/js/plugins/gritter/jquery.gritter.css')],
+            'gitter': ['jquery', formCSSPath('js/plugins/gritter/jquery.gritter.css')],
+            
+            'footable': ['jquery', formCSSPath('css/plugins/footable/footable.core.css')],
             'inspinia': ['bootstrap', 'metisMenu', 'slimscroll']
         },
         waitSeconds: 30

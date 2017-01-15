@@ -134,7 +134,7 @@
         </div>
     </div>
 </div>
-<script>
+<script type="text/javascript">
     
     require(['jquery', 'inspinia'], function ($) {
         

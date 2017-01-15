@@ -85,3 +85,4 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 defined('ROOT_DIR')            OR define('ROOT_DIR', '');
+defined('VIEW_DIR')            OR define('VIEW_DIR','./views/');
