@@ -1,0 +1,61 @@
+{
+  "VG100": {
+    "credit": 4,
+    "name": "Intro to Mechanical Engineering"
+  },
+  "VG101": {
+    "credit": 4,
+    "name": "Intro to Computer Engineering"
+  },
+  "VY100": {
+    "credit": 4,
+    "name": "Academic Writing I"
+  },
+  "VY200": {
+    "credit": 4,
+    "name": "Academic Writing II"
+  },
+  "PE001": {
+    "credit": 1,
+    "name": "Physical Education I"
+  },
+  "PE002": {
+    "credit": 1,
+    "name": "Physical Education II"
+  },
+  "PE003": {
+    "credit": 1,
+    "name": "Physical Education III"
+  },
+  "PE004": {
+    "credit": 1,
+    "name": "Physical Education IV"
+  },
+  "TH000": {
+    "credit": 3
+  },
+  "TH004": {
+    "credit": 1
+  },
+  "TH007": {
+    "credit": 3
+  },
+  "TH009-1": {
+    "credit": 1
+  },
+  "TH009-2": {
+    "credit": 1
+  },
+  "TH009-3": {
+    "credit": 1
+  },
+  "TH009-4": {
+    "credit": 1
+  },
+  "TH012": {
+    "credit": 6
+  },
+  "TH021": {
+    "credit": 2
+  }
+}
