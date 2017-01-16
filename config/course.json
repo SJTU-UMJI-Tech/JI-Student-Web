@@ -368,13 +368,21 @@
     }
   },
   "degree": {
-    "ECE": "Electrics and Computer Engineering",
-    "ME": "Mechanical Engineering"
+    "ECE": {
+      "name": "Electrics and Computer Engineering",
+      "credit": {"EF": 39, "IB": 16, "PS": 43, "CE": 4, "UTE": 7, "FTE": 12, "GE": 7, "SJTU": 22},
+      "credit-dd": {"CE": 0, "FTE": 16}
+    },
+    "ME": {
+      "name": "Mechanical Engineering",
+      "credit": {"EF": 39, "IB": 16, "PS": 50, "AM": 3, "FTE": 11, "GE": 9, "SJTU": 22}
+    }
   },
   "category": {
     "EF": "Engineering Foundation",
     "IB": "Intellectual Breadth",
     "PS": "Program Subject",
+    "AM": "Advanced Mathematics",
     "CE": "Core Elective",
     "UTE": "Upper Level Technical Elective",
     "FTE": "Flexible Technical Elective",

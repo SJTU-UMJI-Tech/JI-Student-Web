@@ -171,5 +171,13 @@ class GPA_model extends CI_Model
         $this->db->update('gpa_scoreboard', array('state' => $state), array('USER_ID' => $USER_ID));
     }
     
+    public function get_user_score($USER_ID)
+    {
+        $query = $this->db->select(array('course_id', 'grade'))->from('gpa_list')
+                          ->order_by('course_id', 'ASC')
+                          ->where(array('USER_ID' => $USER_ID))->get();
+        return $query->result();
+    }
+    
 }
 

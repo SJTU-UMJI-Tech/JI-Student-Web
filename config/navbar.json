@@ -187,6 +187,10 @@
         "graph": {
           "name": "Graphs",
           "href": "/GPA/graph"
+        },
+        "degree": {
+          "name": "Degree Progress",
+          "href": "/GPA/degree"
         }
       }
     }

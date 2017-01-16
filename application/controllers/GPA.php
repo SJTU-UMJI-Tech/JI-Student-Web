@@ -21,6 +21,7 @@ class GPA extends Front_Controller
         $this->redirect_login();
         if ($this->input->get('confirm') == 1)
         {
+            $this->GPA_model->update_scoreboard($_SESSION['user_id']);
             $this->GPA_model->set_user_state($_SESSION['user_id'], 1);
             $this->__redirect('GPA');
         }
@@ -48,6 +49,19 @@ class GPA extends Front_Controller
         $this->load->view('gpa/graph', $this->data);
     }
     
+    public function degree()
+    {
+        $this->redirect();
+        $score = $this->GPA_model->get_user_score($_SESSION['user_id']);
+        $courses = $this->Site_model->read_config('course.json');
+        
+        $this->data['score'] = json_encode($score);
+        $this->data['courses'] = $courses;
+        
+        $this->add_nav('degree')->form_navbar();
+        $this->load->view('gpa/degree', $this->data);
+    
+    }
     
     public function update_all()
     {
