@@ -1,0 +1,23 @@
+{
+  "time": "Jan 16, 2017",
+  "title": "JI LIFE GPA MODULE",
+  "text": [
+    {
+      "title": "h2",
+      "hr": true,
+      "content": "Terms of Service"
+    },
+    {
+      "title": "h3",
+      "content": "Privacy Terms"
+    },
+    "We respect and care deeply about your privacy. All data you submitted on the JI-LIFE GPA MODULE will be kept secret unless",
+    {
+      "enum": true,
+      "content": [
+        "You agreed to show them to public",
+        "", ""
+      ]
+    }
+  ]
+}

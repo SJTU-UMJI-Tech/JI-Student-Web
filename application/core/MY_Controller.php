@@ -168,6 +168,20 @@ abstract class Front_Controller extends CI_Controller
         return 'success';
     }
     
+    protected function redirect_login()
+    {
+        if (isset($_SESSION['logout']) && $_SESSION['logout'])
+        {
+            unset($_SESSION['logout']);
+            $this->__redirect();
+        }
+        if (!$this->Site_model->is_login())
+        {
+            if ($this->input->get('logout')) $this->__redirect();
+            else redirect('user/login?uri=' . $this->Site_model->get_relative_url());
+        }
+    }
+    
     protected function validate_privilege($privilege, $redirect = true, $extra = array())
     {
         $this->load->model('Privilege_model');

@@ -87,6 +87,7 @@ class User extends Front_Controller
                 $_SESSION['user_id'] = $this->input->get('user_id');
                 $_SESSION['user_name'] = $this->input->get('user_name');
                 $_SESSION['user_type'] = $this->input->get('user_type');
+                unset($_SESSION["logout"]);
                 redirect(base_url($this->input->get('uri')));
             }
             header('Location: ' . $this::JIACCOUNT_URL . '/user/jiaccount?url='
@@ -171,6 +172,7 @@ class User extends Front_Controller
                     $_SESSION["user_id"] = $usr_info->entities[0]->code;
                     $_SESSION["user_name"] = $usr_info->entities[0]->name;
                     $_SESSION["user_type"] = $usr_info->entities[0]->userType;
+                    unset($_SESSION["logout"]);
                     $this->__redirect($data_info['uri']);
                 }
                 exit();
@@ -247,7 +249,7 @@ class User extends Front_Controller
         unset($_SESSION["user_id"]);
         unset($_SESSION["user_name"]);
         unset($_SESSION["user_type"]);
-        
+        $_SESSION["logout"] = 1;
     }
     
     public function logout()
@@ -268,11 +270,9 @@ class User extends Front_Controller
             }
             $this->remove_sessions();
             header('Location: ' . $this::JIACCOUNT_URL . '/user/jiaccount?logout=1&url='
-                   . urlencode(base_url('user/logout') . '?uri=' . $this->input->get('uri')));
+                   . urlencode(base_url('user/logout') . '?uri=' . $uri));
         }
         
-        $this->load->library('JAccount');
-        $jam = new JAccountManager($this->get_site_config('user_client_id'), 'jaccount');
         if ($auth_type == 'jiaccount')
         {
             $redirect_uri = '/user/jiaccount_logout?uri=' . urlencode($uri);
@@ -280,7 +280,7 @@ class User extends Front_Controller
         else
         {
             $this->remove_sessions();
-            $redirect_uri = $this->input->get('uri');
+            $redirect_uri = $uri;
         }
         if ($this::OAUTH_VER >= 2.0)
         {
@@ -289,6 +289,8 @@ class User extends Front_Controller
         }
         else if ($this::OAUTH_VER >= 1.0)
         {
+            $this->load->library('JAccount');
+            $jam = new JAccountManager($this->get_site_config('user_client_id'), 'jaccount');
             $jam->logout(ROOT_DIR . $redirect_uri);
         }
     }

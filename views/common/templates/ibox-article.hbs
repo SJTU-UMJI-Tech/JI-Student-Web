@@ -1,0 +1,35 @@
+<script id="ji-ibox-article-template" type="text/x-handlebars-template">
+
+    <!--<div class="pull-right">-->
+    <!--<button class="btn btn-white btn-xs" type="button">Model</button>-->
+    <!--<button class="btn btn-white btn-xs" type="button">Publishing</button>-->
+    <!--<button class="btn btn-white btn-xs" type="button">Modern</button>-->
+    <!--</div>-->
+    <div class="text-center article-title">
+        {{#with time}}
+            <span class="text-muted"><i class="fa fa-clock-o"></i> {{this}}</span>
+        {{/with}}
+        {{#with title}}
+            <h1>{{this}}</h1>
+        {{/with}}
+
+    </div>
+
+    {{#if text}}
+        {{#each text}}
+            {{#if title}}
+                <{{title}}><strong>{{#with content}}{{{this}}}{{/with}}</strong></{{title}}>
+                {{#if hr}}<hr>{{else}}<br>{{/if}}
+            {{else if enum}}
+                <ul>{{#each content}}<li>{{{this}}}</li>{{/each}}</ul>
+            {{else if content}}
+                <p>{{{content}}}</p>
+            {{else}}
+                <p>{{{this}}}</p>
+            {{/if}}
+        {{/each}}
+    {{else if markdown}}
+        markdown
+    {{/if}}
+
+</script>

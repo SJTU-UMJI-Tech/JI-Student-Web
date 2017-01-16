@@ -130,20 +130,21 @@ class GPA_model extends CI_Model
     
     public function get_scoreboard()
     {
-        $query = $this->db->select(array('USER_ID', 'core_gpa', 'core_credit', 'total_gpa', 'total_credit'))
-                          ->from('gpa_scoreboard')->order_by('core_gpa', 'DESC')->get();
+        $query =
+            $this->db->select(array(
+                                  'core_gpa', 'core_credit', 'total_gpa',
+                                  'total_credit', 'jbxx.USER_ID', 'jbxx.USER_NAME'
+                              ))
+                     ->from('gpa_scoreboard')->order_by('core_gpa', 'DESC')
+                     ->join('jbxx', 'gpa_scoreboard.USER_ID=jbxx.USER_ID')
+                     ->get();
         $result = $query->result();
         foreach ($result as $key => &$value)
         {
             $value->No = $key + 1;
-            $query2 = $this->db->select('USER_NAME')->from('jbxx')->where(array('USER_ID' => $value->USER_ID))->get();
-            if ($query->num_rows() > 0)
+            if (!$value->USER_NAME)
             {
-                $value->name = $query2->row()->USER_NAME;
-            }
-            else
-            {
-                $value->name = $value->USER_ID;
+                $value->USER_NAME = '';
             }
             $value->core_gpa = sprintf("%.3f", $value->core_gpa);
             $value->total_gpa = sprintf("%.3f", $value->total_gpa);
@@ -153,9 +154,21 @@ class GPA_model extends CI_Model
     
     public function get_course_score($course_id)
     {
-        $query = $this->db->select(array('grade', 'count(grade)'))->from('gpa_list')->order_by('grade','DESC')
+        $query = $this->db->select(array('grade', 'count(grade)'))->from('gpa_list')->order_by('grade', 'DESC')
                           ->where(array('course_id' => $course_id))->group_by('grade')->get();
         return $query->result();
+    }
+    
+    public function get_user($USER_ID)
+    {
+        $query = $this->db->get_where('gpa_scoreboard', array('USER_ID' => $USER_ID));
+        if ($query->num_rows() > 0) return $query->row();
+        return NULL;
+    }
+    
+    public function set_user_state($USER_ID, $state)
+    {
+        $this->db->update('gpa_scoreboard', array('state' => $state), array('USER_ID' => $USER_ID));
     }
     
 }

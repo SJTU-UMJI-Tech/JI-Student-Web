@@ -22,12 +22,12 @@
             var config = {
                 "id": "scoreboard",
                 "title": "UM-SJTU-JI GPA SCOREBOARD",
-                "body": {
+                "body": [{
                     "template": "scoreboard",
                     "data": {
                         "rows": <?php echo $scoreboard;?>
                     }
-                }
+                }]
             };
             $("#body-wrapper").append(template(config));
             

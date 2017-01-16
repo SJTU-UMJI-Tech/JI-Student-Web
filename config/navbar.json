@@ -1,177 +1,195 @@
 {
-  "children": [
-    {
+  "children": {
+    "HOME": {
+      "name": "Home Page",
+      "icon": "fa-home",
+      "href": "/"
+    },
+    "ORG": {
       "name": "Organizations",
       "icon": "fa-th-large",
-      "href": "/organizations",
-      "children": [
-        {
+      "children": {
+        "stu-un": {
           "name": "Student Union",
-          "icon":"fa-sitemap",
-          "children": [
-            {
+          "icon": "fa-sitemap",
+          "children": {
+            "org": {
               "icon": "fa-chain",
               "name": "Org Dept"
             },
-            {
+            "liaison": {
               "icon": "fa-usd",
               "name": "Liaison Dept"
             },
-            {
-              "icon":"fa-paper-plane-o",
-              "name":"Pub Dept"
+            "pub": {
+              "icon": "fa-paper-plane-o",
+              "name": "Pub Dept"
             },
-            {
+            "media": {
               "icon": "fa-clipboard",
               "name": "Media Dept"
             },
-
-            {
+            "career": {
               "icon": "fa-apple",
               "name": "Career Dept"
             },
-            {
-              "icon":"fa-usb",
-              "name":"Club Dept"
+            "club": {
+              "icon": "fa-usb",
+              "name": "Club Dept"
             },
-            {
-              "icon":"fa-google-wallet",
-              "name":"Art Dept"
+            "art": {
+              "icon": "fa-google-wallet",
+              "name": "Art Dept"
             },
-            {
-              "icon":"fa-soccer-ball-o",
-              "name":"Sport Dept"
+            "sport": {
+              "icon": "fa-soccer-ball-o",
+              "name": "Sport Dept"
             },
-            {
+            "tech": {
               "icon": "fa-twitter",
               "name": "Tech Dept"
             }
-          ]
+          }
         },
-        { "icon":"fa-github",
+        "sstia": {
+          "icon": "fa-github",
           "name": "SSTIA"
         },
-        { "icon":"fa-heart",
+        "volunteer": {
+          "icon": "fa-heart",
           "name": "Volunteer"
         }
-      ]
+      }
     },
-    {
-      "icon":"fa-flag",
+    "CPC": {
+      "icon": "fa-flag",
       "name": "CPC",
-      "children":[
-        {
-          "icon":"fa-id-card-o",
-          "name":"About us"
+      "children": {
+        "about": {
+          "icon": "fa-id-card-o",
+          "name": "About us"
         },
-        {
-          "icon":"fa-file-word-o",
-          "name":"Theories"
+        "theory": {
+          "icon": "fa-file-word-o",
+          "name": "Theories"
         },
-        {
-          "icon":"fa-file-excel-o",
-          "name":"Statistics"
+        "stat": {
+          "icon": "fa-file-excel-o",
+          "name": "Statistics"
         },
-        {
-          "icon":"fa-file-pdf-o",
-          "name":"Documents"
+        "doc": {
+          "icon": "fa-file-pdf-o",
+          "name": "Documents"
         }
-      ]
+      }
     },
-    {
-      "icon":"fa-info-circle",
-      "name":"Advising",
-      "children":[
-        {
-          "icon":"fa-id-card-o",
-          "name":"About Us"
+    "AC": {
+      "icon": "fa-info-circle",
+      "name": "Advising",
+      "children": {
+        "about": {
+          "icon": "fa-id-card-o",
+          "name": "About Us"
         },
-        {
-          "icon":"fa-users",
-          "name":"Members"
+        "member": {
+          "icon": "fa-users",
+          "name": "Members"
         },
-        {
-          "icon":"fa-calendar",
-          "name":"Calendar"
+        "cal": {
+          "icon": "fa-calendar",
+          "name": "Calendar"
         },
-        {
-          "icon":"fa-calendar-minus-o",
-          "name":"Events"
+        "event": {
+          "icon": "fa-calendar-minus-o",
+          "name": "Events"
         },
-        {
-          "icon":"fa-calendar-check-o",
-          "name":"Booking"
+        "book": {
+          "icon": "fa-calendar-check-o",
+          "name": "Booking"
         },
-        {
-          "icon":"fa-pencil-square-o",
-          "name":"Create Events"
+        "create": {
+          "icon": "fa-pencil-square-o",
+          "name": "Create Events"
         }
-      ]
+      }
     },
-    {
-      "icon":"fa-tty",
-      "name":"Career",
-      "children":[
-        {
-          "icon":"fa-id-card-o",
-          "name":"About Us"
+    "CAREER": {
+      "icon": "fa-tty",
+      "name": "Career",
+      "children": {
+        "about": {
+          "icon": "fa-id-card-o",
+          "name": "About Us"
         },
-        {
-          "icon":"fa-newspaper-o",
-          "name":"Announcement"
+        "announce": {
+          "icon": "fa-newspaper-o",
+          "name": "Announcement"
         },
-        {
-          "icon":"fa-handshake-o",
-          "name":"Job&Internship"
+        "job": {
+          "icon": "fa-handshake-o",
+          "name": "Job&Internship"
         },
-        {
-          "icon":"fa-object-group",
-          "name":"Workshop&Activity"
+        "workshop": {
+          "icon": "fa-object-group",
+          "name": "Workshop&Activity"
         },
-        {
-          "icon":"fa-id-badge",
-          "name":"Career Mentors"
+        "career": {
+          "icon": "fa-id-badge",
+          "name": "Career Mentors"
         },
-        {
-          "icon":"fa-book",
-          "name":"Resources"
+        "res": {
+          "icon": "fa-book",
+          "name": "Resources"
         },
-        {
-          "icon":"fa-pencil-square-o",
-          "name":"New Announcement"
+        "new": {
+          "icon": "fa-pencil-square-o",
+          "name": "New Announcement"
         }
-      ]
+      }
     },
-    {
-      "icon":"fa-trophy",
+    "SCHOLAR": {
+      "icon": "fa-trophy",
       "name": "Scholarships",
-      "children":[
-        {
-          "icon":"fa-id-card-o",
-          "name":"About Us"
+      "children": {
+        "about": {
+          "icon": "fa-id-card-o",
+          "name": "About Us"
         },
-        {
-          "icon":"fa-trophy",
-          "name":"All Scholarships"
+        "all": {
+          "icon": "fa-trophy",
+          "name": "All Scholarships"
         },
-        {
-          "icon":"fa-hourglass-start",
-          "name":"Undergraduates"
+        "under-grad": {
+          "icon": "fa-hourglass-start",
+          "name": "Undergraduates"
         },
-        {
-          "icon":"fa-hourglass-end",
-          "name":"Graduates"
+        "grad": {
+          "icon": "fa-hourglass-end",
+          "name": "Graduates"
         },
-        {
-          "icon":"fa-sign-language",
-          "name":"My Scholarships"
+        "my": {
+          "icon": "fa-sign-language",
+          "name": "My Scholarships"
         },
-        {
-          "icon":"fa-pencil-square-o",
-          "name":"Create Scholarships"
+        "create": {
+          "icon": "fa-pencil-square-o",
+          "name": "Create Scholarships"
         }
-      ]
+      }
+    },
+    "GPA": {
+      "name": "GPA",
+      "children": {
+        "board": {
+          "name": "Scoreboard",
+          "href": "/GPA"
+        },
+        "graph": {
+          "name": "Graphs",
+          "href": "/GPA/graph"
+        }
+      }
     }
-  ],
+  },
   "version": "0.0.1"
 }
