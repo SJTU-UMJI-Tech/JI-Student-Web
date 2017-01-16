@@ -33,9 +33,13 @@ class GPA_model extends CI_Model
     }
     
     
-    public function update_scoreboard($USER_ID)
+    public function update_scoreboard($USER_ID, &$courses = NULL)
     {
-        $courses = json_decode($this->get_course_data(), true);
+        if (!$courses)
+        {
+            $this->load->model('Site_model');
+            $courses = $this->Site_model->read_config('course.json');
+        }
         $data = array(
             'core_grade'   => 0,
             'total_grade'  => 0,
@@ -48,12 +52,9 @@ class GPA_model extends CI_Model
                           ->order_by('course_id', 'ASC')->get();
         $result = $query->result();
         
-        //print_r($result);
-        
         foreach ($result as $key => $item)
         {
             $course_id = $item->course_id;
-            
             if (isset($courses['course'][$course_id]))
             {
                 $course = &$courses['course'][$course_id];
@@ -68,25 +69,7 @@ class GPA_model extends CI_Model
                 }
                 
             }
-            
-            /*$query = $this->db->get_where('course', array('courseid' => $item->courseid));
-            if ($query->num_rows() > 0)
-            {
-                $row = $query->row(0);
-                
-                $result[$key]->credit = $row->credit;
-                $result[$key]->core = $row->core;
-                $result[$key]->letter = $letter_list[$item->grade];
-                
-                $data['total_grade'] += min(40, $item->grade) * $row->credit;
-                $data['total_credit'] += $row->credit;
-                
-                if ($row->core == '1')
-                {
-                    $data['core_grade'] += min(40, $item->grade) * $row->credit;
-                    $data['core_credit'] += $row->credit;
-                }
-            }*/
+            else echo $course_id . '<br>';
         }
         
         if ($data['core_credit'] > 0)
@@ -121,10 +104,18 @@ class GPA_model extends CI_Model
     
     public function update_scoreboard_all()
     {
+        $this->load->model('Site_model');
+        $courses = $this->Site_model->read_config('course.json');
+        if (!$courses)
+        {
+            echo 'Reading course.json failed';
+            exit();
+        }
+        $courses = json_decode($courses, true);
         $query = $this->db->select('USER_ID')->from('gpa_list')->distinct()->get();
         foreach ($query->result() as $item)
         {
-            $this->update_scoreboard($item->USER_ID);
+            $this->update_scoreboard($item->USER_ID, $courses);
         }
     }
     
@@ -136,6 +127,7 @@ class GPA_model extends CI_Model
                                   'total_credit', 'jbxx.USER_ID', 'jbxx.USER_NAME'
                               ))
                      ->from('gpa_scoreboard')->order_by('core_gpa', 'DESC')
+                     ->where('total_credit>16')
                      ->join('jbxx', 'gpa_scoreboard.USER_ID=jbxx.USER_ID')
                      ->get();
         $result = $query->result();

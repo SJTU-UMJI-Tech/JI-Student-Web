@@ -1,5 +1,18 @@
 {
   "course": {
+    "VV115": {
+      "credit": 4,
+      "name": "Calculus I",
+      "degree": ["ECE", "ME"],
+      "category": "GE"
+    },
+    "VV116": {
+      "credit": 4,
+      "name": "Calculus II",
+      "degree": ["ECE", "ME"],
+      "category": "EF",
+      "equivalent": ["VV156", "VV186"]
+    },
     "VV156": {
       "credit": 4,
       "name": "Applied Calculus II",
@@ -14,6 +27,13 @@
       "category": "EF",
       "equivalent": ["VV116", "VV156"]
     },
+    "VV215": {
+      "credit": 4,
+      "name": "Calculus III",
+      "degree": ["ECE", "ME"],
+      "category": "EF",
+      "equivalent": ["VV255", "VV285"]
+    },
     "VV255": {
       "credit": 4,
       "name": "Applied Calculus III",
@@ -27,6 +47,13 @@
       "degree": ["ECE", "ME"],
       "category": "EF",
       "equivalent": ["VV215", "VV255"]
+    },
+    "VV216": {
+      "credit": 4,
+      "name": "Calculus IV",
+      "degree": ["ECE", "ME"],
+      "category": "EF",
+      "equivalent": ["VV256", "VV286"]
     },
     "VV256": {
       "credit": 4,
@@ -53,12 +80,6 @@
       "name": "Intro to Comp.",
       "degree": ["ECE", "ME"],
       "category": "EF"
-    },
-    "VG496": {
-      "credit": 2,
-      "name": "Ethics & Professionlism",
-      "degree": ["ECE", "ME"],
-      "category": "IB"
     },
     "VC210": {
       "credit": 4,
@@ -183,6 +204,24 @@
       "name": "Technical Communication",
       "degree": ["ECE"],
       "category": "PS"
+    },
+    "VE281": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "CE"
+    },
+    "VE477": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "UTE"
+    },
+    "VE482": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "UTE"
     },
     "VV214": {
       "credit": 4,
@@ -365,6 +404,102 @@
       "name": "General Education Practice",
       "degree": ["ECE", "ME"],
       "category": "SJTU"
+    },
+    "VG496": {
+      "credit": 2,
+      "name": "Ethics & Professionlism",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR140": {
+      "credit": 4,
+      "name": "Comparative Governments and Politics",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR150": {
+      "credit": 3,
+      "name": "German Culture",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR203": {
+      "credit": 4,
+      "name": "Food in Modern East Asian History",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR206": {
+      "credit": 4,
+      "name": "China in the Early Modern World",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR253": {
+      "credit": 3,
+      "name": "Culture, Technology and Silicon Valley",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR261": {
+      "credit": 3,
+      "name": "",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR262": {
+      "credit": 4,
+      "name": "Introduction to the Philosophy of Religion",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR275": {
+      "credit": 3,
+      "name": "",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR280": {
+      "credit": 3,
+      "name": "Introduction to Modern Chinese Literature",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR310": {
+      "credit": 3,
+      "name": "",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR363": {
+      "credit": 3,
+      "name": "Chinese Society in Contemporary Chinese Cinema",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VR381": {
+      "credit": 3,
+      "name": "Introduction to Social Science Research Design",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VX253": {
+      "credit": 3,
+      "name": "Leadership and Management",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VX251": {
+      "credit": 2,
+      "name": "Branding and Brand Management",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
+    },
+    "VX310": {
+      "credit": 3,
+      "name": "Interpersonal Communication: Social and Cross-Cultural Communication Skills",
+      "degree": ["ECE", "ME"],
+      "category": "IB"
     }
   },
   "degree": {

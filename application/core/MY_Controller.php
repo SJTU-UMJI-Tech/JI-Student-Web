@@ -170,6 +170,7 @@ abstract class Front_Controller extends CI_Controller
     
     protected function redirect_login()
     {
+        if (ENVIRONMENT == 'development') return;
         if (isset($_SESSION['logout']) && $_SESSION['logout'])
         {
             unset($_SESSION['logout']);

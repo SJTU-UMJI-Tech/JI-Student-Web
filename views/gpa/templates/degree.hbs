@@ -4,19 +4,36 @@
         {{#each this}}
             <thead>
             <tr>
-                <th colspan="4">{{#with title}}{{this}}{{/with}}</th>
+                <th colspan="4">
+                    {{#if title}}
+                        {{title}}
+                        {{#if credit}}
+                            ({{#if credit_now}}{{credit_now}}/{{/if}}{{credit}} credits)
+                        {{/if}}
+                    {{/if}}
+                </th>
+            </tr>
+            <tr>
+                <th>Course</th>
+                <th>Name</th>
+                <th>Credit</th>
+                <th>Grade</th>
             </tr>
             </thead>
 
             <tbody>
+            {{#each courses}}
+                <tr>
+                    <td>{{#with id}}{{this}}{{/with}}</td>
+                    <td>{{#with name}}{{this}}{{/with}}</td>
+                    <td>{{#with credit}}{{this}}{{/with}}</td>
+                    <td>{{#with grade}}{{this}}{{/with}}</td>
+                </tr>
+            {{/each}}
             <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>@4</td>
+                <td colspan="4"></td>
             </tr>
             </tbody>
-
         {{/each}}</table>
 
 </script>
