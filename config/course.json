@@ -211,6 +211,60 @@
       "degree": ["ECE"],
       "category": "CE"
     },
+    "VE312": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "CE"
+    },
+    "VE330": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "CE"
+    },
+    "VE334": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "CE"
+    },
+    "VE353": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "CE"
+    },
+    "VE373": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "CE"
+    },
+    "VE451": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "CE"
+    },
+    "VE455": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "CE"
+    },
+    "VE460": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "CE"
+    },
+    "VE475": {
+      "credit": 4,
+      "name": "",
+      "degree": ["ECE"],
+      "category": "UTE"
+    },
     "VE477": {
       "credit": 4,
       "name": "",
@@ -311,15 +365,13 @@
       "credit": 4,
       "name": "Academic Writing I",
       "degree": ["ECE", "ME"],
-      "category": "SJTU",
-      "core": true
+      "category": "SJTU"
     },
     "VY200": {
       "credit": 4,
       "name": "Academic Writing II",
       "degree": ["ECE", "ME"],
-      "category": "SJTU",
-      "core": true
+      "category": "SJTU"
     },
     "PE001": {
       "credit": 1,
@@ -506,7 +558,7 @@
     "ECE": {
       "name": "Electrics and Computer Engineering",
       "credit": {"EF": 39, "IB": 16, "PS": 43, "CE": 4, "UTE": 7, "FTE": 12, "GE": 7, "SJTU": 22},
-      "credit-dd": {"CE": 0, "FTE": 16}
+      "credit-dd": {"CE": 0, "IB": 8, "FTE": 16}
     },
     "ME": {
       "name": "Mechanical Engineering",

@@ -23,7 +23,7 @@ class GPA extends Front_Controller
         {
             $this->GPA_model->update_scoreboard($_SESSION['user_id']);
             $this->GPA_model->set_user_state($_SESSION['user_id'], 1);
-            $this->__redirect('GPA');
+            $this->__redirect('GPA/degree');
         }
         $this->data['terms_body'] = $this->Site_model->read_config('gpa/terms.json');
         $this->form_navbar();
@@ -60,7 +60,7 @@ class GPA extends Front_Controller
         
         $this->add_nav('degree')->form_navbar();
         $this->load->view('gpa/degree', $this->data);
-    
+        
     }
     
     public function update_all()

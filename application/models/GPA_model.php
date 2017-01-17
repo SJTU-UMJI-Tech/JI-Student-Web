@@ -39,6 +39,7 @@ class GPA_model extends CI_Model
         {
             $this->load->model('Site_model');
             $courses = $this->Site_model->read_config('course.json');
+            $courses = json_decode($courses, true);
         }
         $data = array(
             'core_grade'   => 0,
@@ -91,11 +92,13 @@ class GPA_model extends CI_Model
         if ($query->num_rows() > 0)
         {
             $this->db->update('gpa_scoreboard', $data, array('USER_ID' => $USER_ID));
+            return false;
         }
         else
         {
             $data['USER_ID'] = $USER_ID;
             $this->db->insert('gpa_scoreboard', $data);
+            return true;
         }
         
         //return array('result' => $result, 'data' => $data);

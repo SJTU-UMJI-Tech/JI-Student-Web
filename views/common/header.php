@@ -45,7 +45,8 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <?php if ($this->Site_model->is_login()): ?>
-                            <span><img alt="image" class="img-circle" src="<?php echo base_url('img/profile_small.jpg')?>"/></span>
+                            <span><img alt="image" class="img-circle"
+                                       src="<?php echo base_url('img/profile_small.jpg') ?>"/></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
                                 <span class="block m-t-xs"><strong
@@ -192,7 +193,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="<?php echo base_url('img/a1.jpg')?>">
+                                    <img alt="image" class="img-circle message-avatar"
+                                         src="<?php echo base_url('img/a1.jpg') ?>">
                                     
                                     <div class="m-t-xs">
                                         <i class="fa fa-star text-warning"></i>
@@ -210,7 +212,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="<?php echo base_url('img/a2.jpg')?>">
+                                    <img alt="image" class="img-circle message-avatar"
+                                         src="<?php echo base_url('img/a2.jpg') ?>">
                                 </div>
                                 <div class="media-body">
                                     The point of using Lorem Ipsum is that it has a more-or-less normal.
@@ -222,7 +225,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="<?php echo base_url('img/a3.jpg')?>">
+                                    <img alt="image" class="img-circle message-avatar"
+                                         src="<?php echo base_url('img/a3.jpg') ?>">
                                     
                                     <div class="m-t-xs">
                                         <i class="fa fa-star text-warning"></i>
@@ -241,7 +245,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="<?php echo base_url('img/a4.jpg')?>">
+                                    <img alt="image" class="img-circle message-avatar"
+                                         src="<?php echo base_url('img/a4.jpg') ?>">
                                 </div>
                                 
                                 <div class="media-body">
@@ -254,7 +259,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="<?php echo base_url('img/a8.jpg')?>">
+                                    <img alt="image" class="img-circle message-avatar"
+                                         src="<?php echo base_url('img/a8.jpg') ?>">
                                 </div>
                                 <div class="media-body">
                                     
@@ -267,7 +273,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="<?php echo base_url('img/a7.jpg')?>">
+                                    <img alt="image" class="img-circle message-avatar"
+                                         src="<?php echo base_url('img/a7.jpg') ?>">
                                 </div>
                                 <div class="media-body">
                                     Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes
@@ -280,7 +287,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="<?php echo base_url('img/a3.jpg')?>">
+                                    <img alt="image" class="img-circle message-avatar"
+                                         src="<?php echo base_url('img/a3.jpg') ?>">
                                     
                                     <div class="m-t-xs">
                                         <i class="fa fa-star text-warning"></i>
@@ -298,7 +306,8 @@
                         <div class="sidebar-message">
                             <a href="#">
                                 <div class="pull-left text-center">
-                                    <img alt="image" class="img-circle message-avatar" src="<?php echo base_url('img/a4.jpg')?>">
+                                    <img alt="image" class="img-circle message-avatar"
+                                         src="<?php echo base_url('img/a4.jpg') ?>">
                                 </div>
                                 <div class="media-body">
                                     Uncover many web sites still in their infancy. Various versions have.
@@ -562,7 +571,7 @@
                 <ul class="nav navbar-top-links navbar-right">
                     <?php if ($this->Site_model->is_login()): ?>
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                            <span class="m-r-sm text-muted welcome-message">Welcome to JI-LIFE</span>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -572,7 +581,8 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a href="profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="<?php echo base_url('img/a7.jpg')?>">
+                                            <img alt="image" class="img-circle"
+                                                 src="<?php echo base_url('img/a7.jpg') ?>">
                                         </a>
                                         <div class="media-body">
                                             <small class="pull-right">46h ago</small>
@@ -587,7 +597,8 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a href="profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="<?php echo base_url('img/a4.jpg')?>">
+                                            <img alt="image" class="img-circle"
+                                                 src="<?php echo base_url('img/a4.jpg') ?>">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right text-navy">5h ago</small>
@@ -601,7 +612,8 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a href="profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="<?php echo base_url('img/profile.jpg')?>">
+                                            <img alt="image" class="img-circle"
+                                                 src="<?php echo base_url('img/profile.jpg') ?>">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right">23h ago</small>
@@ -665,7 +677,8 @@
                         
                         
                         <li>
-                            <a href="<?php echo base_url('user/logout?uri='.$this->Site_model->get_relative_url()); ?>">
+                            <a href="<?php echo base_url('user/logout?uri=' .
+                                                         $this->Site_model->get_relative_url()); ?>">
                                 <i class="fa fa-sign-out"></i> Log out
                             </a>
                         </li>
@@ -676,7 +689,8 @@
                         </li>
                     <?php else: ?>
                         <li>
-                            <a href="<?php echo base_url('user/login?uri='.$this->Site_model->get_relative_url()); ?>">
+                            <a href="<?php echo base_url('user/login?uri=' .
+                                                         $this->Site_model->get_relative_url()); ?>">
                                 <i class="fa fa-sign-in"></i> Log in
                             </a>
                         </li>
@@ -686,5 +700,12 @@
             </nav>
         </div>
         
+        <br>
         
+        <div class="alert alert-warning">
+            This site is in alpha version, more functions will be added soon. Please
+            <a href="https://github.com/SJTU-UMJI-Tech/JI-Student-Web/issues">contact</a> the developers if you have any issue.
+        </div>
+    
+       
         

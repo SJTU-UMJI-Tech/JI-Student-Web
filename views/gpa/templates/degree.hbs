@@ -4,14 +4,14 @@
         {{#each this}}
             <thead>
             <tr>
-                <th colspan="4">
+                <th colspan="3">
                     {{#if title}}
                         {{title}}
-                        {{#if credit}}
-                            ({{#if credit_now}}{{credit_now}}/{{/if}}{{credit}} credits)
-                        {{/if}}
+                        ({{credit_display}}/{{credit}} credits{{#if credit_shift}}, {{credit_shift}} shifted from
+                        above{{/if}})
                     {{/if}}
                 </th>
+                <th align="right">GPA:{{gpa}}</th>
             </tr>
             <tr>
                 <th>Course</th>
@@ -22,7 +22,7 @@
             </thead>
 
             <tbody>
-            {{#each courses}}
+            {{#each course_list}}
                 <tr>
                     <td>{{#with id}}{{this}}{{/with}}</td>
                     <td>{{#with name}}{{this}}{{/with}}</td>
