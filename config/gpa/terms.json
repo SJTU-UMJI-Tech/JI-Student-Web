@@ -11,12 +11,55 @@
       "title": "h3",
       "content": "Privacy Terms"
     },
-    "We respect and care deeply about your privacy. All data you submitted on the JI-LIFE GPA MODULE will be kept secret unless",
+    "JI-LIFE GPA MODULE collects personal information:",
     {
       "enum": true,
       "content": [
-        "You agreed to show them to public",
-        "", ""
+        "when you register with Jaccount or Jiaccount, when you use JI-LIFE GPA MODULE",
+        "when you visit JI-LIFE GPA MODULE pages or the pages of certain JI-LIFE partners",
+        "when you enter promotions or sweepstakes"
+      ]
+    },
+    "Information could also be collected through the following ways:",
+    {
+      "enum":true,
+      "content":[
+        "JI-LIFE may combine information about you that we have with information we obtain from SJTU or other partners.",
+        "When you register with JI-LIFE and sign in to our GPA MODULE, you are not anonymous to us.",
+        "JI-LIFE collects information about your transactions with our GPA MODULE, including information about your use of GPA MODULE and services that we offer.",
+        "JI-LIFE automatically receives and records information from your computer and browser, including your IP address, JI-LIFE cookie information, software and hardware attributes, and the page you request."
+      ]
+    },
+    "JI-LIFE uses information for the following general purposes: ",
+    {
+      "enum":true,
+      "content":[
+        "to customize the content you see",
+        "to fulfill your requests for products and services",
+        "to improve our services",
+        "to contact you",
+        "to conduct research",
+        "to provide anonymous reporting for internal and external clients"
+      ]
+    },
+    "JI-LIFE does not rent, sell, or share personal information about you with other people or non-affiliated companies except to provide products or services you've requested, when we have your permission, or under the following circumstances:",
+    {
+      "enum":true,
+      "content":[
+        "We provide the information to trusted partners who work on behalf of or with JI-LIFE under confidentiality agreements. These companies may use your personal information to help JI-LIFE communicate with you about offers from JI-LIFE and our partners. However, these companies do not have any independent right to share this information.",
+        "We respond to subpoenas, court orders, or legal process (such as law enforcement requests), or to establish or exercise our legal rights or defend against legal claims.We believe it is necessary to share information in order to investigate, prevent, or take action regarding illegal activities, suspected fraud, situations involving potential threats to the physical safety of any person, violations of JI-life's terms of use, or as otherwise required by law.",
+        "We transfer information about you if JI-LIFE is acquired by or merged with another company,website or organization. In this event, JI-LIFE will notify you before information about you is transferred and becomes subject to a different privacy policy."
+      ]
+    },
+    {
+      "title": "h3",
+      "content": "Responsibility Terms"
+    },
+    {
+      "enum":true,
+      "content":[
+        "JI-LIFE does not provide any personal information or advice to the product or service offerred by GPA MODULE. ",
+        "JI-life does not take responsibility for any loss in consequence of misusing or mistakes made by GPA MODULE."
       ]
     }
   ]
