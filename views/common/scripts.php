@@ -37,10 +37,11 @@
             'jquery-ui': 'plugins/jquery-ui/jquery-ui.min',
             'gitter': 'plugins/gritter/jquery.gritter.min',
             'toastr': 'plugins/toastr/toastr.min',
-            'chartjs':'plugins/chartJs/Chart.min',
+            'chartjs': 'plugins/chartJs/Chart.min',
             'footable': 'plugins/footable/footable.all.min',
             'handlebars': 'bower/handlebars/handlebars.amd.min',
-            
+            'select2': 'plugins/select2/select2.full.min',
+            'chosen': 'plugins/chosen/chosen.jquery',
             'inspinia': 'inspinia'
         },
         
@@ -49,8 +50,9 @@
             'metisMenu': ['jquery'],
             'slimscroll': ['jquery'],
             'gitter': ['jquery', formCSSPath('js/plugins/gritter/jquery.gritter.css')],
-            
             'footable': ['jquery', formCSSPath('css/plugins/footable/footable.core.css')],
+            'select2': [formCSSPath('css/plugins/select2/select2.min.css')],
+            'chosen': ['jquery', formCSSPath('css/plugins/chosen/bootstrap-chosen.css')],
             'inspinia': ['bootstrap', 'metisMenu', 'slimscroll']
         },
         waitSeconds: 30
