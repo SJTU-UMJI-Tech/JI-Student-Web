@@ -179,16 +179,20 @@
     },
     "GPA": {
       "name": "GPA",
+      "icon":"fa-level-up",
       "children": {
         "board": {
+          "icon":"fa-bars",
           "name": "Scoreboard",
           "href": "/GPA"
         },
         "graph": {
+          "icon":"fa-bar-chart",
           "name": "Graphs",
           "href": "/GPA/graph"
         },
         "degree": {
+          "icon":"fa-line-chart",
           "name": "Degree Progress",
           "href": "/GPA/degree"
         }
