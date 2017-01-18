@@ -311,6 +311,10 @@ class Site_model extends CI_Model
         return $url;
     }
     
+    /**
+     * @param $path string
+     * @return null|string
+     */
     public function read_config($path)
     {
         $filename = './config/' . $path;

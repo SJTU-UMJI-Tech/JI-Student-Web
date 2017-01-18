@@ -49,7 +49,7 @@ class GPA_model extends CI_Model
             'core_gpa'     => 0,
             'total_gpa'    => 0
         );
-        $query = $this->db->select('*')->from('gpa_list')->where(array('USER_ID' => $USER_ID))
+        $query = $this->db->select(array('course_id', 'grade'))->from('gpa_list')->where(array('USER_ID' => $USER_ID))
                           ->order_by('course_id', 'ASC')->get();
         $result = $query->result();
         
@@ -58,6 +58,7 @@ class GPA_model extends CI_Model
             $course_id = $item->course_id;
             if (isset($courses['course'][$course_id]))
             {
+                if ($item->grade < 0) continue;
                 $course = &$courses['course'][$course_id];
                 
                 $data['total_grade'] += min(40, $item->grade) * $course['credit'];
@@ -130,7 +131,7 @@ class GPA_model extends CI_Model
                                   'total_credit', 'jbxx.USER_ID', 'jbxx.USER_NAME'
                               ))
                      ->from('gpa_scoreboard')->order_by('core_gpa', 'DESC')
-                     ->where('total_credit>16')
+                     ->where('total_credit>=16')
                      ->join('jbxx', 'gpa_scoreboard.USER_ID=jbxx.USER_ID')
                      ->get();
         $result = $query->result();
@@ -168,7 +169,7 @@ class GPA_model extends CI_Model
     
     public function get_user_score($USER_ID)
     {
-        $query = $this->db->select(array('course_id', 'grade'))->from('gpa_list')
+        $query = $this->db->select(array('id', 'course_id', 'grade'))->from('gpa_list')
                           ->order_by('course_id', 'ASC')
                           ->where(array('USER_ID' => $USER_ID))->get();
         return $query->result();

@@ -63,6 +63,101 @@ class GPA extends Front_Controller
         
     }
     
+    public function update()
+    {
+        if (!$this->Site_model->is_login())
+        {
+            echo 'Not login';
+            exit();
+        }
+        $user = $this->GPA_model->get_user($_SESSION['user_id']);
+        if (!$user)
+        {
+            echo 'User not found';
+            exit();
+        }
+        if ($user->state < 1)
+        {
+            echo 'Permission denied';
+            exit();
+        }
+        $courses = json_decode($this->Site_model->read_config('course.json'), true);
+        if (!$courses)
+        {
+            echo 'Server error';
+            exit();
+        }
+        
+        $data = $this->input->post('data');
+        $current = $this->GPA_model->get_user_score($_SESSION['user_id']);
+        $current_map = array();
+        foreach ($current as $item)
+        {
+            $current_map[$item->course_id] = $item->id;
+        }
+        $delete_queue = array();
+        $insert_queue = array();
+        $update_queue = array();
+        foreach ($data as $item)
+        {
+            if ($item['method'] == 'delete' && isset($current_map[$item['course_id']]) &&
+                $current_map[$item['course_id']] >= 0
+            )
+            {
+                $delete_queue[] = $item['course_id'];
+                $current_map[$item['course_id']] = -1;
+            }
+            else if ($item['method'] == 'edit' && isset($courses['course'][$item['course_id']])) ;
+            {
+                if (isset($item['grade']) && isset($courses['grade'][$item['grade']]))
+                {
+                    $grade = $courses['grade'][$item['grade']];
+                }
+                else
+                {
+                    $grade = -1;
+                }
+                if (!isset($current_map[$item['course_id']]))
+                {
+                    // Judge whether there is a equivalent course with the new course
+                    if (isset($courses['course'][$item['course_id']]['equivalent']))
+                    {
+                        foreach ($courses['course'][$item['course_id']]['equivalent'] as $course_id)
+                        {
+                            if (isset($current_map[$course_id])) continue;
+                        }
+                    }
+                    $insert_queue[] = array(
+                        'USER_ID'   => $_SESSION['user_id'],
+                        'course_id' => $item['course_id'],
+                        'grade'     => $grade
+                    );
+                    $current_map[$item['course_id']] = -1;
+                }
+                else if ($current_map[$item['course_id']] >= 0)
+                {
+                    $update_queue[] = array(
+                        'id'        => $item->id,
+                        'course_id' => $item['course_id'],
+                        'grade'     => $grade
+                    );
+                    $current_map[$item['course_id']] = -1;
+                }
+            }
+        }
+        print_r($data);
+        print_r($insert_queue);
+        print_r($update_queue);
+        print_r($delete_queue);
+        if (sizeof($insert_queue) > 0) $this->db->insert_batch('gpa_list', $insert_queue);
+        if (sizeof($update_queue) > 0) $this->db->update_batch('gpa_list', $update_queue);
+        if (sizeof($delete_queue) > 0) $this->db->where_in('course_id', $delete_queue)->delete('gpa_list');
+        $this->GPA_model->update_scoreboard($_SESSION['user_id'], $courses);
+        echo 'success';
+        exit();
+    }
+    
+    
     public function update_all()
     {
         $this->redirect();
