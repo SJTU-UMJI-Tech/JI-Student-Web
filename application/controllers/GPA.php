@@ -39,13 +39,30 @@ class GPA extends Front_Controller
         $this->load->view('gpa/home', $this->data);
     }
     
+    public function graph_score()
+    {
+        if (!$this->Site_model->is_login())
+        {
+            exit();
+        }
+        $course_id = $this->input->get('id');
+        echo json_encode($this->GPA_model->get_course_score($course_id));
+        exit();
+        //$this->data['course_id'] = $course_id;
+    }
+    
     public function graph()
     {
         $this->redirect();
-        $course_id = $this->input->get('id');
-        $this->data['score_list'] = json_encode($this->GPA_model->get_course_score($course_id));
-        $this->data['course_id'] = $course_id;
+        
         $this->add_nav('graph')->form_navbar();
+        
+        $score = $this->GPA_model->get_user_score($_SESSION['user_id']);
+        $courses = $this->Site_model->read_config('course.json');
+        
+        $this->data['score'] = json_encode($score);
+        $this->data['courses'] = $courses;
+        
         $this->load->view('gpa/graph', $this->data);
     }
     

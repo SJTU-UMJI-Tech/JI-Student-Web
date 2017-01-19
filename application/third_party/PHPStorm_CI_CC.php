@@ -76,6 +76,7 @@
  ***************** YOUR LIBRARIES *****************
  ***************** YOUR MODELS *****************
  * @property Site_model          $Site_model
+ * @property User_model          $User_model
  * @property Navbar_model        $Navbar_model
  * @property GPA_model           $GPA_model
  * @property Scholarships_model  $Scholarships_model
@@ -140,6 +141,7 @@ class CI_Controller
  ***************** YOUR LIBRARIES *****************
  ***************** YOUR MODELS *****************
  * @property Site_model          $Site_model
+ * @property User_model          $User_model
  * @property Navbar_model        $Navbar_model
  * @property GPA_model           $GPA_model
  * @property Scholarships_model  $Scholarships_model

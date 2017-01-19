@@ -33,4 +33,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 !uploads/.gitkeep
 /temp_files/*
 !temp_files/.gitkeep
-
+/files

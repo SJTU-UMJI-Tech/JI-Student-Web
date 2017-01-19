@@ -1,0 +1,62 @@
+<script id="graph-template" type="text/x-handlebars-template">
+
+    <input type="text" class="form-control input-sm m-b-xs" id="filter"
+           placeholder="Search in table">
+
+    <table class="footable table table-stripped" data-page-size="60" data-filter=#filter data-toggle-column="last">
+        <thead>
+        <tr>
+            <th class="text-center" width="10%">Course ID</th>
+            <th class="text-center" width="10%">Status</th>
+            <th data-hide="phone" width="60%">Course Name</th>
+            <th class="text-center" data-hide="phone" width="10%">Program</th>
+            <th class="text-center" data-hide="phone" width="10%">Category</th>
+            <!--<th data-hide="phone,tablet"></th>-->
+        </tr>
+        </thead>
+        <tbody>
+        {{#each courses}}
+            <div>
+                <tr class="tr-course">
+                    <!--<td>{{#with No}}{{this}}{{/with}}</td>-->
+                    <td type="id" {{#with id}}data-id="{{this}}"{{/with}} class="text-center">
+                        {{#with id}}{{this}}{{/with}}
+                    </td>
+                    <td class="text-center">
+                        {{#if pass}}
+                            <span class="label label-primary">Passed</span>
+                        {{else if fail}}
+                            <span class="label label-danger">Failed</span>
+                        {{else if select}}
+                            <span class="label label-info">Selected</span>
+                        {{else if equal}}
+                            <span class="label label-default">Unnecessary</span>
+                        {{/if}}
+                    </td>
+                    <td class="center">{{#with name}}{{this}}{{/with}}</td>
+                    <td class="text-center">
+                        {{#each degree}}
+                            <span class="label label-default">{{this}}</span>
+                        {{/each}}</td>
+                    <td class="text-center">{{#with category}}
+                        <span class="label label-default">{{this}}</span>
+                    {{/with}}</td>
+                    <!--<td class="center">{{#with total_credit}}{{this}}{{/with}}</td>-->
+                </tr>
+                <!--<tr></tr>-->
+                <!--<tr class="tr-graph">-->
+
+                <!--</tr>-->
+            </div>
+        {{/each}}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <ul class="pagination pull-right"></ul>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+</script>

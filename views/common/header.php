@@ -704,7 +704,7 @@
         
         <div class="alert alert-warning">
             This site is in alpha version, more functions will be added soon. Please
-            <a href="https://github.com/SJTU-UMJI-Tech/JI-Student-Web/issues">contact</a> the developers if you have any issue.
+            <a href="https://github.com/SJTU-UMJI-Tech/JI-Student-Web/issues" target="_blank">contact</a> the developers if you have any issue.
         </div>
     
        

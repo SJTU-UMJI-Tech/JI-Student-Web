@@ -3,7 +3,7 @@
 <div id="body-wrapper" class="wrapper wrapper-content animated fadeInRight">
     <div class="alert alert-warning">
         The Degree Progress Check Sheet is simple and naive now!
-        I will improve the AI later. (version alpha.2)
+        I will improve the AI later. (version alpha.2.1)
     </div>
 
 
@@ -16,16 +16,16 @@
 <?php include 'templates/degree.hbs'; ?>
 
 <script type="text/javascript">
-    
+
     require(['jquery', 'handlebars', 'footable', 'chosen'], function ($, Handlebars) {
         $(document).ready(function () {
             // Process the data to generate the page
             //
-            
+
             var i;
             var major = 'ECE';
             var dd = false;
-            
+
             // Process the student's scores
             <?php /** @var $score string */?>
             var score = [{course_id: true, grade: true}];
@@ -34,7 +34,7 @@
             for (i = 0; i < score.length; i++) {
                 score_list[score[i].course_id] = score[i].grade;
             }
-            
+
             // Read the course list
             var courses = {"course": true, "equivalent": true};
             <?php /** @var $courses string */?>
@@ -43,7 +43,7 @@
                 if (courses.course.hasOwnProperty(i)) courses.course[i].id = i;
             }
             const grade_list = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D', 'F'];
-            
+
             // Generate the Table Data shown in the page
             var table_data = {};
             var degree = courses.degree[major];
@@ -66,7 +66,7 @@
                     }
                 }
             }
-            
+
             function setGrade(data, course, id) {
                 course.score = 0;
                 if (score_list.hasOwnProperty(id)) {
@@ -81,7 +81,7 @@
                 data.course_list.push(course);
                 delete score_list[id];
             }
-            
+
             // Process courses in "EF", "PS", "SJTU" (not elective)
             var cat_temp = ["EF", "PS", "SJTU"];
             for (i in courses.course) {
@@ -94,7 +94,7 @@
                     }
                 }
             }
-            
+
             // Remove Equivalent EF courses
             var course_list = table_data["EF"].course_list;
             for (i = 0; i < course_list.length; i++) {
@@ -141,19 +141,19 @@
                     }
                 }
             }
-            
-            
+
+
             window.console.log(table_data);
-            
+
             // Process elective courses
-            
+
             // Add special courses which is necessary to either program
             function addSpecial(_major, id, category, flag) {
                 if (major === _major && (score_list.hasOwnProperty(id) || flag)) {
                     setGrade(table_data[category], courses.course[id], id);
                 }
             }
-            
+
             addSpecial("ECE", "VG496", "IB", true);
             addSpecial("ME", "VE401", "AM", false);
             addSpecial("ME", "VE301", "AM", false);
@@ -163,7 +163,7 @@
                     setGrade(table_data[course.category], course, i);
                 }
             }
-            
+
             // Shift credits
             if (major === "ECE") {
                 cat_temp = ["CE", "UTE", "FTE", "GE"];
@@ -192,7 +192,7 @@
                     table_data[cat_temp[i + 1]].credit_shift += credit_now - credit;
                 }
             }
-            
+
             // Calculate GPA
             for (i in table_data) {
                 if (table_data.hasOwnProperty(i)) {
@@ -208,13 +208,13 @@
                     table_data[i].gpa = Number(table_data[i].gpa).toFixed(3);
                 }
             }
-            
-            
+
+
             var source = $("#ji-ibox-template").html();
             var template = Handlebars.compile(source);
             Handlebars.registerPartial('degree', $("#degree-template").html());
-            
-            
+
+
             var config = {
                 "id": "degree",
                 "title": "Degree Process Check Sheet",
@@ -233,15 +233,18 @@
                 }]
             };
             $("#body-wrapper").append(template(config));
-            
-            
+
+
             $('.chosen-select').chosen({width: "100%"});
-            
+
             // Operations about the degree ibox
             //
-            
+
             var $degree = $("#degree");
-            
+            $degree.find(".btn-submit").hide();
+            $degree.find(".table-add").hide();
+            $degree.find(".div-error").hide();
+
             // Display the credit of the course when selecting
             $degree.find(".select-course").on('change', function () {
                 var id = $(this).val();
@@ -249,7 +252,7 @@
                 if (courses.course.hasOwnProperty(id)) credit = courses.course[id].credit;
                 $degree.find(".text-credit").html(credit);
             });
-            
+
             // Adding courses into the table on the right and update the chosen plugin
             $degree.find(".select-course").val('').trigger("chosen:updated");
             $degree.find(".select-grade").val('').trigger("chosen:updated");
@@ -258,6 +261,9 @@
                 var id = $select.val();
                 if (courses.course.hasOwnProperty(id)) {
                     $degree.find(".div-error").collapse('hide');
+                    setTimeout(function () {
+                        $degree.find(".div-error").hide();
+                    }, 200);
                     var course = courses.course[id];
                     var html = [
                         '<tr>',
@@ -275,10 +281,10 @@
                         if (courses.course.hasOwnProperty(id)) {
                             var course = courses.course[id];
                             if (!course.hasOwnProperty('hide') || !course.hide) {
-                                $select.find("option[value=" + id + "]").css('display', '');
+                                $select.find("option[value=" + id + "]").show();
                                 if (course.hasOwnProperty('equivalent')) {
                                     for (var i = 0; i < course.equivalent.length; i++) {
-                                        $select.find("option[value=" + course.equivalent[i] + "]").css('display', '');
+                                        $select.find("option[value=" + course.equivalent[i] + "]").show();
                                     }
                                 }
                                 $select.trigger("chosen:updated");
@@ -286,22 +292,23 @@
                         }
                         $row.remove();
                     });
-                    $degree.find(".table-add").css('display', '');
+                    $degree.find(".table-add").show();
                     $degree.find(".table-add").collapse();
-                    $select.find("option[value=" + id + "]").css('display', 'none');
+                    $degree.find(".btn-submit").show();
+                    $select.find("option[value=" + id + "]").hide();
                     if (course.hasOwnProperty('equivalent')) {
                         for (var i = 0; i < course.equivalent.length; i++) {
-                            $select.find("option[value=" + course.equivalent[i] + "]").css('display', 'none');
+                            $select.find("option[value=" + course.equivalent[i] + "]").hide();
                         }
                     }
                     $select.val('').trigger("chosen:updated");
                     $degree.find(".select-grade").val('').trigger("chosen:updated");
                 } else {
-                    $degree.find(".div-error").css('display', '');
+                    $degree.find(".div-error").show();
                     $degree.find(".div-error").collapse('show');
                 }
             });
-            
+
             // Submit the result through ajax, if success, refresh the page
             $degree.find(".btn-submit").on('click', function () {
                 var ajax_data = [];
@@ -337,8 +344,8 @@
                     }
                 });
             });
-            
-            // The delete button in the table on the right
+
+            // The delete button in the check sheet
             $degree.find(".tbody-main i").on('click', function () {
                 var $row = $(this).parents("tr").first();
                 if (!$row.data('delete')) {
@@ -346,6 +353,7 @@
                     $(this).removeClass('fa-minus');
                     $(this).addClass('fa-plus');
                     $row.children().css('text-decoration', 'line-through');
+                    $degree.find(".btn-submit").show();
                 } else {
                     $row.data('delete', false);
                     $(this).removeClass('fa-plus');
@@ -353,21 +361,24 @@
                     $row.children().css('text-decoration', '');
                 }
             });
-            
+
             // The edit button on the toolbar
             $degree.find("a.edit-link").on('click', function () {
                 if (!$degree.data('edit')) {
                     $degree.data('edit', true);
-                    $degree.find(".tbody-main i").css('display', '');
-                    $degree.find(".module-edit").css('display', '');
-                    
+                    $degree.find(".tbody-main i").show();
+                    $degree.find(".module-edit").show();
+                    $degree.find(".module-edit").collapse('show');
                 } else {
                     $degree.data('edit', false);
-                    $degree.find(".tbody-main i").css('display', 'none');
-                    $degree.find(".module-edit").css('display', 'none');
+                    $degree.find(".tbody-main i").hide();
+                    setTimeout(function () {
+                        $degree.find(".module-edit").hide();
+                    }, 200);
+                    $degree.find(".module-edit").collapse('hide');
                 }
             });
-            
+
         });
     });
 

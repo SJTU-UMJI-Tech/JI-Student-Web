@@ -132,7 +132,7 @@ class User extends Front_Controller
         $data_info = json_decode(base64_decode($data), true);
         $redirect_uri = base_url('user/auth2?data=') . $data;
         
-        print_r($data_info);
+        //print_r($data_info);
         
         $auth_code = $this->input->get('code');
         
@@ -145,14 +145,21 @@ class User extends Front_Controller
             'client_secret' => $this->get_site_config('user_client_secret_oauth2')
         );
         
+        
         $token_json = $this->Site_model->request_post($url, $post_data);
         $token_info = json_decode($token_json);
+        
         if (!isset($token_info->error))
         {
             $url = "https://api.sjtu.edu.cn/v1/me/profile?access_token=" . $token_info->access_token;
             $usr_json = $this->Site_model->request_get($url);
             $usr_info = json_decode($usr_json);
-            print_r($usr_info);
+            //print_r($usr_info);
+            
+            // 更新数据库中的用户信息，返回User_obj
+            $this->load->model('User_model');
+            $user = $this->User_model->update_user($usr_info->entities[0]);
+            
             if ($usr_info->error == 0)
             {
                 // 成功
@@ -160,18 +167,18 @@ class User extends Front_Controller
                 {
                     $query = array(
                         'result'    => 'success',
-                        'jaccount'  => $usr_info->entities[0]->account,
-                        'user_id'   => $usr_info->entities[0]->code,
-                        'user_name' => $usr_info->entities[0]->name,
-                        'user_type' => $usr_info->entities[0]->userType
+                        'jaccount'  => $user->account,
+                        'user_id'   => $user->USER_ID,
+                        'user_name' => $user->user_name,
+                        'user_type' => $user->user_type,
                     );
                     $this->jiaccount_redirect($data_info['uri'], $query);
                 }
                 else
                 {
-                    $_SESSION["user_id"] = $usr_info->entities[0]->code;
-                    $_SESSION["user_name"] = $usr_info->entities[0]->name;
-                    $_SESSION["user_type"] = $usr_info->entities[0]->userType;
+                    $_SESSION["user_id"] = $user->USER_ID;
+                    $_SESSION["user_name"] = $user->user_name;
+                    $_SESSION["user_type"] = $user->user_type;
                     unset($_SESSION["logout"]);
                     $this->__redirect($data_info['uri']);
                 }
