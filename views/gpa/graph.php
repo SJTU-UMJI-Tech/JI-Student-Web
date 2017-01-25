@@ -100,12 +100,12 @@
 
             function generate_graph(score_list, $target) {
 
-                if ($target.data('graph')) {
-                    $target.next().html('');
-                }
-                $target.data('graph', true);
-                $target.after('<tr><td>1<td></tr>');
-                console.log($graph.html());
+                //if ($target.data('graph')) {
+                //    $target.next().html('');
+                //}
+                //$target.data('graph', true);
+                //$target.after('<tr><td>1<td></tr>');
+                //console.log($graph.html());
 
                 var display = {
                     grade: [], data: [], color: [], data_all: []
