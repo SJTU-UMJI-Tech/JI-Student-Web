@@ -157,7 +157,8 @@
         },
         "all": {
           "icon": "fa-trophy",
-          "name": "All Scholarships"
+          "name": "All Scholarships",
+          "href": "/scholarships/all"
         },
         "under-grad": {
           "icon": "fa-hourglass-start",

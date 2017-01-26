@@ -30,6 +30,7 @@ class Scholarships extends Front_Controller
 			array('name' => 'content', 'label' => 'Content', 'type' => 'markdown'),
 			array('name' => 'attachment', 'label' => 'Attachment', 'type' => 'file')
 		);
+		$this->add_nav('SCHOLAR');
 	}
 	
 	protected function redirect()
@@ -39,14 +40,27 @@ class Scholarships extends Front_Controller
 	
 	public function index()
 	{
-		$this->validate_privilege('read');
-		$data = $this->data;
-		$data['page_name'] = 'Scholarships';
-		$data['data'] = array(
-			'new' => $this->validate_privilege('write')
-		);
-		$this->load->view('common/home', $data);
+		//$this->validate_privilege('read');
+		//$data = $this->data;
+		//$data['page_name'] = 'Scholarships';
+		//$data['data'] = array(
+		//	'new' => $this->validate_privilege('write')
+		//);
+		//$this->load->view('common/home', $data);
+        
+  
+        
 	}
+	
+	public function all()
+    {
+        $this->data['page_name'] = 'Scholarships';
+        $this->add_nav('all')->form_navbar();
+    
+        $this->load->view('scholarships/list', $this->data);
+    }
+    
+	
 	
 	public function edit()
 	{
@@ -107,7 +121,7 @@ class Scholarships extends Front_Controller
 	public function ajax_search()
 	{
 		error_reporting(0);
-		$this->validate_privilege('read', false);
+		//$this->validate_privilege('read', false);
 		$cmd = $this->input->get('cmd');
 		$key = $this->input->get('key');
 		if ($cmd == 'search')

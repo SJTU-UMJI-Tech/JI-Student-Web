@@ -19,7 +19,8 @@ class Errors extends Front_Controller
     
     public function page_missing()
     {
-        $this->load->view('errors/404.html');
+        $this->form_navbar();
+        $this->load->view('errors/404', $this->data);
     }
     
     

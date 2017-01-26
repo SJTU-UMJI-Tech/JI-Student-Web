@@ -64,6 +64,7 @@ class Scholarships_model extends CI_Model
 		$orders = array('CREATE_TIMESTAMP', $order != 'Oldest' ? 'DESC' : 'ASC');
 		$result = $this->Site_model->search_object($this::TABLE, $this::LIBRARY, $fields, $keywords,
 		                                           $where, $orders, $limit, $offset);
+		//print_r($result);
 		return $result;
 	}
 	
