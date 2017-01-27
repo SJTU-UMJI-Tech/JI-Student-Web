@@ -42,7 +42,10 @@
             'handlebars': 'bower/handlebars/handlebars.amd.min',
             'select2': 'plugins/select2/select2.full.min',
             'chosen': 'plugins/chosen/chosen.jquery',
-            'inspinia': 'inspinia'
+            'inspinia': 'inspinia',
+            
+            
+            'ji-list-view':'ji/ji-list-view'
         },
         
         shim: {

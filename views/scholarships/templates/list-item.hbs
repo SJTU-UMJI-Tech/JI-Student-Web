@@ -5,9 +5,12 @@
             <span class="label label-primary">Active</span>
         </td>
         <td class="project-title">
-            <a href="project_detail.html">Contract with Zender Company</a>
+            <a href="/">{{#with title}}{{this}}{{/with}}</a>
             <br/>
-            <small>Created 14.08.2014</small>
+            {{#with UPDATE_TIMESTAMP}}
+                <small>Updated {{this}}</small>
+            {{/with}}
+
         </td>
         <td class="project-completion">
             <small>Completion with: 48%</small>
