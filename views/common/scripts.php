@@ -40,6 +40,7 @@
             'chartjs': 'plugins/chartJs/Chart.min',
             'footable': 'plugins/footable/footable.all.min',
             'handlebars': 'bower/handlebars/handlebars.amd.min',
+            'handlebars.runtime': 'bower/handlebars/handlebars.runtime.amd.min',
             'select2': 'plugins/select2/select2.full.min',
             'chosen': 'plugins/chosen/chosen.jquery',
             'inspinia': 'inspinia',

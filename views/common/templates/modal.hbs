@@ -1,39 +1,36 @@
-<script id="ji-modal-template" type="text/x-handlebars-template">
-
-    <div class="modal inmodal" {{#with id}}id="{{this}}"{{/with}} tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-                {{#with header}}
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span
-                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <!--<i class="fa fa-laptop modal-icon"></i>-->
-                        <h4 class="modal-title">{{#with title}}{{this}}{{/with}}</h4>
-                        <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting-->
-                        <!--industry.-->
-                        <!--</small>-->
-                    </div>
-                {{/with}}
-                {{#each body}}
-                    <div class="modal-body">
-                        {{#if html}}
-                            {{{html}}}
-                        {{/if}}
-                    </div>
-                {{/each}}
-                {{#if footer}}
-                    <div class="modal-footer">
-                        {{#each footer}}
-                            {{#with button}}
-                                <a type="button" class="btn btn-{{#if type}}{{type}}{{else}}default{{/if}}"
-                                   {{#with href}}href="{{this}}"{{/with}}
-                                    {{#if close}}data-dismiss="modal"{{/if}}>{{#with text}}{{this}}{{/with}}</a>
-                            {{/with}}
-                        {{/each}}
-                    </div>
-                {{/if}}
-            </div>
+<div class="modal inmodal" {{#with id}}id="{{this}}"{{/with}} tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            {{#with header}}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <!--<i class="fa fa-laptop modal-icon"></i>-->
+                    <h4 class="modal-title">{{#with title}}{{this}}{{/with}}</h4>
+                    <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting-->
+                    <!--industry.-->
+                    <!--</small>-->
+                </div>
+            {{/with}}
+            {{#each body}}
+                <div class="modal-body">
+                    {{#if html}}
+                        {{{html}}}
+                    {{/if}}
+                </div>
+            {{/each}}
+            {{#if footer}}
+                <div class="modal-footer">
+                    {{#each footer}}
+                        {{#with button}}
+                            <a type="button" class="btn btn-{{#if type}}{{type}}{{else}}default{{/if}}"
+                               {{#with href}}href="{{this}}"{{/with}}
+                                {{#if close}}data-dismiss="modal"{{/if}}>{{#with text}}{{this}}{{/with}}</a>
+                        {{/with}}
+                    {{/each}}
+                </div>
+            {{/if}}
         </div>
     </div>
+</div>
 
-</script>

@@ -15,14 +15,15 @@
         factory(jQuery);
     }
 })(function ($, Handlebars) {
-
+    
     'use strict';
-
+    
     function JIListView($element, options) {
         var i;
-
+        
         this.$container = $element;
-
+        this.url = options.url;
+        
         if (options.templates) {
             if (options.templates.list) {
                 Handlebars.registerPartial('list', options.templates.list);
@@ -41,35 +42,35 @@
                 this.itemTemplate = Handlebars.compile(options.templates.item);
             } else return;
         }
-
+        
         this.$list = this.$container.find("tbody");
         this.processRow = options.processRow;
         this.listData = {};
         this.listNum = 0;
-
+        
         this.expand();
-
-
+        
+        
     }
-
+    
     JIListView.prototype = {
-
+        
         constructor: JIListView,
-
+        
         expand: function () {
             var _this = this;
-
+            
             this.$list.find(".btn-expand").parentsUntil("tr").remove();
-
+            
             $.ajax({
                 type: 'GET',
-                url: window.ROOT_DIR + '/scholarships/ajax_search',
+                url: this.url.search || './ajax_search',
                 data: {
                     cmd: 'search',
                     key: 'all',
                     keywords: '',
                     order: 'Newest',
-                    limit: 1,
+                    limit: 2,
                     offset: this.listNum
                 },
                 dataType: 'json',
@@ -80,14 +81,14 @@
                     console.log('fail')
                 }
             });
-
+            
         },
-
+        
         addItem: function (data) {
             var newFlag = false;
             for (var i = 0; i < data.length; i++) {
                 var row = this.processRow(data[i]);
-
+                
                 if (this.listData.hasOwnProperty(row.id)) {
                     // Update
                     var $old = this.$list.find("tr[data-id=" + row.id + "]");
@@ -99,32 +100,47 @@
                     this.listNum++;
                     this.$list.append(this.itemTemplate(row));
                     var $new = this.$list.find("tr[data-id=" + row.id + "]");
-
+                    
                     $new.on('click', $.proxy(this.itemCollapse, this));
-
+                    
                     //console.log(row);
                     newFlag = true;
                 }
             }
-
+            
             if (!newFlag) {
-
+            
             }
             else {
                 this.$list.append('<tr><td colspan="5" class="text-center"><a class="btn-link btn-expand"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a></td></tr>');
                 this.$list.find(".btn-expand").on('click', $.proxy(this.expand, this));
             }
         },
-
+        
         itemCollapse: function (e) {
-            console.log(1);
+            var $row = $(e.target).parents("tr").first();
+            if ($row.data('collapse')) {
+                $row.data('collapse', false);
+                $row.next().find(".collapsed").collapse('hide');
+                setTimeout(function () {
+                    $row.next().remove();
+                }, 200);
+            } else {
+                $row.data('collapse', true);
+                var id = $row.data('id');
+                if (this.listData.hasOwnProperty(id)) {
+                    var row = this.listData[id];
+                    $row.after('<tr><td colspan="5"><div class="collapsed">' + row.abstract + '</div></td></tr>');
+                    $row.next().find(".collapsed").collapse();
+                }
+            }
         }
-
-
+        
+        
     };
-
+    
     $.fn.jiListView = function (option) {
         return new JIListView(this, option);
     };
-
+    
 });

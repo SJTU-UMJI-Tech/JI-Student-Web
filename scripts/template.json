@@ -1,0 +1,15 @@
+{
+  "common": [
+    "ibox",
+    "ibox-article"
+  ],
+  "gpa": [
+    "degree",
+    "graph",
+    "scoreboard"
+  ],
+  "scholarships": [
+    "list",
+    "list-item"
+  ]
+}

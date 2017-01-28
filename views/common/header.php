@@ -29,6 +29,16 @@
     <!-- Inspinia Stylesheet -->
     <link href="<?php echo ROOT_DIR; ?>/css/animate.css" rel="stylesheet">
     <link href="<?php echo ROOT_DIR; ?>/css/style.css" rel="stylesheet">
+    
+    <script type="text/javascript">
+        window.ROOT_DIR = '<?php echo ROOT_DIR; ?>';
+        window.JS_SUFFIX = '<?php echo ENVIRONMENT == 'production' ? '.min' : ''; ?>';
+        window.initJIFramework = function (filename, options) {
+            require([filename + window.JS_SUFFIX], function (instance) {
+                instance(options);
+            });
+        }
+    </script>
 
 
 </head>
@@ -704,7 +714,8 @@
         
         <div class="alert alert-warning">
             This site is in alpha version, more functions will be added soon. Please
-            <a href="https://github.com/SJTU-UMJI-Tech/JI-Student-Web/issues" target="_blank">contact</a> the developers if you have any issue.
+            <a href="https://github.com/SJTU-UMJI-Tech/JI-Student-Web/issues" target="_blank">contact</a> the developers
+            if you have any issue.
         </div>
     
        

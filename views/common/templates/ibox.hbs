@@ -1,49 +1,46 @@
-<script id="ji-ibox-template" type="text/x-handlebars-template">
+<div {{#with id}}id="{{this}}"{{/with}} class="ibox float-e-margins">
+    {{#if title}}
+        <div class="ibox-title">
 
-    <div {{#with id}}id="{{this}}"{{/with}} class="ibox float-e-margins">
-        {{#if title}}
-            <div class="ibox-title">
-
-                <h5>{{title}}</h5>
-                <div class="ibox-tools">
-                    {{#each tools}}
-                        {{#if collapse}}
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                        {{else if close}}
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        {{else if edit}}
-                            <a class="edit-link">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                        {{else if menu}}
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                        {{/if}}
-                    {{/each}}
-                </div>
-
+            <h5>{{title}}</h5>
+            <div class="ibox-tools">
+                {{#each tools}}
+                    {{#if collapse}}
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    {{else if close}}
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    {{else if edit}}
+                        <a class="edit-link">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    {{else if menu}}
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#">Config option 1</a>
+                            </li>
+                            <li><a href="#">Config option 2</a>
+                            </li>
+                        </ul>
+                    {{/if}}
+                {{/each}}
             </div>
-        {{/if}}
-        {{#each body}}
-            <div class="ibox-content {{#if center}}text-center{{/if}}">
-                {{#if template}}
-                    {{> (lookup . 'template') data}}
-                {{else if html}}
-                    {{{html}}}
-                {{/if}}
-            </div>
-        {{/each}}
-    </div>
 
-</script>
+        </div>
+    {{/if}}
+    {{#each body}}
+        <div class="ibox-content {{#if center}}text-center{{/if}}">
+            {{#if template}}
+                {{> (lookup . 'template') data}}
+            {{else if html}}
+                {{{html}}}
+            {{/if}}
+        </div>
+    {{/each}}
+</div>
+

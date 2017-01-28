@@ -15,11 +15,14 @@
     "type": "git",
     "url": "https://github.com/SJTU-UMJI-Tech/JI-Student-Web.git"
   },
-  "devDependencies": {
+  "dependencies": {
+    "shelljs": "^0.7.6",
+    "uglify-js": "^2.7.5"
   },
   "scripts": {
     "taobao-npm": "npm config set registry https://registry.npm.taobao.org",
     "install-bower": "npm install bower -g",
-    "config-course-min": "uglifyjs --expr ./config/course.json -o ./config/course.min.json"
+    "config-course-min": "uglifyjs --expr ./config/course.json -o ./config/course.min.json",
+    "compile:template": "node scripts/template.js"
   }
 }

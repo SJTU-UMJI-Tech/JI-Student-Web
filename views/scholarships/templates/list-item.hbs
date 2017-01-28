@@ -1,40 +1,49 @@
-<script id="list-item-template" type="text/x-handlebars-template">
-
-    <tr {{#with id}}data-id="{{this}}"{{/with}}>
-        <td class="project-status">
+<tr {{#with id}}data-id="{{this}}"{{/with}}>
+    <td class="project-status text-center">
+        {{#if active}}
             <span class="label label-primary">Active</span>
-        </td>
-        <td class="project-title">
-            <a href="/">{{#with title}}{{this}}{{/with}}</a>
-            <br/>
-            {{#with UPDATE_TIMESTAMP}}
-                <small>Updated {{this}}</small>
-            {{/with}}
+        {{else if closed}}
+            <span class="label label-default">Closed</span>
+        {{else}}
+            <span class="label label-warning">Not open</span>
+        {{/if}}
+    </td>
+    <td class="project-title">
+        <a href="/">{{#with title}}{{this}}{{/with}}</a>
+        <br/>
+        {{#with UPDATE_TIMESTAMP}}
+            <small>Updated {{this}}</small>
+        {{/with}}
 
-        </td>
-        <td class="project-completion">
-            <small>Time Elapsed: {{time_percent}}%</small>
-            <div class="progress progress-mini">
-                <div style="width: {{time_percent}}%;" class="progress-bar {{#if time_after}}progress-bar-danger{{/if}}"></div>
-            </div>
-        </td>
-        <td class="project-completion">
-            <small>Elected: {{current_num}}/{{max_num}}</small>
-            <div class="progress progress-mini">
-                <div style="width: {{people_percent}}%;" class="progress-bar {{#if people_full}}progress-bar-danger{{/if}}"></div>
-            </div>
-        </td>
-        <!--<td class="project-people">-->
-        <!--<a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>-->
-        <!--<a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>-->
-        <!--<a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>-->
-        <!--<a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>-->
-        <!--<a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>-->
-        <!--</td>-->
-        <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-        </td>
-    </tr>
+    </td>
+    <td class="project-completion">
+        <small>{{start_date}} - {{end_date}}</small>
+        <div class="progress progress-mini">
+            <div style="width: {{time_percent}}%;"
+                 class="progress-bar {{#if time_after}}progress-bar-danger{{/if}}"></div>
+        </div>
+    </td>
+    <td class="project-completion">
+        <small>Elected: {{current_num}}/{{max_num}}</small>
+        <div class="progress progress-mini">
+            <div style="width: {{people_percent}}%;"
+                 class="progress-bar {{#if people_full}}progress-bar-danger{{/if}}"></div>
+        </div>
+    </td>
+    <!--<td class="project-people">-->
+    <!--<a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>-->
+    <!--<a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>-->
+    <!--<a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>-->
+    <!--<a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>-->
+    <!--<a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>-->
+    <!--</td>-->
+    <td class="project-actions">
+        {{#if url_view}}
+            <a href="{{url_view}}?id={{id}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
+        {{/if}}
+        {{#if url_edit}}
+            <a href="{{url_edit}}?id={{id}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+        {{/if}}
+    </td>
+</tr>
 
-</script>

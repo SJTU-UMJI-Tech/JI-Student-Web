@@ -34,8 +34,14 @@ class GPA extends Front_Controller
     {
         $this->redirect();
         $scoreboard = $this->GPA_model->get_scoreboard();
-        $this->data['scoreboard'] = json_encode($scoreboard);
         $this->add_nav('board')->form_navbar();
+        
+        $data = array(
+            'scoreboard' => &$scoreboard
+        );
+        
+        $this->data['data'] = json_encode($data);
+        
         $this->load->view('gpa/home', $this->data);
     }
     
@@ -60,8 +66,12 @@ class GPA extends Front_Controller
         $score = $this->GPA_model->get_user_score($_SESSION['user_id']);
         $courses = $this->Site_model->read_config('course.json');
         
-        $this->data['score'] = json_encode($score);
-        $this->data['courses'] = $courses;
+        $data = array(
+            'score'   => &$score,
+            'courses' => json_decode($courses, true)
+        );
+        
+        $this->data['data'] = json_encode($data);
         
         $this->load->view('gpa/graph', $this->data);
     }
@@ -69,13 +79,18 @@ class GPA extends Front_Controller
     public function degree()
     {
         $this->redirect();
+        $this->add_nav('degree')->form_navbar();
+    
         $score = $this->GPA_model->get_user_score($_SESSION['user_id']);
         $courses = $this->Site_model->read_config('course.json');
+    
+        $data = array(
+            'score'   => &$score,
+            'courses' => json_decode($courses, true)
+        );
+    
+        $this->data['data'] = json_encode($data);
         
-        $this->data['score'] = json_encode($score);
-        $this->data['courses'] = $courses;
-        
-        $this->add_nav('degree')->form_navbar();
         $this->load->view('gpa/degree', $this->data);
         
     }
