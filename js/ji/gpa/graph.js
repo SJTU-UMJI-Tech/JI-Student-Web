@@ -3,7 +3,7 @@
  */
 ;define([
     'require', 'exports', 'module',
-    'jquery', 'handlebars.runtime', 'footable',
+    'jquery', 'handlebars.runtime', 'footable', 'chartjs',
     'templates/common/ibox.min', 'templates/gpa/graph.min'
 ], function (require, exports, module) {
     
@@ -11,15 +11,15 @@
     var Handlebars = require('handlebars.runtime');
     
     module.exports = function (options) {
-    
+        
         var i, j;
-    
+        
         var courses = {"course": true};
         courses = options.courses;
         for (i in courses.course) {
             if (courses.course.hasOwnProperty(i)) courses.course[i].id = i;
         }
-    
+        
         var score = [{course_id: true, grade: true}];
         score = options.score;
         for (i = 0; i < score.length; i++) {
@@ -41,10 +41,10 @@
                 }
             }
         }
-    
+        
         var template = require('templates/common/ibox.min');
         Handlebars.registerPartial('graph', require('templates/gpa/graph.min'));
-    
+        
         // Main Table
         var config = {
             "id": "graph-table",
@@ -55,17 +55,17 @@
             }]
         };
         $("#body-wrapper").prepend(template(config));
-    
+        
         $(".footable").footable();
-    
+        
         $(".footable").find(".pagination").on('click', function () {
             window.location.hash = '';
             window.location.hash = 'body-wrapper';
         });
-    
-    
+        
+        
         // Initialize
-    
+        
         const score_to_index_list = {
             '43': 0, '40': 1, '37': 2, '33': 3, '30': 4, '27': 5,
             '23': 6, '20': 7, '17': 8, '10': 9, '0': 10
@@ -74,7 +74,7 @@
         const color_list = [
             '#7AA7E1', '#5ADED8', '#5CCFA5', '#39E13B', '#77E17A', '#7FE17C',
             '#BBE162', '#DEB367', '#E16158', '#E1487A', '#DE2027'];
-    
+        
         $("#graph-table").find(".tr-course").on('click', function (e) {
             if ($(this).data('graph')) {
                 var $graph = $(this).next();
@@ -88,7 +88,7 @@
             var id = $(this).children("[type=id]").data('id');
             var _this = $(this);
             $.ajax({
-                url: '<?php echo ROOT_DIR;?>/GPA/graph_score',
+                url: window.ROOT_DIR + '/GPA/graph_score',
                 type: 'GET',
                 dataType: 'json',
                 data: {id: id},
@@ -100,10 +100,10 @@
                 }
             });
         });
-    
+        
         function generate_graph(score_list, $target) {
             $target.data('graph', true);
-        
+            
             var html;
             if (score_list.length === 0) {
                 html = ['<div class="row collapsed">',
@@ -124,7 +124,7 @@
             }
             $target.after('<tr><td colspan="5" class="text-center td-graph">' + html + '<td></tr>');
             var $graph = $target.next();
-        
+            
             if (score_list.length > 0) {
                 var display = {
                     grade: [], data: [], color: [], data_all: []
@@ -142,7 +142,7 @@
                     }
                 }
                 //console.log(display.data_all);
-            
+                
                 // Graph Line
                 /*config = {
                  "id": "graph-line-ibox",
@@ -152,7 +152,7 @@
                  }]
                  };
                  $graph.find(".graph-line-wrapper").html(template(config));*/
-            
+                
                 var lineData = {
                     labels: grade_list,
                     datasets: [
@@ -166,9 +166,9 @@
                         }
                     ]
                 };
-            
+                
                 var max = Math.ceil(Math.max.apply(null, display.data) / 5) * 5;
-            
+                
                 var lineOptions = {
                     responsive: true,
                     legend: {display: false},
@@ -182,12 +182,12 @@
                         }]
                     }
                 };
-            
+                
                 var graphElement = $graph.find(".graph-line").first();
                 var ctx = graphElement[0].getContext("2d");
                 //var ctx = document.getElementById("graph-line").getContext("2d");
                 new Chart(ctx, {type: 'line', data: lineData, options: lineOptions});
-            
+                
                 // Graph Pie
                 /*config = {
                  "id": "graph-pie-ibox",
@@ -197,8 +197,8 @@
                  }]
                  };
                  $graph.find(".graph-pie-wrapper").html(template(config));*/
-            
-            
+                
+                
                 var doughnutData = {
                     labels: display.grade,
                     datasets: [{
@@ -215,7 +215,7 @@
                 new Chart(ctx, {type: 'doughnut', data: doughnutData, options: doughnutOptions});
             }
             $graph.find(".row").collapse();
-        
+            
         }
         
     }
