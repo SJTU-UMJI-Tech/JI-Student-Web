@@ -33,8 +33,10 @@ class GPA extends Front_Controller
         );
     
         $this->data['data'] = json_encode($data);
-        
-        $this->load->view('gpa/terms', $this->data);
+        $this->data['js'] = 'ji/gpa/terms';
+        $this->data['article'] = true;
+    
+        $this->load->view('common/page', $this->data);
     }
     
     public function index()
@@ -46,10 +48,11 @@ class GPA extends Front_Controller
         $data = array(
             'scoreboard' => &$scoreboard
         );
-        
+    
         $this->data['data'] = json_encode($data);
+        $this->data['js'] = 'ji/gpa/scoreboard';
         
-        $this->load->view('gpa/home', $this->data);
+        $this->load->view('common/page', $this->data);
     }
     
     public function graph_score()
@@ -79,8 +82,9 @@ class GPA extends Front_Controller
         );
         
         $this->data['data'] = json_encode($data);
-        
-        $this->load->view('gpa/graph', $this->data);
+        $this->data['js'] = 'ji/gpa/graph';
+    
+        $this->load->view('common/page', $this->data);
     }
     
     public function degree()
@@ -96,9 +100,10 @@ class GPA extends Front_Controller
             'courses' => json_decode($courses, true)
         );
     
+        $this->data['js'] = 'ji/gpa/degree';
         $this->data['data'] = json_encode($data);
         
-        $this->load->view('gpa/degree', $this->data);
+        $this->load->view('common/page', $this->data);
         
     }
     

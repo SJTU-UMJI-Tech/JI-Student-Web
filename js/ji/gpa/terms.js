@@ -4,7 +4,8 @@
 ;define([
     'require', 'exports', 'module',
     'jquery', 'handlebars.runtime',
-    'templates/common/ibox.min', 'templates/common/ibox-article.min', 'templates/common/modal.min'
+    'templates/common/body.min', 'templates/common/ibox.min',
+    'templates/common/ibox-article.min', 'templates/common/modal.min'
 ], function (require, exports, module) {
     
     var $ = require('jquery');
@@ -12,7 +13,7 @@
     
     module.exports = function (options) {
         
-        var template = require('templates/common/ibox.min');
+        Handlebars.registerPartial('ibox', require('templates/common/ibox.min'));
         Handlebars.registerPartial('article', require('templates/common/ibox-article.min'));
         
         var config = {
@@ -25,7 +26,15 @@
                 "html": '<button id="btn-agree" class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-agree"><i class="fa fa-check"></i>&nbsp;Agree</button>'
             }]
         };
-        $("#article-wrapper").html(template(config));
+        
+        var template = require('templates/common/body.min');
+        
+        $("#body-wrapper").append(template(
+            [{
+                grid: 'col-lg-10 col-lg-offset-1',
+                template: 'ibox',
+                data: config
+            }]));
         
         template = require('templates/common/modal.min');
         config = {
@@ -46,7 +55,7 @@
                 }
             }]
         };
-        $("#article-wrapper").append(template(config));
+        $("#body-wrapper").append(template(config));
         
     }
     

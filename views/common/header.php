@@ -21,7 +21,7 @@
     
     <!-- Bootstrap and Font Awesome Stylesheet-->
     <link href="<?php echo ROOT_DIR; ?>/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo ROOT_DIR; ?>/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="<?php echo ROOT_DIR; ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     
     <!-- Toastr Stylesheet, changed in style.css -->
     <link href="<?php echo ROOT_DIR; ?>/css/plugins/toastr/toastr.min.css" rel="stylesheet">
@@ -55,8 +55,8 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <?php if ($this->Site_model->is_login()): ?>
-                            <span><img alt="image" class="img-circle"
-                                       src="<?php echo base_url('img/profile_small.jpg') ?>"/></span>
+                            <span><img alt="image" class="img-circle" width="45"
+                                       src="<?php echo $this->Site_model->get_avatar(); ?>"/></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
                                 <span class="block m-t-xs"><strong
@@ -66,7 +66,7 @@
                             </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.html">Profile</a></li>
+                                <li><a href="<?php echo base_url('/user/profile'); ?>">Profile</a></li>
                                 <li><a href="contacts.html">Contacts</a></li>
                                 <li><a href="mailbox.html">Mailbox</a></li>
                                 <li class="divider"></li>

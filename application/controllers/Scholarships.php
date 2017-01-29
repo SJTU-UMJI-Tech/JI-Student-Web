@@ -57,7 +57,9 @@ class Scholarships extends Front_Controller
         $this->data['page_name'] = 'Scholarships';
         $this->add_nav('all')->form_navbar();
     
-        $this->load->view('scholarships/list', $this->data);
+        $this->data['js'] = 'ji/scholarships/list';
+        
+        $this->load->view('common/page', $this->data);
     }
     
 	

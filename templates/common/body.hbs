@@ -1,0 +1,7 @@
+<div class="row">
+    {{#each this}}
+        <div class="{{grid}}">
+            {{> (lookup . 'template') data}}
+        </div>
+    {{/each}}
+</div>

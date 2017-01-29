@@ -4,7 +4,7 @@
 ;(function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as anonymous module.
-        define(['jquery', 'handlebars'], factory);
+        define(['jquery', 'handlebars.runtime'], factory);
     }
     else if (typeof exports === 'object') {
         // Node / CommonJS
@@ -35,11 +35,11 @@
                         template: "list"
                     }]
                 };
-                this.iboxTemplate = Handlebars.compile(options.templates.ibox);
+                this.iboxTemplate = options.templates.ibox;
                 this.$container.append(this.iboxTemplate(config));
             } else return;
             if (options.templates.item) {
-                this.itemTemplate = Handlebars.compile(options.templates.item);
+                this.itemTemplate = options.templates.item;
             } else return;
         }
         

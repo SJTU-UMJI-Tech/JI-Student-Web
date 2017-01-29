@@ -300,6 +300,19 @@ class Site_model extends CI_Model
         return isset($_SESSION['user_id']) && $_SESSION['user_id'] != '';
     }
     
+    public function get_avatar()
+    {
+        if ($this->is_login())
+        {
+            $filename = 'uploads/avatar/' . $_SESSION['user_id'] . '.png';
+            if (file_exists('./' . $filename))
+            {
+                return base_url($filename);
+            }
+        }
+        return base_url('img/avatar-default.png');
+    }
+    
     public function get_relative_url()
     {
         $url = $_SERVER["REQUEST_URI"];

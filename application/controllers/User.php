@@ -75,6 +75,11 @@ class User extends Front_Controller
         exit();
     }
     
+    protected function init()
+    {
+        //$_SESSION['avatar'] = file_exists('./uploads/avatar/' . $_SESSION['user_id'] . '.png');
+    }
+    
     public function login()
     {
         /** In the development mode, we will use ji-account api to login */
@@ -87,6 +92,7 @@ class User extends Front_Controller
                 $_SESSION['user_id'] = $this->input->get('user_id');
                 $_SESSION['user_name'] = $this->input->get('user_name');
                 $_SESSION['user_type'] = $this->input->get('user_type');
+                $this->init();
                 unset($_SESSION["logout"]);
                 redirect(base_url($this->input->get('uri')));
             }
@@ -170,7 +176,7 @@ class User extends Front_Controller
                         'jaccount'  => $user->account,
                         'user_id'   => $user->USER_ID,
                         'user_name' => $user->user_name,
-                        'user_type' => $user->user_type,
+                        'user_type' => $user->user_type
                     );
                     $this->jiaccount_redirect($data_info['uri'], $query);
                 }
@@ -179,6 +185,7 @@ class User extends Front_Controller
                     $_SESSION["user_id"] = $user->USER_ID;
                     $_SESSION["user_name"] = $user->user_name;
                     $_SESSION["user_type"] = $user->user_type;
+                    $this->init();
                     unset($_SESSION["logout"]);
                     $this->__redirect($data_info['uri']);
                 }
@@ -301,6 +308,23 @@ class User extends Front_Controller
             $jam->logout(ROOT_DIR . $redirect_uri);
         }
     }
+    
+    public function profile()
+    {
+        $this->form_navbar();
+        
+        $data = array(
+            'name'      => $_SESSION['user_name'],
+            'user_type' => $_SESSION['user_type'],
+            'avatar'    => $this->Site_model->get_avatar()
+        );
+        
+        $this->data['data'] = json_encode($data);
+        $this->data['js'] = 'ji/user/profile';
+        
+        $this->load->view('common/page', $this->data);
+    }
+    
     
     public function settings()
     {

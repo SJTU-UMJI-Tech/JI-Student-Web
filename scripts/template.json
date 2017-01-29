@@ -1,5 +1,6 @@
 {
   "common": [
+    "body",
     "ibox",
     "ibox-article",
     "modal"
@@ -12,5 +13,8 @@
   "scholarships": [
     "list",
     "list-item"
+  ],
+  "user": [
+    "profile"
   ]
 }

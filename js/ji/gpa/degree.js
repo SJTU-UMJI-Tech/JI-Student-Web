@@ -11,6 +11,8 @@
     var Handlebars = require('handlebars.runtime');
     
     module.exports = function (options) {
+    
+        $("#body-wrapper").append('<div class="alert alert-warning">The Degree Progress Check Sheet is simple and naive now! I will improve the AI later. (version alpha.2.1)</div>');
         
         var i;
         var major = 'ECE';
