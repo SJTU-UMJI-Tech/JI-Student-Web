@@ -10,6 +10,13 @@ echo('Begin to uglify the js files ...');
 
 var root_dir = './js/ji';
 
+//echo(ls('-R', root_dir).grep(/\.js$/).grep('-v',/min\.js$/));
+
+console.log(ls('-R', root_dir).grep(/\.js$/).grep('-v',/min\.js$/));
+
+var a=ls('-R', root_dir).grep(/\.js$/).grep('-v',/min\.js$/).stdout.split('\n');
+console.log(a);
+
 for (var type in files) {
     if (files.hasOwnProperty(type)) {
         var dir = root_dir + '/' + type;

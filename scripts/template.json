@@ -1,7 +1,8 @@
 {
   "common": [
     "ibox",
-    "ibox-article"
+    "ibox-article",
+    "modal"
   ],
   "gpa": [
     "degree",

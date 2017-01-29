@@ -25,8 +25,15 @@ class GPA extends Front_Controller
             $this->GPA_model->set_user_state($_SESSION['user_id'], 1);
             $this->__redirect('GPA/degree');
         }
-        $this->data['terms_body'] = $this->Site_model->read_config('gpa/terms.json');
+        $terms_body = $this->Site_model->read_config('gpa/terms.json');
         $this->form_navbar();
+    
+        $data = array(
+            'terms_body' => json_decode($terms_body, true)
+        );
+    
+        $this->data['data'] = json_encode($data);
+        
         $this->load->view('gpa/terms', $this->data);
     }
     
