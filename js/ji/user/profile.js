@@ -19,9 +19,10 @@
         var template = require('templates/user/profile.min');
         
         var config = {
-            name     : options.name,
-            user_type: options.user_type,
-            avatar   : options.avatar
+            name         : options.name,
+            user_type    : options.user_type,
+            avatar       : options.avatar,
+            avatar_upload: options.avatar_upload
         };
         
         window.console.log(config);

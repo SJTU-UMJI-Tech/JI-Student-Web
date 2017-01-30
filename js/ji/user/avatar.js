@@ -37,6 +37,7 @@
         this.$avatarWrapper = this.$avatarModal.find('.avatar-wrapper');
         this.$avatarPreview = this.$avatarModal.find('.avatar-preview');
         
+        this.flagCropping = false;
         this.init();
     }
     
@@ -84,6 +85,7 @@
             var url = this.$avatar.attr('src');
             
             this.$avatarPreview.html('<img src="' + url + '">');
+            this.$avatarPreviewImg = this.$avatarModal.find('.avatar-preview img');
         },
         
         initIframe: function () {
@@ -130,10 +132,12 @@
         
         click: function () {
             this.$avatarModal.modal('show');
+            this.$avatarInput.val('');
             this.initPreview();
         },
         
         change: function () {
+            
             var files;
             var file;
             
@@ -164,7 +168,7 @@
         submit: function () {
             if (!this.$avatarSrc.val() && !this.$avatarInput.val()) {
                 // 提示没有图片
-                
+                this.alert('Image error');
                 return false;
             }
             
@@ -194,6 +198,13 @@
             }
         },
         
+        updatePreview: function () {
+            this.$avatarPreviewImg.attr('src', this.$img.cropper("getCroppedCanvas", {
+                width : 200,
+                height: 200
+            }).toDataURL());
+        },
+        
         startCropper: function () {
             var _this = this;
             
@@ -204,7 +215,7 @@
                 this.$avatarWrapper.empty().html(this.$img);
                 this.$img.cropper({
                     aspectRatio: 1,
-                    preview    : this.$avatarPreview.selector,
+                    //preview    : '.avatar-preview img',
                     strict     : false,
                     crop       : function (e) {
                         var json = [
@@ -214,8 +225,22 @@
                             '"width":' + e.width,
                             '"rotate":' + e.rotate + '}'
                         ].join();
-                        
                         _this.$avatarData.val(json);
+                        if (!_this.flagCropping) {
+                            console.log(1);
+                            _this.updatePreview();
+                        }
+                    },
+                    cropstart  : function () {
+                        _this.flagCropping = true;
+                    },
+                    cropend    : function () {
+                        _this.flagCropping = false;
+                        _this.updatePreview();
+                        console.log(2);
+                    },
+                    zoom       : function () {
+                        //_this.flagCropping = true;
                     }
                 });
                 
@@ -316,6 +341,9 @@
         cropDone: function () {
             this.$avatarForm.get(0).reset();
             this.$avatar.attr('src', this.url);
+            
+            window.location.reload();
+            
             this.stopCropper();
             this.$avatarModal.modal('hide');
         },

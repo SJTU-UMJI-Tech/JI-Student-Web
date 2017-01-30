@@ -303,13 +303,26 @@ class Site_model extends CI_Model
     public function get_avatar($big = false)
     {
         $suffix = $big ? '.big.png' : '.png';
-        if ($this->is_login())
+        if ($this->is_login() && isset($_SESSION['avatar_md5']))
         {
-            $filename = 'uploads/avatar/' . $_SESSION['user_id'] . $suffix;
+            $filename = 'uploads/avatar/' . $_SESSION['user_id'] . '.' . $_SESSION['avatar_md5'] . $suffix;
             if (file_exists('./' . $filename))
             {
                 return base_url($filename);
             }
+            if ($_SESSION['avatar_md5'])
+            {
+                $this->load->model('User_model');
+                $user = $this->User_model->get_user($_SESSION['user_id']);
+                $_SESSION['avatar_md5'] = $user->avatar_md5;
+            }
+            $filename = 'uploads/avatar/' . $_SESSION['user_id'] . '.' . $_SESSION['avatar_md5'] . $suffix;
+            if (file_exists('./' . $filename))
+            {
+                return base_url($filename);
+            }
+            //$this->db->update('user', array('avatar_md5' => ''), array('USER_ID' => $_SESSION['user_id']));
+            $_SESSION['avatar_md5'] = '';
         }
         return base_url('img/avatar-default' . $suffix);
     }

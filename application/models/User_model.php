@@ -123,6 +123,7 @@ class User_model extends CI_Model
             $user = $this->get_user($USER_ID);
             $avatar_md5 = $user->avatar_md5;
             $this->db->update('user', array('avatar_md5' => $avatar_md5_new), array('USER_ID' => $USER_ID));
+            $_SESSION['avatar_md5'] = $avatar_md5_new;
             
             $file_prefix = './uploads/avatar/' . $USER_ID . '.' . $avatar_md5;
             if (file_exists($file_prefix . '.png'))

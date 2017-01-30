@@ -75,9 +75,17 @@ class User extends Front_Controller
         exit();
     }
     
-    protected function init()
+    protected function init($USER_ID)
     {
-        
+        $this->load->model('User_model');
+        $user = $this->User_model->get_user($USER_ID);
+        if (!$user->is_error())
+        {
+            $_SESSION['user_id'] = $user->USER_ID;
+            $_SESSION['user_name'] = $user->user_name;
+            $_SESSION['user_type'] = $user->user_type;
+            $_SESSION['avatar_md5'] = $user->avatar_md5;
+        }
         //$_SESSION['avatar'] = file_exists('./uploads/avatar/' . $_SESSION['user_id'] . '.png');
     }
     
@@ -90,10 +98,10 @@ class User extends Front_Controller
             $result = $this->input->get('result');
             if ($result == 'success')
             {
-                $_SESSION['user_id'] = $this->input->get('user_id');
-                $_SESSION['user_name'] = $this->input->get('user_name');
-                $_SESSION['user_type'] = $this->input->get('user_type');
-                $this->init();
+                //$_SESSION['user_id'] = $this->input->get('user_id');
+                //$_SESSION['user_name'] = $this->input->get('user_name');
+                //$_SESSION['user_type'] = $this->input->get('user_type');
+                $this->init($this->input->get('user_id'));
                 unset($_SESSION["logout"]);
                 redirect(base_url($this->input->get('uri')));
             }
@@ -183,10 +191,10 @@ class User extends Front_Controller
                 }
                 else
                 {
-                    $_SESSION["user_id"] = $user->USER_ID;
-                    $_SESSION["user_name"] = $user->user_name;
-                    $_SESSION["user_type"] = $user->user_type;
-                    $this->init();
+                    //$_SESSION["user_id"] = $user->USER_ID;
+                    //$_SESSION["user_name"] = $user->user_name;
+                    //$_SESSION["user_type"] = $user->user_type;
+                    $this->init($user->USER_ID);
                     unset($_SESSION["logout"]);
                     $this->__redirect($data_info['uri']);
                 }
@@ -312,12 +320,15 @@ class User extends Front_Controller
     
     public function profile()
     {
+        $this->redirect_login();
+    
         $this->form_navbar();
         
         $data = array(
-            'name'      => $_SESSION['user_name'],
-            'user_type' => $_SESSION['user_type'],
-            'avatar'    => $this->Site_model->get_avatar(true)
+            'name'          => $_SESSION['user_name'],
+            'user_type'     => $_SESSION['user_type'],
+            'avatar'        => $this->Site_model->get_avatar(true),
+            'avatar_upload' => base_url('/user/avatar_upload')
         );
         
         $this->data['data'] = json_encode($data);
