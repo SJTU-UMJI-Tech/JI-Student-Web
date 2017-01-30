@@ -300,17 +300,18 @@ class Site_model extends CI_Model
         return isset($_SESSION['user_id']) && $_SESSION['user_id'] != '';
     }
     
-    public function get_avatar()
+    public function get_avatar($big = false)
     {
+        $suffix = $big ? '.big.png' : '.png';
         if ($this->is_login())
         {
-            $filename = 'uploads/avatar/' . $_SESSION['user_id'] . '.png';
+            $filename = 'uploads/avatar/' . $_SESSION['user_id'] . $suffix;
             if (file_exists('./' . $filename))
             {
                 return base_url($filename);
             }
         }
-        return base_url('img/avatar-default.png');
+        return base_url('img/avatar-default' . $suffix);
     }
     
     public function get_relative_url()

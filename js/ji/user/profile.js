@@ -3,9 +3,12 @@
  */
 ;define([
     'require', 'exports', 'module',
-    'jquery', 'handlebars.runtime', 'ji/user/avatar' + window.JS_SUFFIX,
+    'jquery', 'handlebars.runtime',
+    'ji/user/avatar' + window.JS_SUFFIX, 'css!' + window.ROOT_DIR + '/js/ji/user/avatar.css',
     'templates/common/ibox.min', 'templates/user/profile.min'
 ], function (require, exports, module) {
+    
+    'use strict';
     
     var $          = require('jquery');
     var Handlebars = require('handlebars.runtime');
@@ -21,7 +24,7 @@
             avatar   : options.avatar
         };
         
-        console.log(config);
+        window.console.log(config);
         
         $("#body-wrapper").append(template(config));
         

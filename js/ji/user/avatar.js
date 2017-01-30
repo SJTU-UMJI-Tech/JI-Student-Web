@@ -4,7 +4,7 @@
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as anonymous module.
-        define(['jquery', 'cropper'], factory);
+        define(['jquery', 'bootstrap', 'cropper'], factory);
     } else if (typeof exports === 'object') {
         // Node / CommonJS
         factory(require('jquery'));
@@ -64,7 +64,7 @@
         addListener: function () {
             this.$avatarView.on('click', $.proxy(this.click, this));
             this.$avatarInput.on('change', $.proxy(this.change, this));
-            this.$avatarForm.on('submit', $.proxy(this.submit, this));
+            this.$avatarSave.on('click', $.proxy(this.submit, this));
             this.$avatarBtns.on('click', $.proxy(this.rotate, this));
         },
         
@@ -163,6 +163,8 @@
         
         submit: function () {
             if (!this.$avatarSrc.val() && !this.$avatarInput.val()) {
+                // 提示没有图片
+                
                 return false;
             }
             
@@ -238,7 +240,11 @@
             var url  = this.$avatarForm.attr('action');
             //var data = new FormData(this.$avatarForm[0]);
             var data = new FormData();
-            data.append('avatar_file', this.$img.cropper("getCroppedCanvas", {width: 300, height: 300}).toDataURL());
+            
+            var img_data = this.$img.cropper("getCroppedCanvas", {width: 200, height: 200}).toDataURL();
+            
+            data.append('avatar_file', img_data);
+            
             var _this = this;
             
             $.ajax(url, {
@@ -272,27 +278,6 @@
         
         submitStart: function () {
             this.$loading.fadeIn();
-        },
-        
-        dataURItoBlob: function (dataURI) {
-            // convert base64/URLEncoded data component to raw binary data held in a string
-            var byteString;
-            if (dataURI.split(',')[0].indexOf('base64') >= 0) {
-                byteString = atob(dataURI.split(',')[1]);
-            }
-            else {
-                byteString = unescape(dataURI.split(',')[1]);
-            }
-            
-            // separate out the mime component
-            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-            
-            // write the bytes of the string to a typed array
-            var ia = new Uint8Array(byteString.length);
-            for (var i = 0; i < byteString.length; i++) {
-                ia[i] = byteString.charCodeAt(i);
-            }
-            return new Blob([ia], {type: mimeString});
         },
         
         submitDone: function (data) {

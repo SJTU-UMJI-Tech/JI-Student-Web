@@ -29,7 +29,7 @@ function initJIRequire(rootUrl) {
             'handlebars.runtime': 'bower/handlebars/handlebars.runtime.amd.min',
             'select2': 'plugins/select2/select2.full.min',
             'chosen': 'plugins/chosen/chosen.jquery',
-            'cropper': 'plugins/cropper/cropper.min',
+            'cropper': 'bower/cropper/dist/cropper.min',
             'inspinia': 'inspinia',
             
             
@@ -44,7 +44,7 @@ function initJIRequire(rootUrl) {
             'footable': ['jquery', formCSSPath('css/plugins/footable/footable.core.css')],
             'select2': [formCSSPath('css/plugins/select2/select2.min.css')],
             'chosen': ['jquery', formCSSPath('css/plugins/chosen/bootstrap-chosen.css')],
-            'cropper': [formCSSPath('css/plugins/cropper/cropper.min')],
+            'cropper': [formCSSPath('js/bower/cropper/dist/cropper.min.css')],
             'inspinia': ['bootstrap', 'metisMenu', 'slimscroll']
         },
         waitSeconds: 30

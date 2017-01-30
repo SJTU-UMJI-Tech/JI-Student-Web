@@ -77,6 +77,7 @@ class User extends Front_Controller
     
     protected function init()
     {
+        
         //$_SESSION['avatar'] = file_exists('./uploads/avatar/' . $_SESSION['user_id'] . '.png');
     }
     
@@ -316,13 +317,21 @@ class User extends Front_Controller
         $data = array(
             'name'      => $_SESSION['user_name'],
             'user_type' => $_SESSION['user_type'],
-            'avatar'    => $this->Site_model->get_avatar()
+            'avatar'    => $this->Site_model->get_avatar(true)
         );
         
         $this->data['data'] = json_encode($data);
         $this->data['js'] = 'ji/user/profile';
         
         $this->load->view('common/page', $this->data);
+    }
+    
+    public function avatar_upload()
+    {
+        $file = $this->input->post('avatar_file');
+        $this->load->model('User_model');
+        echo $this->User_model->update_avatar($file);
+        exit();
     }
     
     

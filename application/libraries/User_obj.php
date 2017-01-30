@@ -35,6 +35,8 @@ class User_obj extends My_obj
     public $card;
     /** @var string varchar(20) 身份证类型 */
     public $card_type;
+    /** @var string varchar(50) */
+    public $avatar_md5;
     /** @var string timestamp   创建时间 */
     public $CREATE_TIMESTAMP;
     /** @var string timestamp   更新时间 */

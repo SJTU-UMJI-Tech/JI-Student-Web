@@ -19,6 +19,7 @@
   "dependencies": {
     "requirejs": "^2.3.2",
     "require-css": "^0.1.8",
-    "handlebars": "^4.0.5"
+    "handlebars": "^4.0.5",
+    "cropper": "^2.3.4"
   }
 }

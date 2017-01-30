@@ -18,7 +18,7 @@
             <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <form class="avatar-form" action="<?php echo base_url('ajax/avatar_upload');?>" enctype="multipart/form-data" method="post">
+                        <form class="avatar-form" action="/user/avatar_upload" enctype="multipart/form-data" method="post">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
@@ -62,7 +62,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <button type="submit" class="btn btn-primary btn-block avatar-save">Done</button>
+                                            <button type="button" class="btn btn-primary btn-block avatar-save">Done</button>
                                         </div>
                                     </div>
                                 </div>
