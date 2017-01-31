@@ -14,7 +14,7 @@
 </div>
 
 <!-- requireJS -->
-<script src="<?php echo ROOT_DIR ?>/js/bower/requirejs/require.min.js"></script>
+<script src="<?php echo ROOT_DIR ?>/node_modules/requirejs/require.js"></script>
 
 <script src="<?php echo ROOT_DIR ?>/js/ji/app<?php echo ENVIRONMENT == 'production' ? '.min' : ''; ?>.js"></script>
 
