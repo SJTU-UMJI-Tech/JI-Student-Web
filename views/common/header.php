@@ -25,7 +25,7 @@ function nodeCSS($path, $no_min = false)
     <!-- If page name is not defined, use a default one -->
     <title><?php echo isset($page_name) ? $page_name : 'UM-SJTU JI LIFE'; ?></title>
     
-    <link rel="shortcut icon" href="<?php echo ROOT_DIR; ?>/images/favicon.png">
+    <link rel="shortcut icon" href="<?php echo ROOT_DIR; ?>/img/favicon.png">
     
     <!-- Bootstrap and Font Awesome Stylesheet-->
     <?php nodeCSS('bootstrap/dist/css/bootstrap'); ?>

@@ -19,7 +19,6 @@
     "bootstrap": "^3.3.7",
     "bower": "^1.8.0",
     "chart.js": "^2.4.0",
-    "chosen": "0.0.2",
     "chosen-js": "^1.6.2",
     "cropper": "^2.3.4",
     "font-awesome": "^4.7.0",
@@ -41,6 +40,9 @@
     "preinstall": "npm config set registry https://registry.npm.taobao.org",
     "postinstall": "bower install",
     "compile:template": "node deployment/template.js",
-    "compile:uglify": "node deployment/uglify.js"
+    "compile:uglify": "node deployment/uglify.js",
+    "deploy:development": "node deployment/deploy.js development",
+    "deploy:production": "node deployment/deploy.js production",
+    "deploy:start": "npm run compile:template && npm run compile:uglify"
   }
 }

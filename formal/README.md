@@ -1,1 +1,0 @@
-# umji-student-web
