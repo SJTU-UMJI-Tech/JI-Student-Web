@@ -33,6 +33,7 @@ function process_js(filename){
 		fs.access(filename+'.min.'+signature+'.js')
 	}catch(err){
 		console.log('not found');
+		shelljs.rm(filename + '.min.*').grep('*.js');
 	}
 	}
 	
