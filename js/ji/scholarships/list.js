@@ -4,7 +4,8 @@
 ;define([
     'require', 'exports', 'module',
     'jquery', 'ji-list-view',
-    'templates/common/ibox.min', 'templates/scholarships/list.min', 'templates/scholarships/list-item.min'
+    'js/templates/common/ibox.min', 'js/templates/scholarships/list.min',
+    'js/templates/scholarships/list-item.min'
 ], function (require, exports, module) {
     
     var $ = require('jquery');
@@ -23,9 +24,9 @@
                 search: base_url('ajax_search')
             },
             templates: {
-                "ibox": require('templates/common/ibox.min'),
-                "list": require('templates/scholarships/list.min'),
-                "item": require('templates/scholarships/list-item.min')
+                "ibox": require('js/templates/common/ibox.min'),
+                "list": require('js/templates/scholarships/list.min'),
+                "item": require('js/templates/scholarships/list-item.min')
             },
             processRow: function (row) {
                 var start = new Date(row.start_date).getTime();

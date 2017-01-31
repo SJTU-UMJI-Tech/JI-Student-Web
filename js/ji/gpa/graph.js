@@ -4,7 +4,7 @@
 ;define([
     'require', 'exports', 'module',
     'jquery', 'handlebars.runtime', 'footable', 'chartjs',
-    'templates/common/ibox.min', 'templates/gpa/graph.min'
+    'js/templates/common/ibox.min', 'js/templates/gpa/graph.min'
 ], function (require, exports, module) {
     
     var $ = require('jquery');
@@ -42,8 +42,8 @@
             }
         }
         
-        var template = require('templates/common/ibox.min');
-        Handlebars.registerPartial('graph', require('templates/gpa/graph.min'));
+        var template = require('js/templates/common/ibox.min');
+        Handlebars.registerPartial('graph', require('js/templates/gpa/graph.min'));
         
         // Main Table
         var config = {

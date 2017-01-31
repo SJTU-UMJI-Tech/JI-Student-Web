@@ -4,8 +4,8 @@
 ;define([
     'require', 'exports', 'module',
     'jquery', 'handlebars.runtime',
-    'templates/common/body.min', 'templates/common/ibox.min',
-    'templates/common/ibox-article.min', 'templates/common/modal.min'
+    'js/templates/common/body.min', 'js/templates/common/ibox.min',
+    'js/templates/common/ibox-article.min', 'js/templates/common/modal.min'
 ], function (require, exports, module) {
     
     var $ = require('jquery');
@@ -13,8 +13,8 @@
     
     module.exports = function (options) {
         
-        Handlebars.registerPartial('ibox', require('templates/common/ibox.min'));
-        Handlebars.registerPartial('article', require('templates/common/ibox-article.min'));
+        Handlebars.registerPartial('ibox', require('js/templates/common/ibox.min'));
+        Handlebars.registerPartial('article', require('js/templates/common/ibox-article.min'));
         
         var config = {
             "id": "article-body",
@@ -27,7 +27,7 @@
             }]
         };
         
-        var template = require('templates/common/body.min');
+        var template = require('js/templates/common/body.min');
         
         $("#body-wrapper").append(template(
             [{
@@ -36,7 +36,7 @@
                 data: config
             }]));
         
-        template = require('templates/common/modal.min');
+        template = require('js/templates/common/modal.min');
         config = {
             "id": "modal-agree",
             "header": {"title": "Confirmation"},

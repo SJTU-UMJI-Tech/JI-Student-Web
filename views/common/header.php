@@ -1,3 +1,11 @@
+<?php
+function nodeCSS($path, $no_min = false)
+{
+    echo '<link href="' . ROOT_DIR . '/node_modules/' . $path
+         . ($no_min ? '.css' : '.min.css') . '"  rel="stylesheet">';
+}
+
+?>
 <!--
 *
 *  JI-LIFE
@@ -20,21 +28,21 @@
     <link rel="shortcut icon" href="<?php echo ROOT_DIR; ?>/images/favicon.png">
     
     <!-- Bootstrap and Font Awesome Stylesheet-->
-    <link href="<?php echo ROOT_DIR; ?>/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo ROOT_DIR; ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <?php nodeCSS('bootstrap/dist/css/bootstrap'); ?>
+    <?php nodeCSS('font-awesome/css/font-awesome'); ?>
     
     <!-- Toastr Stylesheet, changed in style.css -->
-    <link href="<?php echo ROOT_DIR; ?>/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <?php nodeCSS('toastr/build/toastr'); ?>
     
     <!-- Inspinia Stylesheet -->
     <link href="<?php echo ROOT_DIR; ?>/css/animate.css" rel="stylesheet">
     <link href="<?php echo ROOT_DIR; ?>/css/style.css" rel="stylesheet">
     
     <script type="text/javascript">
-        window.ROOT_DIR = '<?php echo ROOT_DIR; ?>';
-        window.JS_SUFFIX = '<?php echo ENVIRONMENT == 'production' ? '.min' : ''; ?>';
+        window.ROOT_DIR        = '<?php echo ROOT_DIR; ?>';
+        window.JS_SUFFIX       = '<?php echo ENVIRONMENT == 'production' ? '.min' : ''; ?>';
         window.initJIFramework = function (filename, options) {
-            require([filename + window.JS_SUFFIX], function (instance) {
+            require(['js/' + filename + window.JS_SUFFIX], function (instance) {
                 instance(options);
             });
         }
