@@ -21,8 +21,8 @@ class RequireJSBuilder {
 				const files = fs.readFileSync(inputDir + relativeDir);
 				for (let i = 0; i < files.length; i++)
 				{
-					let file_dir = inputDir + relativeDir + '/' + files[i];
-					const stats = fs.statSync(file_dir);
+					let file_dir = relativeDir + '/' + files[i];
+					const stats = fs.statSync(inputDir+file_dir);
 					if (stats.isDirectory(file_dir))
 					{
 						traversal(file_dir);
