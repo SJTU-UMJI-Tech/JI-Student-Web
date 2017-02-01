@@ -32,7 +32,7 @@ function process_js(filename) {
     let signature = hash.digest('hex').substring(0, 6);
     console.log(signature);
     try {
-        fs.access(filename + '.min.' + signature + '.js')
+        fs.accessSync(filename + '.min.' + signature + '.js')
     } catch (err) {
         console.log('not found');
         let list = shelljs.ls('-d', filename + '.*').grep(/min\.(js|[\W\w]*\.js)$/);
@@ -45,3 +45,10 @@ function process_js(filename) {
 
 
 process_dir('./js/ji');
+
+const builder = require('./requirejs-builder');
+builder.initBuilder({
+    node_modules : './node_modules',
+    bower_modules: './bower_modules',
+    
+});
