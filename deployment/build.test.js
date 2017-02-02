@@ -2,28 +2,25 @@
  * Created by sunyi on 2017/2/1.
  */
 const builder = require('./requirejs-builder');
-let test      = builder.initBuilder({
-    node_modules : 'node_modules',
-    bower_modules: 'bower_modules',
-});
-
-test.addAppDir('js/ji', 'js-dist/ji', 'ji')
-    .addNode('jquery', 'jquery/dist/jquery')
-    .addNode('bootstrap', 'bootstrap/dist/js/bootstrap', ['jquery'])
-    .addNode('metisMenu', 'metismenu/dist/metisMenu', ['jquery'])
-    .addNode('slimscroll', 'jquery-slimscroll/jquery.slimscroll', ['jquery'])
-    .addNode('pace', 'pace-progress/pace')
-    .addNode('jquery-ui', 'jquery-ui-dist/jquery-ui')
-    .addNode('gritter', 'gritter/js/jquery.gritter')
-    .addNode('toastr', 'toastr/build/toastr')
-    .addNode('chartjs', 'chart.js/dist/Chart')
-    .addNode('handlebars', 'handlebars/dist/handlebars.amd')
-    .addNode('handlebars.runtime', 'handlebars/dist/handlebars.runtime.amd')
-    .addNode('select2', 'select2/dist/select2.full')
-    .addNode('chosen', 'chosen-js/chosen.jquery')
-    .addNode('cropper', 'cropper/dist/cropper')
-    .addFile('footable', 'js/plugins/footable/footable.all')
-    .addFile('inspinia', 'js/inspinia');
 
 
-test.build('js/app.build');
+builder.addAppDir('js/ji', 'js-dist/ji', 'ji');
+builder.addNode('jquery', 'jquery/dist/jquery');
+builder.addNode('bootstrap', 'bootstrap/dist/js/bootstrap', ['jquery']);
+builder.addNode('metisMenu', 'metismenu/dist/metisMenu', ['jquery']);
+builder.addNode('slimscroll', 'jquery-slimscroll/jquery.slimscroll', ['jquery']);
+builder.addNode('pace', 'pace-progress/pace');
+builder.addNode('jquery-ui', 'jquery-ui-dist/jquery-ui');
+builder.addNode('gritter', 'gritter/js/jquery.gritter');
+builder.addNode('toastr', 'toastr/toastr');
+builder.addNode('chartjs', 'chart.js/dist/Chart');
+builder.addNode('handlebars', 'handlebars/dist/handlebars.amd');
+builder.addNode('handlebars.runtime', 'handlebars/dist/handlebars.runtime.amd');
+builder.addNode('select2', 'select2/dist/js/select2.full');
+builder.addNode('chosen', 'chosen-js/chosen.jquery');
+builder.addNode('cropper', 'cropper/dist/cropper');
+//builder.addFile('footable', 'js/plugins/footable/footable.all');
+//builder.addFile('inspinia', 'js/inspinia');
+
+
+builder.build('js/app.build');
