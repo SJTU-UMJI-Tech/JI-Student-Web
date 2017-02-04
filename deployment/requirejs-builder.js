@@ -81,10 +81,11 @@ class RequireJSBuilder {
         }
     }
 
-    addFile(name, inputDir, outputDir, fileName, fileNameOutput, deps, css) {
+    addFile(name, filePath, deps, css) {
         if (this.addName(name)) {
-            this.mkdirMulti(outputDir);
-            let data                  = this.processJs(inputDir, outputDir, name, fileName, fileNameOutput);
+            //this.mkdirMulti(outputDir);
+            let data = this.processJs(filePath, name);
+
             this.libConfig[data.name] = {
                 js   : data.js,
                 minjs: data.minjs,
@@ -94,27 +95,25 @@ class RequireJSBuilder {
         }
     }
 
-    addFileTraversal(inputDir, outputDir, prefix, relativeDir = '') {
-        this.mkdirMulti(outputDir + relativeDir);
+    addFileTraversal(inputDir, prefix, relativeDir = '/') {
+        //this.mkdirMulti(outputDir + relativeDir);
         const files = fs.readdirSync(inputDir + relativeDir);
         for (let i = 0; i < files.length; i++) {
-            let file_dir = relativeDir + '/' + files[i];
-            const stats  = fs.statSync(inputDir + file_dir);
+            let file_dir = inputDir + relativeDir + '/' + files[i];
+            const stats  = fs.statSync(file_dir);
             if (stats.isDirectory()) {
-                this.addFileTraversal(inputDir, outputDir, prefix, file_dir);
+                this.addFileTraversal(inputDir, prefix, relativeDir + files[i] + '/');
             }
             else {
                 let check_min_js = files[i].match(/\.min[\W\w]*\.js/);
                 let check_js     = files[i].match(/\.js$/);
                 if (!check_min_js && check_js) {
                     const fileName  = files[i].replace(/\.js$/, ''),
-                          fileAlias = prefix + relativeDir.replace('/', '.') + '.' + fileName;
+                          fileAlias = prefix + relativeDir.replace(/\//g, '.') + fileName;
                     if (this.addName(fileAlias)) {
-                        const data                = this.processJs(
-                            inputDir + relativeDir,
-                            outputDir + relativeDir,
-                            fileAlias, fileName
-                        );
+
+                        const data = this.processJs(inputDir + relativeDir + fileName, fileAlias);
+
                         this.appConfig[data.name] = {
                             js   : data.js,
                             minjs: data.minjs
@@ -125,34 +124,18 @@ class RequireJSBuilder {
         }
     }
 
-    processJs(inputDir, outputDir, fileAlias, fileName, fileNameOutput = fileName) {
-        const inputPath     = `${inputDir}/${fileName}.js`,
+    processJs(filePath, fileAlias) {
+        const inputPath     = `${filePath}.js`,
               buffer        = fs.readFileSync(inputPath) + fileAlias,
               hashcode      = crypto.createHash(this.options.hash_method).update(buffer).digest('hex'),
               signature     = hashcode.substring(0, 16),
               outputPath    = `${this.options.js_output_dir}/${signature}.js`,
               outputPathMin = `${this.options.js_output_dir}/${signature}.min.js`;
-        // outputPath    = `${outputDir}/${fileNameOutput}.js`,
-        // outputPathMin = `${outputDir}/${fileNameOutput}.min.${signature}.js`;
         this.log('Process', `${inputPath} (${signature}) ...`);
         try {
             fs.accessSync(outputPath);
             fs.accessSync(outputPathMin);
         } catch (err) {
-            /*const reg = new RegExp(`${fileNameOutput}\\.min\\.(js|[\\W\\w]*\\.js)$`);
-             let list  = shelljs.ls(`${outputDir}`);
-             if (list.stdout) {
-             list    = list.grep(reg);
-             let cmd = list.stdout.replace(/(^\s*)|(\s*$)/g, '');
-             if (cmd) {
-             cmd = cmd.split('\n');
-             for (let i = 0; i < cmd.length; i++) {
-             cmd[i] = `${outputDir}/${cmd[i]}`;
-             this.log('Remove', cmd[i]);
-             }
-             shelljs.rm(cmd);
-             }
-             }*/
             this.log('Generate', outputPath);
             fs.writeFileSync(outputPath, buffer);
             this.log('Generate', outputPathMin);
@@ -167,8 +150,8 @@ class RequireJSBuilder {
         this.log('Status', 'Up to date');
         return {
             name : fileAlias,
-            js   : outputPath,
-            minjs: outputPathMin
+            js   : `${signature}.js`,
+            minjs: `${signature}.min.js`
         };
     }
 
@@ -199,7 +182,7 @@ class RequireJSBuilder {
         fs.writeSync(fd, HEADER);
 
         fs.writeSync(fd, 'requirejs.config({\n\n');
-        fs.writeSync(fd, '    baseUrl: \'\',\n\n');
+        fs.writeSync(fd, `    baseUrl: '${this.options.js_output_dir}',\n\n`);
 
         // Paths
         fs.writeSync(fd, '    paths: {\n\n');
@@ -247,34 +230,20 @@ module.exports = {
         builder.init(options);
     },
 
-    addAppDir: (inputDir, outputDir, prefix) => {
-        builder.addFileTraversal(inputDir, outputDir, prefix);
+    addAppDir: (inputDir, prefix) => {
+        builder.addFileTraversal(inputDir, prefix);
     },
 
-    addFile: (name, file, deps = [], css = []) => {
-
+    addFile: (name, fileDir, deps = [], css = []) => {
+        builder.addFile(name, fileDir, deps, css);
     },
 
-    addNode: (name, file, deps = [], css = []) => {
-        const index    = file.lastIndexOf('/'),
-              fileDir  = index > 0 ? file.substring(0, index) : '',
-              fileName = index > 0 ? file.substring(index + 1) : file;
-        builder.addFile(
-            name, builder.options.node_modules + '/' + fileDir,
-            builder.options.lib_output + '/' + builder.options.node_modules,
-            fileName, name,
-            deps, css);
+    addNode: (name, fileDir, deps = [], css = []) => {
+        builder.addFile(name, builder.options.node_modules + '/' + fileDir, deps, css);
     },
 
-    addBower: (name, file, deps = [], css = []) => {
-        const index    = file.lastIndexOf('/'),
-              fileDir  = index > 0 ? file.substring(0, index) : '',
-              fileName = index > 0 ? file.substring(index + 1) : file;
-        builder.addFile(
-            name, builder.options.bower_modules + '/' + fileDir,
-            builder.options.lib_output + '/' + builder.options.bower_modules,
-            fileName, name,
-            deps, css);
+    addBower: (name, fileDir, deps = [], css = []) => {
+        builder.addFile(name, builder.options.bower_modules + '/' + fileDir, deps, css);
     },
 
     build: (filePath) => {

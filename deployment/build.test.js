@@ -4,7 +4,7 @@
 const builder = require('./requirejs-builder');
 
 
-builder.addAppDir('js/ji', 'js-dist/ji', 'ji');
+builder.addAppDir('js/ji', 'ji');
 builder.addNode('jquery', 'jquery/dist/jquery');
 builder.addNode('bootstrap', 'bootstrap/dist/js/bootstrap', ['jquery']);
 builder.addNode('metisMenu', 'metismenu/dist/metisMenu', ['jquery']);
