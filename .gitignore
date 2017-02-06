@@ -30,7 +30,6 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /bower_modules
 /dist
 
-/application/config/database.php
 /uploads/*
 !uploads/.gitkeep
 !uploads/*/.gitkeep
