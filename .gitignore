@@ -28,6 +28,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 /node_modules
 /bower_modules
+/dist
 
 /application/config/database.php
 /uploads/*
