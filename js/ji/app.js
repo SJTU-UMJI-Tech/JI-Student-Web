@@ -9,7 +9,7 @@ function initJIRequire(rootUrl) {
     
     function formCSSPath(path) {
         return 'css!' + rootUrl + path;
-    }appConfig
+    }
     
     function nodeCSS(path, no_min) {
         return 'css!' + rootUrl + 'node_modules/' + path + (no_min ? '' : MIN_SUFFIX) + '.css';

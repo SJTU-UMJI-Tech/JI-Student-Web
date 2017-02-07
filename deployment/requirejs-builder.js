@@ -5,7 +5,7 @@
 const fs       = require('fs');
 const shelljs  = require('shelljs');
 const crypto   = require('crypto');
-const uglifyjs = require('uglify-js');
+const UglifyJS = require('uglify-js');
 
 const HEADER =
           '/*\n' +
@@ -15,16 +15,16 @@ const HEADER =
 
 class RequireJSBuilder {
     constructor() {
-        this.init({});
+        this.init();
         this.nameArr   = {};
         this.appConfig = {};
         this.libConfig = {};
     }
 
-    init(options) {
+    init(options = {}) {
         this.options      = {
             root_dir      : options.root_dir || '',
-            hash_method   : options.hash_method || 'md5',
+            hash_method   : options.hash_method || 'sha1',
             node_modules  : options.node_modules || 'node_modules',
             bower_modules : options.bower_modules || 'bower_modules',
             lib_output    : options.lib_output || 'js-dist',
@@ -46,10 +46,6 @@ class RequireJSBuilder {
                 this.remove_files[filePath] = true;
             }
         }
-    }
-
-    isUnique(name) {
-        return !this.nameArr.hasOwnProperty(name);
     }
 
     addName(name) {
@@ -84,13 +80,20 @@ class RequireJSBuilder {
     addFile(name, filePath, deps, css) {
         if (this.addName(name)) {
             //this.mkdirMulti(outputDir);
-            let data = this.processJs(filePath, name);
-
+            let data    = this.processJS(filePath, name);
+            data.css    = [];
+            data.mincss = [];
+            for (let i = 0; i < css.length; i++) {
+                let _data = this.processCSS(css[i]);
+                data.css.push(_data.css);
+                data.mincss.push(_data.mincss);
+            }
             this.libConfig[data.name] = {
-                js   : data.js,
-                minjs: data.minjs,
-                deps : deps,
-                css  : css
+                js    : data.js,
+                minjs : data.minjs,
+                deps  : typeof(deps) === 'string' ? (deps.length > 0 ? [deps] : []) : deps,
+                css   : data.css,
+                mincss: data.mincss
             }
         }
     }
@@ -112,7 +115,7 @@ class RequireJSBuilder {
                           fileAlias = prefix + relativeDir.replace(/\//g, '.') + fileName;
                     if (this.addName(fileAlias)) {
 
-                        const data = this.processJs(inputDir + relativeDir + fileName, fileAlias);
+                        const data = this.processJS(inputDir + relativeDir + fileName, fileAlias);
 
                         this.appConfig[data.name] = {
                             js   : data.js,
@@ -124,10 +127,10 @@ class RequireJSBuilder {
         }
     }
 
-    processJs(filePath, fileAlias) {
+    processJS(filePath, fileAlias) {
         const inputPath     = `${filePath}.js`,
-              buffer        = fs.readFileSync(inputPath) + fileAlias,
-              hashcode      = crypto.createHash(this.options.hash_method).update(buffer).digest('hex'),
+              buffer        = fs.readFileSync(inputPath, 'utf-8'),
+              hashcode      = crypto.createHash(this.options.hash_method).update(buffer + fileAlias).digest('hex'),
               signature     = hashcode.substring(0, 16),
               outputPath    = `${this.options.js_output_dir}/${signature}.js`,
               outputPathMin = `${this.options.js_output_dir}/${signature}.min.js`;
@@ -139,7 +142,9 @@ class RequireJSBuilder {
             this.log('Generate', outputPath);
             fs.writeFileSync(outputPath, buffer);
             this.log('Generate', outputPathMin);
-            fs.writeFileSync(outputPathMin, uglifyjs.minify(inputPath).code);
+            let stream = UglifyJS.OutputStream({comments: true});
+            UglifyJS.parse(buffer).print(stream);
+            fs.writeFileSync(outputPathMin, stream.toString());
         }
         if (this.remove_files.hasOwnProperty(outputPath)) {
             delete this.remove_files[outputPath];
@@ -152,6 +157,38 @@ class RequireJSBuilder {
             name : fileAlias,
             js   : `${signature}.js`,
             minjs: `${signature}.min.js`
+        };
+    }
+
+    processCSS(filePath) {
+        const inputPath     = `${filePath}.css`,
+              buffer        = fs.readFileSync(inputPath, 'utf-8'),
+              hashcode      = crypto.createHash(this.options.hash_method).update(buffer + filePath).digest('hex'),
+              signature     = hashcode.substring(0, 16),
+              outputPath    = `${this.options.css_output_dir}/${signature}.css`,
+              outputPathMin = `${this.options.css_output_dir}/${signature}.min.css`;
+        this.log('Process', `${inputPath} (${signature}) ...`);
+        try {
+            fs.accessSync(outputPath);
+            fs.accessSync(outputPathMin);
+        } catch (err) {
+            this.log('Generate', outputPath);
+            fs.writeFileSync(outputPath, buffer);
+            /*this.log('Generate', outputPathMin);
+             let stream = UglifyJS.OutputStream({comments: true});
+             UglifyJS.parse(buffer).print(stream);
+             fs.writeFileSync(outputPathMin, stream.toString());*/
+        }
+        if (this.remove_files.hasOwnProperty(outputPath)) {
+            delete this.remove_files[outputPath];
+        }
+        if (this.remove_files.hasOwnProperty(outputPathMin)) {
+            delete this.remove_files[outputPathMin];
+        }
+        this.log('Status', 'Up to date');
+        return {
+            css   : `${signature}.css`,
+            mincss: `${signature}.min.css`
         };
     }
 
@@ -234,16 +271,25 @@ module.exports = {
         builder.addFileTraversal(inputDir, prefix);
     },
 
-    addFile: (name, fileDir, deps = [], css = []) => {
-        builder.addFile(name, fileDir, deps, css);
+    addFile: (name, fileDir, deps = '', css = '') => {
+        let _css = typeof(css) === 'string' ? (css.length > 0 ? [css] : []) : css;
+        builder.addFile(name, fileDir, deps, _css);
     },
 
-    addNode: (name, fileDir, deps = [], css = []) => {
-        builder.addFile(name, builder.options.node_modules + '/' + fileDir, deps, css);
+    addNode: (name, fileDir, deps = '', css = '') => {
+        let _css = typeof(css) === 'string' ? (css.length > 0 ? [css] : []) : css;
+        for (let i = 0; i < _css.length; i++) {
+            _css[i] = builder.options.node_modules + '/' + _css[i];
+        }
+        builder.addFile(name, builder.options.node_modules + '/' + fileDir, deps, _css);
     },
 
-    addBower: (name, fileDir, deps = [], css = []) => {
-        builder.addFile(name, builder.options.bower_modules + '/' + fileDir, deps, css);
+    addBower: (name, fileDir, deps = '', css = '') => {
+        let _css = typeof(css) === 'string' ? (css.length > 0 ? [css] : []) : css;
+        for (let i = 0; i < _css.length; i++) {
+            _css[i] = builder.options.bower_modules + '/' + _css[i];
+        }
+        builder.addFile(name, builder.options.bower_modules + '/' + fileDir, deps, _css);
     },
 
     build: (filePath) => {
