@@ -3,6 +3,8 @@
     exit('No direct script access allowed');
 }
 
+defined('VERSION')            OR define('VERSION', '0.2.0');
+
 abstract class Front_Controller extends CI_Controller
 {
     //public $site_config;
@@ -48,7 +50,7 @@ abstract class Front_Controller extends CI_Controller
         
         
         $this->load->library('My_obj');
-        //$this->Site_model->load_site_config();
+        $this->Site_model->load_site_config();
         //$this->load->language('ta_main');
         $this->data = array(
             'type' => 'default'

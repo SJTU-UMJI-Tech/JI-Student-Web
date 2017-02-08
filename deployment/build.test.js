@@ -3,7 +3,7 @@
  */
 const builder = require('./requirejs-builder');
 builder.init({
-    root_dir       : '/student',
+    root_dir       : '',
     require_css_dir: 'node_modules/require-css/css'
 });
 

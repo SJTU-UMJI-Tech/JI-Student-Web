@@ -94,6 +94,8 @@ function nodeCSS($path, $no_min = false)
         </div>
     </nav>
     
+    <?php /*
+    
     <div class="small-chat-box fadeInRight animated">
         
         <div class="heading" draggable="true">
@@ -572,6 +574,8 @@ function nodeCSS($path, $no_min = false)
     
     </div>
     
+    */ ?>
+    
     <div id="page-wrapper" class="gray-bg dashbard-1">
         
         <div class="row border-bottom">
@@ -591,6 +595,7 @@ function nodeCSS($path, $no_min = false)
                         <li>
                             <span class="m-r-sm text-muted welcome-message">Welcome to JI-LIFE</span>
                         </li>
+                        <?php /*
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                                 <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
@@ -692,7 +697,7 @@ function nodeCSS($path, $no_min = false)
                                 </li>
                             </ul>
                         </li>
-                        
+                        */ ?>
                         
                         <li>
                             <a href="<?php echo base_url('user/logout?uri=' .

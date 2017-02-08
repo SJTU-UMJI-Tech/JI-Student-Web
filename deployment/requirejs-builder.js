@@ -216,7 +216,8 @@ class RequireJSBuilder {
             return str + ']';
         };
 
-        const appFilePath = filePath + '.js';
+        const appFilePath    = filePath + '.js';
+        const appFilePathMin = filePath + '.min.js';
 
         let fd = fs.openSync(appFilePath, 'w');
         fs.writeSync(fd, HEADER);
@@ -266,6 +267,9 @@ class RequireJSBuilder {
         fs.writeSync(fd, '});\n\n');
 
         fs.closeSync(fd);
+
+        fs.writeFileSync(appFilePathMin, UglifyJS.minify(appFilePath).code);
+
         //console.log(filePath);
     }
 }
