@@ -42,7 +42,7 @@ function nodeCSS($path, $no_min = false)
         window.ROOT_DIR        = '<?php echo ROOT_DIR; ?>';
         window.JS_SUFFIX       = '<?php echo ENVIRONMENT == 'production' ? '.min' : ''; ?>';
         window.initJIFramework = function (filename, options) {
-            require(['js/' + filename + window.JS_SUFFIX], function (instance) {
+            require([filename], function (instance) {
                 instance(options);
             });
         }

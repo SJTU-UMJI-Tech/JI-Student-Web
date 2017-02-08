@@ -16,11 +16,19 @@
 <!-- requireJS -->
 <script src="<?php echo ROOT_DIR ?>/node_modules/requirejs/require.js"></script>
 
-<script src="<?php echo ROOT_DIR ?>/js/ji/app<?php echo ENVIRONMENT == 'production' ? '.min' : ''; ?>.js"></script>
+<script type="text/javascript">
+    <?php include '../../js/app.build.js'?>
+    require(['pace'], function (pace) {
+        pace.start();
+    });
+    require(['inspinia']);
+</script>
+
+<!--<script src="<?php /*echo ROOT_DIR */ ?>/js/ji/app<?php /*echo ENVIRONMENT == 'production' ? '.min' : ''; */ ?>.js"></script>
 
 <script type="text/javascript">
     
-    var rootUrl = "<?php echo ROOT_DIR; ?>/";
+    var rootUrl = "<?php /*echo ROOT_DIR; */ ?>/";
     initJIRequire(rootUrl);
 
-</script>
+</script>-->

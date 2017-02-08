@@ -4,7 +4,7 @@
 ;define([
     'require', 'exports', 'module',
     'jquery', 'handlebars.runtime', 'footable', 'chosen',
-    'js/templates/common/ibox.min', 'js/templates/gpa/degree.min'
+    'templates/common/ibox', 'templates/gpa/degree'
 ], function (require, exports, module) {
     
     var $ = require('jquery');
@@ -204,8 +204,8 @@
         //var template = Handlebars.compile(source);
         //Handlebars.registerPartial('degree', $("#degree-template").html());
         
-        var template = require('js/templates/common/ibox.min');
-        Handlebars.registerPartial('degree', require('js/templates/gpa/degree.min'));
+        var template = require('templates/common/ibox');
+        Handlebars.registerPartial('degree', require('templates/gpa/degree'));
         
         var config = {
             "id": "degree",

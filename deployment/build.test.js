@@ -2,9 +2,13 @@
  * Created by sunyi on 2017/2/1.
  */
 const builder = require('./requirejs-builder');
-
+builder.init({
+    root_dir       : '/student',
+    require_css_dir: 'node_modules/require-css/css'
+});
 
 builder.addAppDir('js/ji', 'ji');
+builder.addAppDir('js/templates', 'templates');
 builder.addNode('jquery', 'jquery/dist/jquery');
 builder.addNode('bootstrap', 'bootstrap/dist/js/bootstrap', 'jquery');
 builder.addNode('metisMenu', 'metismenu/dist/metisMenu', 'jquery');
@@ -19,7 +23,8 @@ builder.addNode('handlebars.runtime', 'handlebars/dist/handlebars.runtime.amd');
 builder.addNode('select2', 'select2/dist/js/select2.full', '', 'select2/dist/css/select2');
 builder.addNode('chosen', 'chosen-js/chosen.jquery', 'jquery', 'chosen-js/chosen');
 builder.addNode('cropper', 'cropper/dist/cropper', '', 'cropper/dist/cropper');
-builder.addFile('footable', 'js/plugins/footable/footable.all.min', 'jquery', 'css/plugins/footable/footable.core');
+builder.addBower('footable', 'footable/compiled/footable', 'jquery', 'footable/compiled/footable.bootstrap');
+//builder.addFile('footable', 'js/plugins/footable/footable.all.min', 'jquery', 'css/plugins/footable/footable.core');
 builder.addFile('inspinia', 'js/inspinia', ['bootstrap', 'metisMenu', 'slimscroll']);
 
 

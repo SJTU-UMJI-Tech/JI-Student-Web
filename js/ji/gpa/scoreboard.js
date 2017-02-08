@@ -4,7 +4,7 @@
 ;define([
     'require', 'exports', 'module',
     'jquery', 'handlebars.runtime', 'footable',
-    'js/templates/common/ibox.min', 'js/templates/gpa/scoreboard.min'
+    'templates/common/ibox', 'templates/gpa/scoreboard'
 ], function (require, exports, module) {
     
     var $ = require('jquery');
@@ -12,8 +12,8 @@
     
     module.exports = function (options) {
     
-        var template = require('js/templates/common/ibox.min');
-        Handlebars.registerPartial('scoreboard', require('js/templates/gpa/scoreboard.min'));
+        var template = require('templates/common/ibox');
+        Handlebars.registerPartial('scoreboard', require('templates/gpa/scoreboard'));
         
         var config = {
             "id": "scoreboard",

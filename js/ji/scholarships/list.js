@@ -4,7 +4,7 @@
 ;define([
     'require', 'exports', 'module',
     'jquery', 'ji-list-view',
-    'js/templates/common/ibox.min', 'js/templates/scholarships/list.min',
+    'templates/common/ibox', 'templates/scholarships/list',
     'js/templates/scholarships/list-item.min'
 ], function (require, exports, module) {
     
@@ -24,8 +24,8 @@
                 search: base_url('ajax_search')
             },
             templates: {
-                "ibox": require('js/templates/common/ibox.min'),
-                "list": require('js/templates/scholarships/list.min'),
+                "ibox": require('templates/common/ibox'),
+                "list": require('templates/scholarships/list'),
                 "item": require('js/templates/scholarships/list-item.min')
             },
             processRow: function (row) {

@@ -6,6 +6,7 @@ const fs       = require('fs');
 const shelljs  = require('shelljs');
 const crypto   = require('crypto');
 const UglifyJS = require('uglify-js');
+const CleanCSS = require('clean-css');
 
 const HEADER =
           '/*\n' +
@@ -23,17 +24,22 @@ class RequireJSBuilder {
 
     init(options = {}) {
         this.options      = {
-            root_dir      : options.root_dir || '',
-            hash_method   : options.hash_method || 'sha1',
-            node_modules  : options.node_modules || 'node_modules',
-            bower_modules : options.bower_modules || 'bower_modules',
-            lib_output    : options.lib_output || 'js-dist',
-            js_output_dir : options.lib_output || 'dist/js',
-            css_output_dir: options.lib_output || 'dist/css'
+            root_dir       : options.root_dir || '',
+            require_css_dir: options.require_css_dir,
+            hash_method    : options.hash_method || 'sha1',
+            node_modules   : options.node_modules || 'node_modules',
+            bower_modules  : options.bower_modules || 'bower_modules',
+            lib_output     : options.lib_output || 'js-dist',
+            js_output_dir  : options.lib_output || 'dist/js',
+            css_output_dir : options.lib_output || 'dist/css'
         };
         this.remove_files = {};
         this.initDir(this.options.js_output_dir);
         this.initDir(this.options.css_output_dir);
+        if (this.options.require_css_dir) {
+            this.options.require_css_dir = this.processJS(options.require_css_dir);
+        }
+
     }
 
     initDir(dir) {
@@ -88,7 +94,7 @@ class RequireJSBuilder {
                 data.css.push(_data.css);
                 data.mincss.push(_data.mincss);
             }
-            this.libConfig[data.name] = {
+            this.libConfig[name] = {
                 js    : data.js,
                 minjs : data.minjs,
                 deps  : typeof(deps) === 'string' ? (deps.length > 0 ? [deps] : []) : deps,
@@ -112,12 +118,12 @@ class RequireJSBuilder {
                 let check_js     = files[i].match(/\.js$/);
                 if (!check_min_js && check_js) {
                     const fileName  = files[i].replace(/\.js$/, ''),
-                          fileAlias = prefix + relativeDir.replace(/\//g, '.') + fileName;
+                          fileAlias = prefix + relativeDir.replace(/\//g, '/') + fileName;
                     if (this.addName(fileAlias)) {
 
                         const data = this.processJS(inputDir + relativeDir + fileName, fileAlias);
 
-                        this.appConfig[data.name] = {
+                        this.appConfig[fileAlias] = {
                             js   : data.js,
                             minjs: data.minjs
                         }
@@ -127,7 +133,7 @@ class RequireJSBuilder {
         }
     }
 
-    processJS(filePath, fileAlias) {
+    processJS(filePath, fileAlias = filePath) {
         const inputPath     = `${filePath}.js`,
               buffer        = fs.readFileSync(inputPath, 'utf-8'),
               hashcode      = crypto.createHash(this.options.hash_method).update(buffer + fileAlias).digest('hex'),
@@ -154,9 +160,8 @@ class RequireJSBuilder {
         }
         this.log('Status', 'Up to date');
         return {
-            name : fileAlias,
-            js   : `${signature}.js`,
-            minjs: `${signature}.min.js`
+            js   : `${signature}`,
+            minjs: `${signature}.min`
         };
     }
 
@@ -174,10 +179,8 @@ class RequireJSBuilder {
         } catch (err) {
             this.log('Generate', outputPath);
             fs.writeFileSync(outputPath, buffer);
-            /*this.log('Generate', outputPathMin);
-             let stream = UglifyJS.OutputStream({comments: true});
-             UglifyJS.parse(buffer).print(stream);
-             fs.writeFileSync(outputPathMin, stream.toString());*/
+            let data = new CleanCSS({}).minify(buffer);
+            fs.writeFileSync(outputPathMin, data.styles);
         }
         if (this.remove_files.hasOwnProperty(outputPath)) {
             delete this.remove_files[outputPath];
@@ -219,7 +222,14 @@ class RequireJSBuilder {
         fs.writeSync(fd, HEADER);
 
         fs.writeSync(fd, 'requirejs.config({\n\n');
-        fs.writeSync(fd, `    baseUrl: '${this.options.js_output_dir}',\n\n`);
+        fs.writeSync(fd, `    baseUrl: '${this.options.root_dir}/${this.options.js_output_dir}',\n\n`);
+
+        // Map
+        fs.writeSync(fd, '    map: {\n        \'*\': {\n');
+        if (this.options.require_css_dir) {
+            fs.writeSync(fd, `            css: '${this.options.require_css_dir.minjs}',`);
+        }
+        fs.writeSync(fd, '\n        }\n    },\n\n');
 
         // Paths
         fs.writeSync(fd, '    paths: {\n\n');
@@ -242,8 +252,8 @@ class RequireJSBuilder {
             for (let i = 0; i < config.deps.length; i++) {
                 deps.push(config.deps[i]);
             }
-            for (let cssFile in config.css) {
-                deps.push(cssFile);
+            for (let i = 0; i < config.mincss.length; i++) {
+                deps.push(`css!${this.options.root_dir}/${this.options.css_output_dir}/${config.mincss[i]}`);
             }
             if (deps.length > 0) {
                 fs.writeSync(fd, `        '${item}': ${printArr(deps)},\n`);

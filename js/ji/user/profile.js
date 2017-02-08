@@ -5,7 +5,7 @@
     'require', 'exports', 'module',
     'jquery', 'handlebars.runtime',
     'js/ji/user/avatar' + window.JS_SUFFIX, 'css!' + window.ROOT_DIR + '/js/ji/user/avatar.css',
-    'js/templates/common/ibox.min', 'js/templates/user/profile.min'
+    'templates/common/ibox', 'templates/user/profile'
 ], function (require, exports, module) {
     
     'use strict';
@@ -16,7 +16,7 @@
     module.exports = function (options) {
         
         
-        var template = require('js/templates/user/profile.min');
+        var template = require('templates/user/profile');
         
         var config = {
             name         : options.name,
