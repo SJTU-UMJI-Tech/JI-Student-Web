@@ -48,7 +48,7 @@
         // Main Table
         var config = {
             "id": "graph-table",
-            "title": "",
+            "title": "Graphs",
             "body": [{
                 "template": "graph",
                 "data": {courses: courses.course}
@@ -122,7 +122,7 @@
                     '</div>',
                     '</div>'].join('');
             }
-            $target.after('<tr><td colspan="5" class="text-center td-graph">' + html + '<td></tr>');
+            $target.after('<tr>111<td colspan="5" class="text-center td-graph">' + html + '<td></tr>');
             var $graph = $target.next();
             
             if (score_list.length > 0) {

@@ -4,10 +4,9 @@
     }
 </style>
 
-<input type="text" class="form-control input-sm m-b-xs" id="filter"
-       placeholder="Search in table">
-
-<table class="footable table table-stripped" data-page-size="15" data-filter=#filter data-toggle-column="last">
+<table class="footable table table-stripped"
+       data-paging="true" data-paging-size="15"
+       data-filtering="true" data-filter-delay="350">
     <thead>
     <tr>
         <th class="text-center" width="10%">Course ID</th>
@@ -45,10 +44,6 @@
                 <span class="label label-default">{{this}}</span>
             {{/with}}</td>
         </tr>
-        <!--<tr></tr>-->
-        <!--<tr class="tr-graph">-->
-
-        <!--</tr>-->
     {{/each}}
     </tbody>
     <tfoot>

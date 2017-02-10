@@ -8,7 +8,7 @@
 
 <?php include 'scripts.php'; ?>
 
-
+<!-- JI Framework -->
 <script type="text/javascript">
     
     initJIFramework('<?php echo isset($js) ? $js : '';;?>', <?php echo isset($data) ? $data : '{}';  ?>);

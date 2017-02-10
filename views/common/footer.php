@@ -1,3 +1,4 @@
+<!-- Theme Settings -->
 <div class="theme-config">
     <div class="theme-config-box">
         <div class="spin-icon">
@@ -138,6 +139,8 @@
 <script type="text/javascript">
     require(['ji/settings']);
 </script>
+
+<!-- End of Page -->
 
 </body>
 </html>
