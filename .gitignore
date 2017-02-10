@@ -33,3 +33,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /uploads/*
 !uploads/.gitkeep
 !uploads/*/.gitkeep
+/deployment/mysql/dump.sql
