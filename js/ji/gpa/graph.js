@@ -6,17 +6,18 @@
     'jquery', 'handlebars.runtime', 'footable', 'chartjs',
     'templates/common/ibox', 'templates/common/modal', 'templates/gpa/graph'
 ], function (require, exports, module) {
-    
+
     const $          = require('jquery'),
-          Handlebars = require('handlebars.runtime');
-    
+          Handlebars = require('handlebars.runtime'),
+          $body      = $("#body-wrapper");
+
     module.exports = (options) => {
-        
+
         let courses = options.courses;
         for (let i in courses.course) {
             if (courses.course.hasOwnProperty(i)) courses.course[i].id = i;
         }
-        
+
         let score = options.score;
         for (let i = 0; i < score.length; i++) {
             if (courses.course.hasOwnProperty(score[i].course_id)) {
@@ -37,10 +38,10 @@
                 }
             }
         }
-        
+
         let template = require('templates/common/ibox');
         Handlebars.registerPartial('graph', require('templates/gpa/graph'));
-        
+
         // Main Table
         let config = {
             "id"   : "graph-table",
@@ -50,16 +51,16 @@
                 "data"    : {courses: courses.course}
             }]
         };
-        $("#body-wrapper").append(template(config));
-        
-        
+        $body.append(template(config));
+
+
         // The modal of two graphs
         template = require('templates/common/modal');
         config   = {
-            "id"    : "modal-agree",
-            "header": {"title": "Confirmation"},
+            "id"    : "modal-graph",
+            "header": {"title": "Analyze"},
             "body"  : [{
-                "html": "<h3><strong>I've read the terms of service and I agreed about all of the items.</strong></h3>"
+                "html": ""
             }],
             "footer": [{
                 "button": {
@@ -73,19 +74,19 @@
                 }
             }]
         };
-        $("#body-wrapper").append(template(config));
-        
-        
+        $body.append(template(config));
+
+
         $(".footable").footable();
-        
+
         $(".footable").find(".pagination").on('click', () => {
             window.location.hash = '';
             window.location.hash = 'body-wrapper';
         });
-        
-        
+
+
         // Initialize
-        
+
         const score_to_index_list = {
             '43': 0, '40': 1, '37': 2, '33': 3, '30': 4, '27': 5,
             '23': 6, '20': 7, '17': 8, '10': 9, '0': 10
@@ -94,34 +95,28 @@
         const color_list          = [
             '#7AA7E1', '#5ADED8', '#5CCFA5', '#39E13B', '#77E17A', '#7FE17C',
             '#BBE162', '#DEB367', '#E16158', '#E1487A', '#DE2027'];
-        
-        $("#graph-table").find(".tr-course").on('click', (e) => {
-            if ($(this).data('graph')) {
-                let $graph = $(this).next();
-                $graph.find(".row").collapse('hide');
-                setTimeout(() => $graph.remove(), 200);
-                $(this).data('graph', false);
-                return;
-            }
-            const id    = $(this).children("[type=id]").data('id');
-            const _this = $(this);
+
+        $("#graph-table").find(".tr-course").on('click', function (e) {
+            $("#modal-graph").modal();
+            const id = $(this).children("[type=id]").data('id');
+            $("#modal-graph").find(".modal-title").html('Analyze - ' + id);
             $.ajax({
                 url     : window.ROOT_DIR + '/GPA/graph_score',
                 type    : 'GET',
                 dataType: 'json',
                 data    : {id: id},
                 success : (data) => {
-                    generate_graph(data, _this);
+                    generate_graph(data, $("#modal-graph").find(".modal-body"));
                 },
                 error   : (data) => {
                     window.console.log('fail', data);
                 }
             });
         });
-        
+
         const generate_graph = (score_list, $target) => {
-            $target.data('graph', true);
-            
+            //$target.data('graph', true);
+
             let html;
             if (score_list.length === 0) {
                 html = ['<div class="row collapsed">',
@@ -130,19 +125,19 @@
             }
             else {
                 html = ['<div class="row collapsed">',
-                    '<div class="graph-line-wrapper col-md-6">',
-                    '<strong class="text-center">Line Graph</strong><br>',
+                    '<div class="graph-line-wrapper col-xs-12 text-center">',
+                    '<strong>Line Graph</strong><br>',
                     '<canvas class="graph-line"></canvas>',
                     '</div>',
-                    '<div class="graph-pie-wrapper col-md-6">',
-                    '<strong class="text-center">Pie Graph</strong><br>',
+                    '<div class="graph-pie-wrapper col-xs-offset-2 col-xs-8 text-center">',
+                    '<strong>Pie Graph</strong><br>',
                     '<canvas class="graph-pie"></canvas>',
                     '</div>',
                     '</div>'].join('');
             }
-            $target.after('<tr>111<td colspan="5" class="text-center td-graph">' + html + '<td></tr>');
-            const $graph = $target.next();
-            
+            $target.html('<div>' + html + '</div>');
+            const $graph = $target;
+
             if (score_list.length > 0) {
                 let display = {
                     grade: [], data: [], color: [], data_all: []
@@ -159,7 +154,7 @@
                         display.color.push(color_list[index]);
                     }
                 }
-                
+
                 const lineData    = {
                     labels  : grade_list,
                     datasets: [
@@ -190,7 +185,7 @@
                 let graphElement  = $graph.find(".graph-line").first();
                 let ctx           = graphElement[0].getContext("2d");
                 new Chart(ctx, {type: 'line', data: lineData, options: lineOptions});
-                
+
                 const doughnutData    = {
                     labels  : display.grade,
                     datasets: [{
@@ -207,7 +202,7 @@
             }
             $graph.find(".row").collapse();
         }
-        
+
     }
-    
+
 });
