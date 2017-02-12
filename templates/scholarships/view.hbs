@@ -75,6 +75,47 @@
                     <strong>{{max_num}}</strong>.
                 </small>
             </dd>
+            {{#with attachments}}
+                <dd>&nbsp;</dd>
+                <dt>Attachments:</dt>
+                {{#each this}}
+                    <dd>
+                        <i class="fa {{#if icon}}{{icon}}{{else}}fa-file-o{{/if}} fa-fw" aria-hidden="true"></i>
+                        <a href="{{url}}">{{name}}</a>
+                    </dd>
+                {{/each}}
+            {{/with}}
         </dl>
+    </div>
+</div>
+<div class="row m-t-sm">
+    <div class="col-lg-12">
+        <div class="panel blank-panel">
+            <div class="panel-heading">
+                <div class="panel-options">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#view-tab-1" data-toggle="tab">Conversations</a></li>
+                        {{#if active}}
+                            <li class=""><a href="#view-tab-2" data-toggle="tab">Submission</a></li>
+                        {{/if}}
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="view-tab-1">
+                        <div class="alert alert-warning">
+                            This module will be developed later.
+                        </div>
+                        <div class="feed-activity-list">
+                        </div>
+                    </div>
+                    {{#if active}}
+                        <div class="tab-pane" id="view-tab-2">
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
     </div>
 </div>

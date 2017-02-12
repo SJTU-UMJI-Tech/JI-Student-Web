@@ -9,12 +9,11 @@
         {{/if}}
     </td>
     <td class="project-title">
-        <a href="/">{{#with title}}{{this}}{{/with}}</a>
+        <a href="{{url_view}}?id={{id}}">{{#with title}}{{this}}{{/with}}</a>
         <br/>
         {{#with UPDATE_TIMESTAMP}}
             <small>Updated {{this}}</small>
         {{/with}}
-
     </td>
     <td class="project-completion">
         <small>{{start_date}} - {{end_date}}</small>

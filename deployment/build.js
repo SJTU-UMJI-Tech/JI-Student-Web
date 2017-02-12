@@ -3,7 +3,7 @@
  */
 const builder = require('./requirejs-builder');
 builder.init({
-    root_dir       : '',
+    root_dir       : process.argv.length > 2 ? process.argv[2] : '',
     require_css_dir: 'node_modules/require-css/css'
 });
 

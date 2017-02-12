@@ -4,7 +4,7 @@
 "use strict";
 define([
     'require', 'exports', 'module',
-    'jquery', 'marked', 'handlebars.runtime', 'ji/scholarships/common',
+    'jquery', 'marked', 'handlebars.runtime', 'ji/scholarships/common', 'ji/common/file-icon',
     'templates/common/body', 'templates/common/ibox',
     'templates/scholarships/view', 'templates/scholarships/view-sidebar'
 ], function (require, exports, module) {
@@ -12,14 +12,25 @@ define([
     const $            = require('jquery'),
           Handlebars   = require('handlebars.runtime'),
           marked       = require('marked'),
-          scholarships = require('ji/scholarships/common');
+          scholarships = require('ji/scholarships/common'),
+          fileicon     = require('ji/common/file-icon');
     
     module.exports = (options) => {
         
         scholarships.processData(options.data);
         
-        options.data.content = marked(options.data.content);
-        console.log(options.data.content);
+        options.data.content     = marked(options.data.content);
+        options.data.attachments = [{
+            name: "file1.txt",
+            url : "#"
+        }, {
+            name: "file2.doc",
+            url : "#"
+        }, {
+            name: "file3",
+            url : "#"
+        }];
+        fileicon.processArray(options.data.attachments);
         
         let template = require('templates/common/body');
         Handlebars.registerPartial('ibox', require('templates/common/ibox'));
