@@ -23,8 +23,10 @@ builder.addNode('handlebars.runtime', 'handlebars/dist/handlebars.runtime.amd');
 builder.addNode('select2', 'select2/dist/js/select2.full', '', 'select2/dist/css/select2');
 builder.addNode('chosen', 'chosen-js/chosen.jquery', 'jquery', 'chosen-js/chosen');
 builder.addNode('cropper', 'cropper/dist/cropper', '', 'cropper/dist/cropper');
+builder.addNode('marked', 'marked/lib/marked');
+
 builder.addBower('footable', 'footable/compiled/footable', 'jquery', 'footable/compiled/footable.bootstrap');
-//builder.addFile('footable', 'js/plugins/footable/footable.all.min', 'jquery', 'css/plugins/footable/footable.core');
+
 builder.addFile('inspinia', 'js/inspinia', ['bootstrap', 'metisMenu', 'slimscroll']);
 
 

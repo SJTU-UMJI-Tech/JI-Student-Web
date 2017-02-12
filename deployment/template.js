@@ -41,3 +41,7 @@ for (type in files) {
 }
 
 echo('Templates generated in ' + root_dir);
+
+if (process.argv.length > 3) {
+    exec('node deployment/build.js');
+}

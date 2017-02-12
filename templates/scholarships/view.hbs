@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="m-b-md">
+            <!--<a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>-->
+            <h2>{{title}}</h2>
+        </div>
+        <dl class="dl-horizontal">
+            <dt>Status:</dt>
+            <dd>
+                {{#if active}}
+                    <span class="label label-primary">Active</span>
+                {{else if closed}}
+                    <span class="label label-default">Closed</span>
+                {{else}}
+                    <span class="label label-warning">Not open</span>
+                {{/if}}
+            </dd>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-5">
+        <dl class="dl-horizontal">
+
+            <dt>Created by:</dt>
+            <dd>Unknown</dd>
+            <dt>Applicants:</dt>
+            <dd>{{category}} students</dd>
+            <dt>Limits:</dt>
+            <dd>{{max_num}}</dd>
+        </dl>
+    </div>
+    <div class="col-lg-7" id="cluster_info">
+        <dl class="dl-horizontal">
+            <dt>Last Updated:</dt>
+            <dd>{{UPDATE_TIMESTAMP}}</dd>
+            <dt>Created:</dt>
+            <dd>{{CREATE_TIMESTAMP}}</dd>
+            <dt>Open Date:</dt>
+            <dd>{{start_date}}</dd>
+            <dt>Deadline:</dt>
+            <dd>{{end_date}}</dd>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <dl class="dl-horizontal">
+            <dt>Abstract:</dt>
+            <dd>{{{abstract}}}</dd>
+            <dd>&nbsp;</dd>
+            <dt>Introduction:</dt>
+            <dd>{{{content}}}</dd>
+            <dd>&nbsp;</dd>
+            <dt>Time Elapsed:</dt>
+            <dd>
+                <div class="progress progress-striped active m-b-sm">
+                    <div style="width: {{time_percent}}%;"
+                         class="progress-bar {{#if time_after}}progress-bar-danger{{/if}}"></div>
+                </div>
+                <small>
+                    Time elapsed in <strong>{{time_percent}}%</strong>.
+                    You can no longer submit the scholarships after deadline.
+                </small>
+            </dd>
+            <dd>&nbsp;</dd>
+            <dt>Elected:</dt>
+            <dd>
+                <div class="progress progress-striped active m-b-sm">
+                    <div style="width: {{people_percent}}%;"
+                         class="progress-bar {{#if people_full}}progress-bar-danger{{/if}}"></div>
+                </div>
+                <small>
+                    <strong>{{current_num}}</strong> had elected it, out of a maximum awards of
+                    <strong>{{max_num}}</strong>.
+                </small>
+            </dd>
+        </dl>
+    </div>
+</div>

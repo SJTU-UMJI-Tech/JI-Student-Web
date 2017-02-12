@@ -12,7 +12,9 @@
   ],
   "scholarships": [
     "list",
-    "list-item"
+    "list-item",
+    "view",
+    "view-sidebar"
   ],
   "user": [
     "profile"

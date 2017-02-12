@@ -1,7 +1,11 @@
 <div class="row">
     {{#each this}}
         <div class="{{grid}}">
-            {{> (lookup . 'template') data}}
+            {{#if template}}
+                {{> (lookup . 'template') data}}
+            {{else if html}}
+                {{{html}}}
+            {{/if}}
         </div>
     {{/each}}
 </div>

@@ -15,7 +15,7 @@
 
 <!-- requireJS -->
 <script src="<?php echo ROOT_DIR; ?>/node_modules/requirejs/require.js"></script>
-<script src="<?php echo ROOT_DIR; ?>/js/app.build.min.js?v=<?php echo VERSION; ?>"></script>
+<script src="<?php echo ROOT_DIR; ?>/js/app.build.min.js?v=<?php echo time(); ?>"></script>
 
 <!-- Initialize -->
 <script type="text/javascript">
