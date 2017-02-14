@@ -4,9 +4,13 @@
             <!--<a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>-->
             <h2>{{title}}</h2>
         </div>
-        <dl class="dl-horizontal">
-            <dt>Status:</dt>
-            <dd>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-10 offset-sm-1 col-lg-6 offset-lg-0">
+        <dl class="dl-horizontal row">
+            <dt class="col-lg-4 text-lg-right">Status:</dt>
+            <dd class="col-lg-8">
                 {{#if active}}
                     <span class="label label-primary">Active</span>
                 {{else if closed}}
@@ -15,95 +19,92 @@
                     <span class="label label-warning">Not open</span>
                 {{/if}}
             </dd>
+            <dt class="col-lg-4 text-lg-right">Publisher:</dt>
+            <dd class="col-lg-8">Unknown</dd>
+            <dt class="col-lg-4 text-lg-right">Applicants:</dt>
+            <dd class="col-lg-8">{{category}} students</dd>
+            <dt class="col-lg-4 text-lg-right">Limits:</dt>
+            <dd class="col-lg-8">{{max_num}}</dd>
+        </dl>
+    </div>
+    <div class="col-sm-10 offset-sm-1 col-lg-6 offset-lg-0">
+        <dl class="dl-horizontal row">
+            <dt class="col-lg-4 text-lg-right">Updated:</dt>
+            <dd class="col-lg-8">{{UPDATE_TIMESTAMP}}</dd>
+            <dt class="col-lg-4 text-lg-right">Created:</dt>
+            <dd class="col-lg-8">{{CREATE_TIMESTAMP}}</dd>
+            <dt class="col-lg-4 text-lg-right">Available:</dt>
+            <dd class="col-lg-8">{{start_date}}</dd>
+            <dt class="col-lg-4 text-lg-right">Deadline:</dt>
+            <dd class="col-lg-8">{{end_date}}</dd>
         </dl>
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-5">
-        <dl class="dl-horizontal">
-
-            <dt>Created by:</dt>
-            <dd>Unknown</dd>
-            <dt>Applicants:</dt>
-            <dd>{{category}} students</dd>
-            <dt>Limits:</dt>
-            <dd>{{max_num}}</dd>
-        </dl>
-    </div>
-    <div class="col-lg-7" id="cluster_info">
-        <dl class="dl-horizontal">
-            <dt>Last Updated:</dt>
-            <dd>{{UPDATE_TIMESTAMP}}</dd>
-            <dt>Created:</dt>
-            <dd>{{CREATE_TIMESTAMP}}</dd>
-            <dt>Open Date:</dt>
-            <dd>{{start_date}}</dd>
-            <dt>Deadline:</dt>
-            <dd>{{end_date}}</dd>
-        </dl>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <dl class="dl-horizontal">
-            <dt>Abstract:</dt>
-            <dd>{{{abstract}}}</dd>
-            <dd>&nbsp;</dd>
-            <dt>Introduction:</dt>
-            <dd>{{{content}}}</dd>
-            <dd>&nbsp;</dd>
-            <dt>Time Elapsed:</dt>
-            <dd>
-                <div class="progress progress-striped active m-b-sm">
-                    <div style="width: {{time_percent}}%;"
-                         class="progress-bar {{#if time_after}}progress-bar-danger{{/if}}"></div>
+    <div class="col-sm-10 offset-sm-1 col-lg-12 offset-lg-0">
+        <dl class="dl-horizontal row">
+            <dt class="col-lg-2 text-lg-right">Abstract:</dt>
+            <dd class="col-lg-10">{{{abstract}}}</dd>
+            <dt class="col-lg-2 text-lg-right">Introduction:</dt>
+            <dd class="col-lg-10">{{{content}}}</dd>
+            <dt class="col-lg-2 text-lg-right">Time:</dt>
+            <dd class="col-lg-10">
+                <div class="progress m-b-sm">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated {{#if
+                            time_after}}bg-danger{{/if}}"
+                         role="progressbar" style="width: {{time_percent}}%;">{{time_percent}}%
+                    </div>
                 </div>
                 <small>
                     Time elapsed in <strong>{{time_percent}}%</strong>.
                     You can no longer submit the scholarships after deadline.
                 </small>
             </dd>
-            <dd>&nbsp;</dd>
-            <dt>Elected:</dt>
-            <dd>
-                <div class="progress progress-striped active m-b-sm">
-                    <div style="width: {{people_percent}}%;"
-                         class="progress-bar {{#if people_full}}progress-bar-danger{{/if}}"></div>
+            <dt class="col-lg-2 text-lg-right">Elected:</dt>
+            <dd class="col-lg-10">
+                <div class="progress m-b-sm">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated {{#if
+                            people_full}}bg-danger{{/if}}"
+                         role="progressbar" style="width: {{people_percent}}%;">{{people_percent}}%
+                    </div>
                 </div>
+
                 <small>
                     <strong>{{current_num}}</strong> had elected it, out of a maximum awards of
                     <strong>{{max_num}}</strong>.
                 </small>
             </dd>
             {{#with attachments}}
-                <dd>&nbsp;</dd>
-                <dt>Attachments:</dt>
-                {{#each this}}
-                    <dd>
+                <dt class="col-lg-2 text-lg-right">Attachments:</dt>
+                <dd class="col-lg-10">
+                    {{#each this}}
                         <i class="fa {{#if icon}}{{icon}}{{else}}fa-file-o{{/if}} fa-fw" aria-hidden="true"></i>
                         <a href="{{url}}">{{name}}</a>
-                    </dd>
-                {{/each}}
+                        <br>
+                    {{/each}}
+                </dd>
             {{/with}}
         </dl>
     </div>
 </div>
 <div class="row m-t-sm">
-    <div class="col-lg-12">
-        <div class="panel blank-panel">
-            <div class="panel-heading">
-                <div class="panel-options">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#view-tab-1" data-toggle="tab">Conversations</a></li>
-                        {{#if active}}
-                            <li class=""><a href="#view-tab-2" data-toggle="tab">Submission</a></li>
-                        {{/if}}
-                    </ul>
-                </div>
+    <div class="col-sm-10 offset-sm-1 col-lg-12 offset-lg-0">
+        <div class="card panel">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#view-tab-1" role="tab">Conversations</a>
+                    </li>
+                    {{#if active}}
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#view-tab-2" role="tab">Submission</a>
+                        </li>
+                    {{/if}}
+                </ul>
             </div>
-            <div class="panel-body">
+            <div class="card-block">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="view-tab-1">
+                    <div class="tab-pane active" id="view-tab-1" role="tabpanel">
                         <div class="alert alert-warning">
                             This module will be developed later.
                         </div>
@@ -111,7 +112,7 @@
                         </div>
                     </div>
                     {{#if active}}
-                        <div class="tab-pane" id="view-tab-2">
+                        <div class="tab-pane" id="view-tab-2" role="tabpanel">
                         </div>
                     {{/if}}
                 </div>

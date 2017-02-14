@@ -56,43 +56,7 @@ function nodeCSS($path, $no_min = false)
 <div id="wrapper">
     
     <!-- navbar -->
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu">
-                <!-- User Profile -->
-                <li class="nav-header">
-                    <div class="dropdown profile-element">
-                        <?php if ($this->Site_model->is_login()): ?>
-                            <span><img alt="image" class="img-circle" width="45"
-                                       src="<?php echo $this->Site_model->get_avatar(); ?>"/></span>
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear">
-                                <span class="block m-t-xs"><strong
-                                            class="font-bold"><?php echo $_SESSION['user_name']; ?></strong></span>
-                                <span class="text-muted text-xs block"><?php echo $_SESSION['user_type']; ?><b
-                                            class="caret"></b></span>
-                            </span>
-                            </a>
-                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="<?php echo base_url('/user/profile'); ?>">Profile</a></li>
-                                <li><a href="contacts.html">Contacts</a></li>
-                                <li><a href="mailbox.html">Mailbox</a></li>
-                                <li class="divider"></li>
-                                <li><a href="login.html">Logout</a></li>
-                            </ul>
-                        <?php else: ?>
-                            <!--<a href="--><?php //echo ROOT_DIR; ?><!--/user/login">Login</a>-->
-                        <?php endif; ?>
-                    </div>
-                    <div class="logo-element">
-                        JI-LIFE
-                    </div>
-                </li>
-                <?php if (isset($navbar)) echo $navbar; ?>
-            </ul>
-        
-        </div>
-    </nav>
+    <div id="ji-navbar"></div>
     
     <?php /*
     

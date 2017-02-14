@@ -1,0 +1,26 @@
+<form method="get" class="form-horizontal">
+    {{#each data}}
+        <div class="form-group">
+            <label><strong>{{name}}:</strong></label>
+            {{#if text}}
+                <input type="text" class="form-control"
+                       placeholder="{{#with placeholder}}{{this}}{{/with}}"
+                       value="{{#with value}}{{this}}{{/with}}">
+            {{else if textarea}}
+                <textarea type="text" class="form-control"
+                          placeholder="{{#with placeholder}}{{this}}{{/with}}"
+                          rows="8" style="resize: none">{{#with value}}{{this}}{{/with}}</textarea>
+            {{else if markdown}}
+                <div class="editormd" id="test-editormd"></div>
+            {{else if datetime}}
+                <input type="text" class="flatpickr form-control"
+                       placeholder="{{#with placeholder}}{{this}}{{/with}}"
+                       value="{{#with value}}{{this}}{{/with}}">
+            {{else if spin}}
+                <input type="text" class="touchspin"
+                       placeholder="{{#with placeholder}}{{this}}{{/with}}"
+                       value="{{#with value}}{{this}}{{/with}}">
+            {{/if}}
+        </div>
+    {{/each}}
+</form>

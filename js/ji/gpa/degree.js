@@ -7,20 +7,20 @@
     'templates/common/ibox', 'templates/gpa/degree'
 ], function (require, exports, module) {
     
-    var $ = require('jquery');
+    var $          = require('jquery');
     var Handlebars = require('handlebars.runtime');
     
     module.exports = function (options) {
-    
+        
         $("#body-wrapper").append('<div class="alert alert-warning">The Degree Progress Check Sheet is simple and naive now! I will improve the AI later. (version alpha.2.1)</div>');
         
         var i;
         var major = 'ECE';
-        var dd = false;
+        var dd    = false;
         
         // Process the student's scores
-        var score = [{course_id: true, grade: true}];
-        score = options.score;
+        var score      = [{course_id: true, grade: true}];
+        score          = options.score;
         var score_list = {};
         for (i = 0; i < score.length; i++) {
             score_list[score[i].course_id] = score[i].grade;
@@ -28,7 +28,7 @@
         
         // Read the course list
         var courses = {"course": true, "equivalent": true};
-        courses = options.courses;
+        courses     = options.courses;
         for (i in courses.course) {
             if (courses.course.hasOwnProperty(i)) courses.course[i].id = i;
         }
@@ -36,7 +36,7 @@
         
         // Generate the Table Data shown in the page
         var table_data = {};
-        var degree = courses.degree[major];
+        var degree     = courses.degree[major];
         if (!degree.hasOwnProperty('credit-dd') || !dd) degree['credit-dd'] = {};
         for (i in degree.credit) {
             if (degree.credit.hasOwnProperty(i)) {
@@ -45,13 +45,13 @@
                 }
                 if (degree.credit[i] > 0 && courses.category.hasOwnProperty(i)) {
                     table_data[i] = {
-                        title: courses.category[i],
-                        course_list: [],
-                        credit: degree.credit[i],
-                        credit_now: 0,
-                        credit_shift: 0,
+                        title         : courses.category[i],
+                        course_list   : [],
+                        credit        : degree.credit[i],
+                        credit_now    : 0,
+                        credit_shift  : 0,
                         credit_display: 0,
-                        gpa: 0
+                        gpa           : 0
                     };
                 }
             }
@@ -94,7 +94,7 @@
                 if (course.hasOwnProperty('grade')) flag = false;
                 else {
                     var name = course.name;
-                    var id = course.id;
+                    var id   = course.id;
                 }
                 for (var j = 0; j < course.equivalent.length; j++) {
                     for (var k = 0; k < course_list.length; k++) {
@@ -114,9 +114,9 @@
                     }
                 }
                 if (flag) {
-                    course_eq = {
-                        name: name,
-                        id: id,
+                    course_eq      = {
+                        name : name,
+                        id   : id,
                         score: 0
                     };
                     course_list[k] = course_eq;
@@ -161,9 +161,9 @@
             cat_temp = ["AM", "FTE", "GE"];
         }
         for (i = 0; i < cat_temp.length - 1; i++) {
-            var credit = table_data[cat_temp[i]].credit - table_data[cat_temp[i]].credit_shift;
+            var credit     = table_data[cat_temp[i]].credit - table_data[cat_temp[i]].credit_shift;
             var credit_now = table_data[cat_temp[i]].credit_now;
-            flag = true;
+            flag           = true;
             while (table_data[cat_temp[i]].course_list.length > 0) {
                 course = table_data[cat_temp[i]].course_list.pop();
                 credit_now -= course.credit;
@@ -186,9 +186,9 @@
         // Calculate GPA
         for (i in table_data) {
             if (table_data.hasOwnProperty(i)) {
-                credit = table_data[i].credit_now + table_data[i].credit_shift;
+                credit                       = table_data[i].credit_now + table_data[i].credit_shift;
                 table_data[i].credit_display = Math.min(credit, table_data[i].credit);
-                var credit_score = 0;
+                var credit_score             = 0;
                 for (j = 0; j < table_data[i].course_list.length; j++) {
                     course = table_data[i].course_list[j];
                     credit_score += course.credit * Math.min(40, course.score);
@@ -208,19 +208,19 @@
         Handlebars.registerPartial('degree', require('templates/gpa/degree'));
         
         var config = {
-            "id": "degree",
+            "id"   : "degree",
             "title": "Degree Process Check Sheet",
             "tools": [
                 {"collapse": true},
                 {"edit": true},
                 {"close": true}
             ],
-            "body": [{
+            "body" : [{
                 "template": "degree",
-                "data": {
-                    data: table_data,
+                "data"    : {
+                    data   : table_data,
                     courses: courses,
-                    letter: grade_list
+                    letter : grade_list
                 }
             }]
         };
@@ -239,7 +239,7 @@
         
         // Display the credit of the course when selecting
         $degree.find(".select-course").on('change', function () {
-            var id = $(this).val();
+            var id     = $(this).val();
             var credit = '';
             if (courses.course.hasOwnProperty(id)) credit = courses.course[id].credit;
             $degree.find(".text-credit").html(credit);
@@ -250,14 +250,14 @@
         $degree.find(".select-grade").val('').trigger("chosen:updated");
         $degree.find(".btn-add").on('click', function () {
             var $select = $degree.find(".select-course");
-            var id = $select.val();
+            var id      = $select.val();
             if (courses.course.hasOwnProperty(id)) {
                 $degree.find(".div-error").collapse('hide');
                 setTimeout(function () {
                     $degree.find(".div-error").hide();
                 }, 200);
                 var course = courses.course[id];
-                var html = [
+                var html   = [
                     '<tr>',
                     '<td type="id">', course.id, '</td>',
                     '<td>', course.name, '</td>',
@@ -269,7 +269,7 @@
                 $degree.find(".tbody-add").append(html)
                     .find("a").last().on('click', function () {
                     var $row = $(this).parents("tr").first();
-                    var id = $row.find("td").first().html();
+                    var id   = $row.find("td").first().html();
                     if (courses.course.hasOwnProperty(id)) {
                         var course = courses.course[id];
                         if (!course.hasOwnProperty('hide') || !course.hide) {
@@ -323,15 +323,15 @@
             }
             console.log(ajax_data);
             $.ajax({
-                url: "<?php echo ROOT_DIR;?>/GPA/update",
-                method: "POST",
+                url    : "<?php echo ROOT_DIR;?>/GPA/update",
+                method : "POST",
                 //data: JSON.stringify(ajax_data),
-                data: {data: ajax_data},
+                data   : {data: ajax_data},
                 success: function (data) {
                     console.log(data);
                     window.location.reload();
                 },
-                error: function (data) {
+                error  : function (data) {
                     console.log('fail');
                 }
             });

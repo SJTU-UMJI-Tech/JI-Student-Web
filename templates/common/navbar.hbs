@@ -1,0 +1,61 @@
+{{#*inline "navbar-rec"}}
+    {{#each children}}
+        <li class="nav-item {{#if active}}active{{/if}}">
+            <a class="nav-link" href="{{#if href}}{{href}}{{else}}javascript:void(0);{{/if}}">
+                {{#if icon}}
+                    <i class="fa {{icon}} fa-fw"></i>
+                {{/if}}
+                {{#if name}}
+                    {{#if ../first}}
+                        <span class="nav-label">{{name}}</span>
+                    {{else}}
+                        {{name}}
+                    {{/if}}
+                {{/if}}
+                {{#if children}}
+                    <span class="fa arrow"></span>
+                {{/if}}
+            </a>
+            {{#if children}}
+                <ul class="nav flex-column nav-{{#if ../first}}second{{else}}third{{/if}}-level collapse">
+                    {{>navbar-rec this}}
+                </ul>
+            {{/if}}
+        </li>
+    {{/each}}
+{{/inline}}
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav flex-column metismenu" id="side-menu">
+            <li class="nav-header">
+                {{#if login}}
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="image" class="img-circle" width="45" src="{{{avatar}}}"/>
+                            <span class="block m-t-xs"><strong class="font-bold">{{{user_name}}}</strong></span>
+                            <span class="text-muted text-xs">{{{user_type}}}</span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li class="dropdown-item"><a href="{{profile}}">Profile</a></li>
+                            <li class="dropdown-item"><a href="contacts.html">Contacts</a></li>
+                            <li class="dropdown-item"><a href="mailbox.html">Mailbox</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-item"><a href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div>
+
+                    </div>
+                {{else}}
+
+                {{/if}}
+                <div class="logo-element">
+                    JI-LIFE
+                </div>
+            </li>
+
+            {{>navbar-rec navbar}}
+        </ul>
+    </div>
+</nav>

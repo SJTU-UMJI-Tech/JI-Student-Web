@@ -43,6 +43,13 @@ h5 {
   font-weight: 600;
   padding: 14px 20px 14px 25px;
 }
+.nav-link {
+  display: block;
+  position: relative;
+}
+.nav-item {
+  position: relative;
+}
 .nav.navbar-right > li > a {
   color: #999c9e;
 }
@@ -54,11 +61,11 @@ h5 {
   background-color: #293846;
   color: white;
 }
-.nav .open > a,
+/*.nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
   background: #fff;
-}
+}*/
 .nav.navbar-top-links > li > a:hover,
 .nav.navbar-top-links > li > a:focus {
   background-color: transparent;
@@ -623,7 +630,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   border-radius: 3px;
 }
 .float-e-margins .btn {
-  margin-bottom: 5px;
+  /*margin-bottom: 5px;*/
 }
 .btn-w-m {
   min-width: 120px;

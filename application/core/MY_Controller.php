@@ -3,7 +3,7 @@
     exit('No direct script access allowed');
 }
 
-defined('VERSION')            OR define('VERSION', '0.2.0');
+defined('VERSION') OR define('VERSION', '0.2.0');
 
 abstract class Front_Controller extends CI_Controller
 {
@@ -45,7 +45,7 @@ abstract class Front_Controller extends CI_Controller
         
         if (ENVIRONMENT == 'development')
         {
-            $this->output->enable_profiler(true);
+            //$this->output->enable_profiler(true);
         }
         
         
@@ -221,6 +221,7 @@ abstract class Front_Controller extends CI_Controller
     {
         $this->load->model('Navbar_model');
         $nav = $this->Navbar_model->get_navbar_data();
+        $nav['first'] = true;
         $temp = &$nav;
         foreach ($this->navigation as $value)
         {
@@ -230,6 +231,7 @@ abstract class Front_Controller extends CI_Controller
             $temp['active'] = true;
         }
         $this->data['navbar'] = $this->Navbar_model->generate_navbar($nav);
+        $this->data['navbar_data'] = json_encode($nav);
         return $this;
     }
 }

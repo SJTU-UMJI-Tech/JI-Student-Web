@@ -72,7 +72,8 @@ class Scholarships extends Front_Controller
         if ($scholarships->is_error()) $this->redirect();
         
         $data = array(
-            'data' => &$scholarships
+            'data'     => &$scholarships,
+            'edit_url' => base_url('scholarships/edit?id=' . $id)
         );
         
         $this->data['js'] = 'ji/scholarships/view';
@@ -83,36 +84,24 @@ class Scholarships extends Front_Controller
     
     public function edit()
     {
-        $this->validate_privilege('admin_write');
+        $this->data['page_name'] = 'Scholarships - Edit';
+        $this->form_navbar();
+        
+        //$this->validate_privilege('admin_write');
+        
         $id = $this->input->get('id');
-        if ($id > 0)
-        {
-            $scholarships = $this->Scholarships_model->get_by_id($id);
-            if ($scholarships->is_error())
-            {
-                $this->redirect();
-            }
-            $title = 'Edit -> ' . $scholarships->title;
-            $item = $this->fill_option($this->editor_create, $scholarships);
-            //echo json_encode($item);
-        }
-        else
-        {
-            $id = 0;
-            $title = 'New scholarships';
-            $item = $this->editor_create;
-        }
-        $data = $this->data;
-        $data['page_name'] = 'Edit scholarships';
-        $data['option'] = array(
-            'id'    => $id,
-            'type'  => 'scholarships',
-            'title' => $title,
-            'item'  => $item,
-            'url'   => '/scholarships/ajax_edit',
-            'user'  => $_SESSION['user_id']
+        $scholarships = $this->Scholarships_model->get_by_id($id);
+        
+        if ($id > 0 && $scholarships->is_error()) $this->redirect();
+        
+        $data = array(
+            'data' => &$scholarships
         );
-        $this->load->view('common/editor', $data);
+        
+        $this->data['js'] = 'ji/scholarships/edit';
+        $this->data['data'] = json_encode($data);
+        
+        $this->load->view('common/page', $this->data);
     }
     
     public function check()

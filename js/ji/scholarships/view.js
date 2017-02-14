@@ -41,11 +41,18 @@ define([
         let config = {
             "id"   : "main-view",
             "title": "Scholarships Detail",
+            "tools": [],
             "body" : [{
                 "template": "scholarships-view",
                 "data"    : options.data
             }]
         };
+        if (options.edit_url) {
+            config.tools.push({
+                "edit": true,
+                "href": options.edit_url
+            });
+        }
         $("#body-wrapper").append(
             template([{
                 grid    : 'col-lg-9',
@@ -57,5 +64,8 @@ define([
                 data    : options.data
             }])
         );
+        
+        const $mainView = $("#main-view");
+        
     }
 });

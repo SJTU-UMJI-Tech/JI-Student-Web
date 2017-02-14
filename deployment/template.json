@@ -3,7 +3,9 @@
     "body",
     "ibox",
     "ibox-article",
-    "modal"
+    "ibox-editor",
+    "modal",
+    "navbar"
   ],
   "gpa": [
     "degree",
@@ -14,7 +16,8 @@
     "list",
     "list-item",
     "view",
-    "view-sidebar"
+    "view-sidebar",
+    "edit"
   ],
   "user": [
     "profile"

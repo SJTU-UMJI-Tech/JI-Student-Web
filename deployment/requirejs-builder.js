@@ -25,7 +25,6 @@ class RequireJSBuilder {
     
     init(options                                        = {}) {
         this.options      = {
-            root_dir       : options.root_dir || '',
             require_css_dir: options.require_css_dir,
             hash_method    : options.hash_method || 'sha1',
             node_modules   : options.node_modules || 'node_modules',
@@ -164,7 +163,7 @@ class RequireJSBuilder {
         }
         this.log('Status', 'Up to date');
         return {
-            js   : `${signature}`,
+            js   : filePath,//`${signature}`,
             minjs: `${signature}.min`
         };
     }
@@ -194,12 +193,18 @@ class RequireJSBuilder {
         }
         this.log('Status', 'Up to date');
         return {
-            css   : `${signature}.css`,
+            css   : inputPath,//`${signature}.css`,
             mincss: `${signature}.min.css`
         };
     }
     
-    build(filePath) {
+    build(options                                       = {}) {
+        
+        options = {
+            root_dir   : options.root_dir || '',
+            filePath   : options.filePath || 'js/app',
+            environment: options.environment !== 'production'
+        };
         
         for (let item in this.remove_files) {
             try {
@@ -220,19 +225,22 @@ class RequireJSBuilder {
             return str + ']';
         };
         
-        const appFilePath    = filePath + '.js';
-        const appFilePathMin = filePath + '.min.js';
+        const appFilePath    = `${options.filePath}.js`;
+        const appFilePathMin = `${options.filePath}.min.js`;
         
         let fd = fs.openSync(appFilePath, 'w');
         fs.writeSync(fd, HEADER);
         
         fs.writeSync(fd, 'requirejs.config({\n\n');
-        fs.writeSync(fd, `    baseUrl: '${this.options.root_dir}/${this.options.js_output_dir}',\n\n`);
+        let jsDir = options.environment ? '' : `${this.options.js_output_dir}/`;
+        fs.writeSync(fd, `    baseUrl: '${options.root_dir}/${jsDir}',\n\n`);
         
         // Map
         fs.writeSync(fd, '    map: {\n        \'*\': {\n');
         if (this.options.require_css_dir) {
-            fs.writeSync(fd, `            css: '${this.options.require_css_dir.minjs}',`);
+            let file = options.environment ?
+                this.options.require_css_dir.js : this.options.require_css_dir.minjs;
+            fs.writeSync(fd, `            css: '${file}',`);
         }
         fs.writeSync(fd, '\n        }\n    },\n\n');
         
@@ -240,12 +248,16 @@ class RequireJSBuilder {
         fs.writeSync(fd, '    paths: {\n\n');
         fs.writeSync(fd, '        // lib config\n');
         for (let item in this.libConfig) {
-            fs.writeSync(fd, `        '${item}': '${this.libConfig[item].minjs}',\n`)
+            let file = options.environment ?
+                this.libConfig[item].js : this.libConfig[item].minjs;
+            fs.writeSync(fd, `        '${item}': '${file}',\n`)
         }
         fs.writeSync(fd, '\n');
         fs.writeSync(fd, '        // app config\n');
         for (let item in this.appConfig) {
-            fs.writeSync(fd, `        '${item}': '${this.appConfig[item].minjs}',\n`)
+            let file = options.environment ?
+                this.appConfig[item].js : this.appConfig[item].minjs;
+            fs.writeSync(fd, `        '${item}': '${file}',\n`)
         }
         fs.writeSync(fd, '\n    },\n\n');
         
@@ -258,7 +270,9 @@ class RequireJSBuilder {
                 deps.push(config.deps[i]);
             }
             for (let i = 0; i < config.mincss.length; i++) {
-                deps.push(`css!${this.options.root_dir}/${this.options.css_output_dir}/${config.mincss[i]}`);
+                let file = options.environment ? config.css[i] :
+                    `${options.root_dir}/${this.options.css_output_dir}/${config.mincss[i]}`;
+                deps.push(`css!${file}`);
             }
             if (deps.length > 0) {
                 fs.writeSync(fd, `        '${item}': ${printArr(deps)},\n`);

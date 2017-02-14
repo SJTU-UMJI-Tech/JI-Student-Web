@@ -15,12 +15,33 @@
 
 <!-- requireJS -->
 <script src="<?php echo ROOT_DIR; ?>/node_modules/requirejs/require.js"></script>
-<script src="<?php echo ROOT_DIR; ?>/js/app.build.min.js?v=<?php echo time(); ?>"></script>
+
+<?php if (ENVIRONMENT == 'production'): ?>
+    <script src="<?php echo ROOT_DIR; ?>/js/app.production.min.js?v=<?php echo time(); ?>"></script>
+<?php else: ?>
+    <script src="<?php echo ROOT_DIR; ?>/js/app.development.js?v=<?php echo time(); ?>"></script>
+<?php endif; ?>
 
 <!-- Initialize -->
 <script type="text/javascript">
     require(['pace'], function (pace) {
         pace.start();
+    });
+    require(['Tether'], function (Tether) {
+        window.Tether = Tether;
+    });
+    require(['jquery', 'handlebars.runtime', 'templates/common/navbar'], function ($, Handlebars, template) {
+        var config = {
+            navbar: <?php echo $navbar_data;?>
+        };
+        <?php if ($this->Site_model->is_login()):?>
+        config.login     = true;
+        config.avatar    = '<?php echo $this->Site_model->get_avatar(); ?>';
+        config.user_name = '<?php echo $_SESSION['user_name']; ?>';
+        config.user_type = '<?php echo $_SESSION['user_type']; ?>';
+        config.profile   = '<?php echo base_url('/user/profile'); ?>';
+        <?php endif;?>
+        $("#ji-navbar").html(template(config));
     });
     require(['inspinia']);
 </script>
