@@ -1,0 +1,66 @@
+<div class="card-deck card-intro collapsed m-b-md">
+    <div class="card text-center">
+        <div class="card-block">
+            <h3 class="card-title">队长</h3>
+            <p class="card-text">如果你是队长，请在此注册队伍。</p>
+            <div class="card-footer">
+                <a href="javascript:void(0);" class="btn btn-sm btn-primary">开始注册</a>
+            </div>
+        </div>
+    </div>
+    <div class="card text-center">
+        <div class="card-block">
+            <h3 class="card-title">队员</h3>
+            <p class="card-text">如果你是队员，请扫描队长提供的二维码进行认证，且每人只能参加一支队伍。误注册为队长的队员必须先取消注册再加入其他队伍。</p>
+        </div>
+    </div>
+</div>
+<div class="card card-register">
+    <div class="card-block">
+        <div class="form-group">
+            <h5>队长姓名</h5>
+            <input type="text" class="form-control" value="{{user_name}}" disabled="disabled">
+        </div>
+        <div class="form-group">
+            <h5>队长学号</h5>
+            <input type="text" class="form-control" value="{{user_id}}" disabled="disabled">
+        </div>
+        <div class="form-group">
+            <h5>班级 (F1XXXXXX)</h5>
+            <input type="text" class="form-control" {{#with class_id}}value="{{this}}"{{/with}} placeholder="请如实填写">
+        </div>
+        <div class="form-group">
+            <strong>队员信息</strong>
+            <span class="float-right"><a href="javascript:void(0);" class="btn btn-sm btn-primary m-b-sm btn-add">添加队员</a></span>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="30%">姓名</th>
+                    <th width="40%">学号</th>
+                    <th width="15%" class="text-center">已认证</th>
+                    <th width="15%" class="text-center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each member}}
+                    <tr data-id="{{user_id}}">
+                        <td>{{user_name}}</td>
+                        <td>{{user_id}}</td>
+                        <td align="center">{{#if verified}}<i class="fa fa-check"></i>{{/if}}</td>
+                        <td align="center"><a class="btn-delete" href="javascript:void(0);"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{#if group_id}}
+            <div class="form-group">
+                <strong>请队长让所有组员扫描此二维码并使用JAccount登录认证</strong>
+                <div class="qrcode m-t-sm"></div>
+            </div>
+        {{/if}}
+        <div class="form-group text-center">
+            <a href="javascript:void(0);" class="btn btn-primary btn-submit">提交</a>
+        </div>
+    </div>
+</div>

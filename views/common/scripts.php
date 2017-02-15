@@ -35,7 +35,7 @@
             return new Handlebars.SafeString(window.ROOT_DIR);
         });
         var config = {
-            navbar: <?php echo $navbar_data;?>,
+            navbar: <?php echo isset($navbar_data) ? $navbar_data : '{}';?>,
         };
         <?php if ($this->Site_model->is_login()):?>
         config.login     = true;

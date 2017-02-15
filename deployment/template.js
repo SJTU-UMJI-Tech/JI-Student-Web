@@ -3,19 +3,27 @@
  * Used to precompile Handlebars templates
  */
 
-var files = require('./template.json');
+const mkdir = (dir) => {
+    try {
+        fs.accessSync(dir);
+    } catch (err) {
+        fs.mkdirSync(dir);
+    }
+};
+
+let files = require('./template.json');
 require('shelljs/global');
+const fs = require('fs');
 
 echo('Begin to generate the templates ...');
 
-var root_dir = './js/templates';
-
-exec('if [ ! -d "' + root_dir + '" ]; then echo "mkdir ' + root_dir + '"; mkdir ' + root_dir + '; fi');
+const root_dir = './js/templates';
+mkdir(root_dir);
 
 if (process.argv.length > 2) {
-    var type = process.argv[2];
+    const type = process.argv[2];
     if (files.hasOwnProperty(type)) {
-        var temp = files[type];
+        const temp = files[type];
         files = {};
         files[type] = temp;
     } else {
@@ -24,10 +32,10 @@ if (process.argv.length > 2) {
 }
 
 
-for (type in files) {
+for (let type in files) {
     if (files.hasOwnProperty(type)) {
-        var dir = root_dir + '/' + type;
-        exec('if [ ! -d "' + dir + '" ]; then echo "mkdir ' + dir + '"; mkdir ' + dir + '; fi');
+        const dir = root_dir + '/' + type;
+        mkdir(dir);
         for (var i = 0; i < files[type].length; i++) {
             var filename = files[type][i];
             var input = './templates/' + type + '/' + filename + '.hbs';

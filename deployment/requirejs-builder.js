@@ -40,6 +40,7 @@ class RequireJSBuilder {
         this.initDir(this.options.js_output_dir);
         this.initDir(this.options.css_output_dir);
         if (this.options.require_css_dir) {
+            this.mkdirMulti(`${this.options.js_output_dir}/lib`);
             this.options.require_css_dir =
                 this.processJS(options.require_css_dir, options.require_css_dir, 'lib');
         }

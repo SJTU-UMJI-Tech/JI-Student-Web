@@ -17,6 +17,7 @@
     "Gemfile"
   ],
   "dependencies": {
-    "footable": "^3.1.4"
+    "footable": "^3.1.4",
+    "qrcode.js": "qrcode-js#*"
   }
 }

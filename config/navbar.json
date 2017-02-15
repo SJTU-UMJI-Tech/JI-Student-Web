@@ -206,7 +206,7 @@
         "machine": {
           "name": "Machine Race",
           "icon": "fa-car",
-          "href": "enrollment/machine"
+          "href": "Enrollment/Machine"
         }
       }
     }
