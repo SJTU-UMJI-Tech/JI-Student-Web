@@ -13,7 +13,7 @@ define([
     const $            = require('jquery'),
           Handlebars   = require('handlebars.runtime'),
           marked       = require('marked'),
-          editormd     = require('ji/common/editormd-loader'),
+          editormd     = require('editormd'),
           scholarships = require('ji/scholarships/common'),
           fileicon     = require('ji/common/file-icon');
     
@@ -21,7 +21,6 @@ define([
         
         scholarships.processData(options.data);
         
-        options.data.content     = marked(options.data.content);
         options.data.attachments = [{
             name: "file1.txt",
             url : "#"
@@ -65,10 +64,12 @@ define([
             "placeholder": "Abstract",
             "value"      : options.data.abstract
         }, {
-            "markdown"   : true,
-            "name"       : "Content",
-            "placeholder": "Content",
-            "value"      : options.data.content
+            "markdown": true,
+            "name"    : "Content",
+            "value"   : options.data.content
+        }, {
+            "file": true,
+            "name": "Attachments",
         }];
         // Main Table
         let config = {
@@ -84,13 +85,34 @@ define([
         flatpickr(".flatpickr");
         $(".touchspin").TouchSpin();
         
-        editormd("test-editormd", {
-            width             : "100%",
-            height            : 800,
-            syncScrolling     : "single",
-            path              : "/node_modules/editor.md/lib/",
-            saveHTMLToTextarea: true,
-            flowchart         : true
+        console.log(options.data.content);
+        
+        let testEditor = editormd("test-editormd", {
+            width               : "100%",
+            height              : 600,
+            path                : `${window.ROOT_DIR}/node_modules/editor.md/lib/`,
+            markdown            : options.data.content,
+            codeFold            : true,
+            searchReplace       : true,
+            //saveHTMLToTextarea  : true,                // 保存HTML到Textarea
+            htmlDecode          : "style,script|on*",       // 开启HTML标签解析，为了安全性，默认不开启
+            emoji               : true,
+            taskList            : true,
+            tex                 : true,
+            tocm                : true,         // Using [TOCM]
+            autoLoadModules     : false,
+            previewCodeHighlight: true,
+            flowChart           : true,
+            sequenceDiagram     : true,
+            //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+            //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+            //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+            //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+            //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+            //imageUpload         : true,
+            //imageFormats        : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            //imageUploadURL      : "./php/upload.php",
         });
+        
     }
 });

@@ -3,7 +3,7 @@
     "HOME": {
       "name": "Home Page",
       "icon": "fa-home",
-      "href": "/"
+      "href": ""
     },
     "ORG": {
       "name": "Organizations",
@@ -158,7 +158,7 @@
         "all": {
           "icon": "fa-trophy",
           "name": "All Scholarships",
-          "href": "/scholarships/all"
+          "href": "scholarships/all"
         },
         "under-grad": {
           "icon": "fa-hourglass-start",
@@ -185,17 +185,17 @@
         "board": {
           "icon": "fa-bars",
           "name": "Scoreboard",
-          "href": "/GPA"
+          "href": "GPA"
         },
         "graph": {
           "icon": "fa-bar-chart",
           "name": "Graphs",
-          "href": "/GPA/graph"
+          "href": "GPA/graph"
         },
         "degree": {
           "icon": "fa-line-chart",
           "name": "Degree Progress",
-          "href": "/GPA/degree"
+          "href": "GPA/degree"
         }
       }
     },
@@ -206,7 +206,7 @@
         "machine": {
           "name": "Machine Race",
           "icon": "fa-car",
-          "href": "/enrollment/machine"
+          "href": "enrollment/machine"
         }
       }
     }

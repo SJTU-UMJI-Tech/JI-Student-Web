@@ -44,6 +44,7 @@ builder.addAppDir('node_modules/editor.md/lib/codemirror/mode', 'codemirror/mode
 builder.addAppDir('node_modules/editor.md/lib/codemirror/addon', 'codemirror/addon');
 builder.addAppDir('node_modules/editor.md/plugins', 'editor.md/plugins');
 builder.addNode('editor.md/languages/en', 'editor.md/languages/en');
+builder.addFonts('node_modules/editor.md/fonts');
 
 builder.addBower('footable', 'footable/compiled/footable', 'jquery', 'footable/compiled/footable.bootstrap');
 
@@ -53,6 +54,12 @@ builder.build({
     root_dir   : '',
     filePath   : 'js/app.development',
     environment: 'development'
+});
+
+builder.build({
+    root_dir   : '',
+    filePath   : 'js/app.test',
+    environment: 'production'
 });
 
 builder.build({

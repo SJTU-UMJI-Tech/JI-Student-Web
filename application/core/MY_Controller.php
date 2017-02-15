@@ -45,7 +45,7 @@ abstract class Front_Controller extends CI_Controller
         
         if (ENVIRONMENT == 'development')
         {
-            //$this->output->enable_profiler(true);
+            $this->output->enable_profiler(true);
         }
         
         

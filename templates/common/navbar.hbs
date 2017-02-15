@@ -1,7 +1,7 @@
 {{#*inline "navbar-rec"}}
     {{#each children}}
         <li class="nav-item {{#if active}}active{{/if}}">
-            <a class="nav-link" href="{{#if href}}{{href}}{{else}}javascript:void(0);{{/if}}">
+            <a class="nav-link" href="{{#if href}}{{root_dir}}/{{href}}{{else}}javascript:void(0);{{/if}}">
                 {{#if icon}}
                     <i class="fa {{icon}} fa-fw"></i>
                 {{/if}}
