@@ -1,21 +1,24 @@
-<div class="card-deck card-intro collapsed m-b-md">
-    <div class="card text-center">
-        <div class="card-block">
-            <h3 class="card-title">队长</h3>
-            <p class="card-text">如果你是队长，请在此注册队伍。</p>
-            <div class="card-footer">
-                <a href="javascript:void(0);" class="btn btn-sm btn-primary">开始注册</a>
+{{#unless registered}}
+    <div class="card-deck card-intro m-b-md">
+        <div class="card text-center">
+            <div class="card-block">
+                <h3 class="card-title">队长</h3>
+                <p class="card-text">如果你是队长，请在此注册队伍。</p>
+                <div class="card-footer">
+                    <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-expand"
+                       aria-expanded="false">开始注册</a>
+                </div>
+            </div>
+        </div>
+        <div class="card text-center">
+            <div class="card-block">
+                <h3 class="card-title">队员</h3>
+                <p class="card-text">如果你是队员，请扫描队长提供的二维码进行认证，且每人只能参加一支队伍。误注册为队长的队员必须先取消注册再加入其他队伍。</p>
             </div>
         </div>
     </div>
-    <div class="card text-center">
-        <div class="card-block">
-            <h3 class="card-title">队员</h3>
-            <p class="card-text">如果你是队员，请扫描队长提供的二维码进行认证，且每人只能参加一支队伍。误注册为队长的队员必须先取消注册再加入其他队伍。</p>
-        </div>
-    </div>
-</div>
-<div class="card card-register">
+{{/unless}}
+<div class="card card-register main-form" {{#unless registered}}style="display: none;"{{/unless}}>
     <div class="card-block">
         <div class="form-group">
             <h5>队长姓名</h5>
@@ -27,27 +30,43 @@
         </div>
         <div class="form-group">
             <h5>班级 (F1XXXXXX)</h5>
-            <input type="text" class="form-control" {{#with class_id}}value="{{this}}"{{/with}} placeholder="请如实填写">
+            <input type="text" class="form-control input-class-id"
+                   {{#with class_id}}value="{{this}}"{{/with}}
+                   placeholder="请如实填写" {{#unless leader}}disabled="disabled"{{/unless}}>
         </div>
         <div class="form-group">
             <strong>队员信息</strong>
-            <span class="float-right"><a href="javascript:void(0);" class="btn btn-sm btn-primary m-b-sm btn-add">添加队员</a></span>
+            {{#if leader}}
+                <span class="float-right">(添加队员后请记得提交)<a href="javascript:void(0);"
+                                                         class="btn btn-sm btn-primary m-b-sm m-l-sm btn-add">添加队员</a></span>
+            {{/if}}
             <table class="table">
                 <thead>
                 <tr>
-                    <th width="30%">姓名</th>
                     <th width="40%">学号</th>
+                    <th width="30%">姓名</th>
                     <th width="15%" class="text-center">已认证</th>
-                    <th width="15%" class="text-center">操作</th>
+                    {{#if leader}}
+                        <th width="15%" class="text-center">操作</th>
+                    {{/if}}
                 </tr>
                 </thead>
                 <tbody>
                 {{#each member}}
-                    <tr data-id="{{user_id}}">
-                        <td>{{user_name}}</td>
-                        <td>{{user_id}}</td>
+                    <tr data-id="{{USER_ID}}">
+                        <td>{{USER_ID}}</td>
+                        {{#with user_name}}
+                            <td>{{this}}</td>
+                        {{else}}
+                            <td>
+                                <small>暂无</small>
+                            </td>
+                        {{/with}}
                         <td align="center">{{#if verified}}<i class="fa fa-check"></i>{{/if}}</td>
-                        <td align="center"><a class="btn-delete" href="javascript:void(0);"><i class="fa fa-trash"></i></a></td>
+                        {{#if ../leader}}
+                            <td align="center"><a class="btn-delete" href="javascript:void(0);"><i
+                                    class="fa fa-trash"></i></a></td>
+                        {{/if}}
                     </tr>
                 {{/each}}
                 </tbody>
@@ -55,12 +74,19 @@
         </div>
         {{#if group_id}}
             <div class="form-group">
-                <strong>请队长让所有组员扫描此二维码并使用JAccount登录认证</strong>
+                <strong>提交后，请队长让所有组员扫描此二维码并使用JAccount登录认证</strong>
                 <div class="qrcode m-t-sm"></div>
             </div>
         {{/if}}
         <div class="form-group text-center">
-            <a href="javascript:void(0);" class="btn btn-primary btn-submit">提交</a>
+            {{#if leader}}
+                <a href="javascript:void(0);" class="btn btn-primary btn-submit m-r-sm">提交</a>
+            {{/if}}
+            {{#if registered}}
+                <a href="javascript:void(0);" class="btn btn-danger btn-cancel m-l-sm">
+                    {{#if leader}}取消报名{{else}}退出队伍{{/if}}
+                </a>
+            {{/if}}
         </div>
     </div>
 </div>

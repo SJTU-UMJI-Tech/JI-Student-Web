@@ -27,15 +27,16 @@ class GPA extends Front_Controller
         }
         $terms_body = $this->Site_model->read_config('gpa/terms.json');
         $this->form_navbar();
-    
+        
         $data = array(
-            'terms_body' => json_decode($terms_body, true)
+            'terms_body'  => json_decode($terms_body, true),
+            'confirm_url' => base_url('GPA/terms?confirm=1')
         );
-    
+        
         $this->data['data'] = json_encode($data);
         $this->data['js'] = 'ji/gpa/terms';
         $this->data['article'] = true;
-    
+        
         $this->load->view('common/page', $this->data);
     }
     
@@ -48,7 +49,7 @@ class GPA extends Front_Controller
         $data = array(
             'scoreboard' => &$scoreboard
         );
-    
+        
         $this->data['data'] = json_encode($data);
         $this->data['js'] = 'ji/gpa/scoreboard';
         
@@ -83,7 +84,7 @@ class GPA extends Front_Controller
         
         $this->data['data'] = json_encode($data);
         $this->data['js'] = 'ji/gpa/graph';
-    
+        
         $this->load->view('common/page', $this->data);
     }
     
@@ -91,15 +92,15 @@ class GPA extends Front_Controller
     {
         $this->redirect();
         $this->add_nav('degree')->form_navbar();
-    
+        
         $score = $this->GPA_model->get_user_score($_SESSION['user_id']);
         $courses = $this->Site_model->read_config('course.json');
-    
+        
         $data = array(
             'score'   => &$score,
             'courses' => json_decode($courses, true)
         );
-    
+        
         $this->data['js'] = 'ji/gpa/degree';
         $this->data['data'] = json_encode($data);
         

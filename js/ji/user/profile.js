@@ -4,7 +4,7 @@
 ;define([
     'require', 'exports', 'module',
     'jquery', 'handlebars.runtime',
-    'js/ji/user/avatar' + window.JS_SUFFIX, 'css!' + window.ROOT_DIR + '/js/ji/user/avatar.css',
+    'ji/user/avatar', 'css!' + window.ROOT_DIR + '/js/ji/user/avatar.css',
     'templates/common/ibox', 'templates/user/profile'
 ], function (require, exports, module) {
     

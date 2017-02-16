@@ -81,6 +81,7 @@
  * @property GPA_model           $GPA_model
  * @property Scholarships_model  $Scholarships_model
  * @property Privilege_model     $Privilege_model
+ * @property Machine_model       $Machine_model
  */
 class CI_Controller
 {
@@ -146,6 +147,7 @@ class CI_Controller
  * @property GPA_model           $GPA_model
  * @property Scholarships_model  $Scholarships_model
  * @property Privilege_model     $Privilege_model
+ * @property Machine_model       $Machine_model
  */
 class CI_Model
 {

@@ -5,7 +5,7 @@
     'require', 'exports', 'module',
     'jquery', 'handlebars.runtime',
     'templates/common/body', 'templates/common/ibox',
-    'js/templates/common/ibox-article.min', 'templates/common/modal'
+    'templates/common/ibox-article', 'templates/common/modal'
 ], function (require, exports, module) {
     
     var $ = require('jquery');
@@ -14,7 +14,7 @@
     module.exports = function (options) {
         
         Handlebars.registerPartial('ibox', require('templates/common/ibox'));
-        Handlebars.registerPartial('article', require('js/templates/common/ibox-article.min'));
+        Handlebars.registerPartial('article', require('templates/common/ibox-article'));
         
         var config = {
             "id": "article-body",
@@ -31,7 +31,7 @@
         
         $("#body-wrapper").append(template(
             [{
-                grid: 'col-lg-10 col-lg-offset-1',
+                grid: 'col-lg-10 offset-lg-1',
                 template: 'ibox',
                 data: config
             }]));
@@ -51,7 +51,7 @@
             }, {
                 "button": {
                     "id": "modal-agree-btn-confirm", "text": "Confirm",
-                    "type": "primary", "href": "<?php echo base_url('GPA/terms?confirm=1');?>"
+                    "type": "primary", "href": options.confirm_url
                 }
             }]
         };
