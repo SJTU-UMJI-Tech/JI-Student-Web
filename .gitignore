@@ -26,17 +26,19 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-workspace
 *.sublime-project
 
-/node_modules
-/bower_modules
-/dist
+node_modules
+bower_modules
+dist
 
-/uploads/*
 !uploads/.gitkeep
+uploads/avatar/*
 !uploads/avatar/.gitkeep
+uploads/scholarships/*
 !uploads/scholarships/.gitkeep
+uploads/temp/*
 !uploads/temp/.gitkeep
 
-/js/templates/*
-/js/app.*.js
+js/templates/*
+js/app.*.js
 
 /deployment/mysql/dump.sql
