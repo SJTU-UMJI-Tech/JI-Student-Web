@@ -17,5 +17,5 @@ cp(dir + 'config.php', './application/config/config.php');
 cp(dir + 'constants.php', './application/config/constants.php');
 cp(dir + 'index.php', './index.php');
 
-exec('node deployment/template.js');
-exec('node deployment/build.js');
+//exec('node deployment/template.js');
+//exec('node deployment/build.js');

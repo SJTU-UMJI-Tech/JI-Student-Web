@@ -42,3 +42,6 @@ js/templates/*
 js/app.*.js
 
 /deployment/mysql/dump.sql
+
+vendor/
+composer.lock

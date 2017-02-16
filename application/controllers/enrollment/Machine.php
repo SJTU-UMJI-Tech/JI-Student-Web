@@ -53,12 +53,15 @@ class Machine extends Front_Controller
                 'leader'      => true
             );
         }
-    
-        $data['member_max'] = $this->Machine_model->member_max;
         
+        $data['member_max'] = $this->Machine_model->member_max;
+        $data['season'] = $this->Machine_model->season;
+        $data['deadline'] = $this->Machine_model->deadline;
         $data['submit_url'] = base_url('enrollment/machine/submit');
         $data['cancel_url'] = base_url('enrollment/machine/cancel');
         $data['check_url'] = base_url('enrollment/machine/check');
+        $data['valid'] = $this->Machine_model->is_time_valid();
+        if (!$data['valid']) $data['leader'] = false;
         
         $this->form_navbar();
         

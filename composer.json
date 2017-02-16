@@ -1,22 +1,21 @@
 {
-	"description": "The CodeIgniter framework",
-	"name": "codeigniter/framework",
+	"description": "A website for ALL students in JI",
+	"name": "JI-Life",
 	"type": "project",
-	"homepage": "https://codeigniter.com",
+	"homepage": "http://www.umji.sjtu.edu.cn/student",
 	"license": "MIT",
 	"support": {
-		"forum": "http://forum.codeigniter.com/",
-		"wiki": "https://github.com/bcit-ci/CodeIgniter/wiki",
-		"irc": "irc://irc.freenode.net/codeigniter",
-		"source": "https://github.com/bcit-ci/CodeIgniter"
+		"source": "https://github.com/SJTU-UMJI-Tech/JI-Student-Web"
 	},
 	"require": {
-		"php": ">=5.2.4"
+		"php": ">=5.2.4",
+		"codeigniter/framework": "^3.1",
+		"phpoffice/phpexcel": "^1.8"
 	},
-	"suggest": {
-		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
-	},
-	"require-dev": {
-		"mikey179/vfsStream": "1.1.*"
+	"repositories": {
+		"packagist": {
+			"type": "composer",
+			"url": "https://packagist.phpcomposer.com"
+		}
 	}
 }

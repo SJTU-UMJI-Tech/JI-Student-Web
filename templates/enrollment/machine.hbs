@@ -1,24 +1,35 @@
 {{#unless registered}}
-    <div class="card-deck card-intro m-b-md">
-        <div class="card text-center">
-            <div class="card-block">
-                <h3 class="card-title">队长</h3>
-                <p class="card-text">如果你是队长，请在此注册队伍。</p>
-                <div class="card-footer">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-expand"
-                       aria-expanded="false">开始注册</a>
+    {{#if valid}}
+        <div class="card-deck card-intro m-b-md">
+            <div class="card text-center">
+                <div class="card-block">
+                    <h3 class="card-title">队长</h3>
+                    <p class="card-text">如果你是队长，请在此注册队伍。</p>
+                    <div class="card-footer">
+                        <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-expand"
+                           aria-expanded="false">开始注册</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-block">
+                    <h3 class="card-title">队员</h3>
+                    <p class="card-text">如果你是队员，请扫描队长提供的二维码进行认证，且每人只能参加一支队伍。误注册为队长的队员必须先取消注册再加入其他队伍。</p>
                 </div>
             </div>
         </div>
+    {{else}}
         <div class="card text-center">
             <div class="card-block">
-                <h3 class="card-title">队员</h3>
-                <p class="card-text">如果你是队员，请扫描队长提供的二维码进行认证，且每人只能参加一支队伍。误注册为队长的队员必须先取消注册再加入其他队伍。</p>
+                <h3>对不起，报名已结束</h3>
             </div>
         </div>
-    </div>
+    {{/if}}
 {{/unless}}
 <div class="card card-register main-form" {{#unless registered}}style="display: none;"{{/unless}}>
+    <div class="card-header">
+        <h4>欢迎参加新生机械大赛 {{season}} 赛季，报名截止时间 {{deadline}}</h4>
+    </div>
     <div class="card-block">
         <div class="form-group">
             <h5>队长姓名</h5>
@@ -72,21 +83,33 @@
                 </tbody>
             </table>
         </div>
-        {{#if group_id}}
+        <div class="form-group">
+            <small>(由于学院数据库不全，队员未认证前姓名暂无为正常情况，认证后即可正常显示)</small>
+        </div>
+
+        {{#if valid}}
+            {{#if group_id}}
+                <div class="form-group">
+                    <strong>提交后，请队长让所有组员扫描此二维码并使用JAccount登录认证</strong>
+                    <div class="qrcode m-t-sm"></div>
+                </div>
+            {{/if}}
+            <div class="form-group text-center">
+                {{#if leader}}
+                    <a href="javascript:void(0);" class="btn btn-primary btn-submit m-r-sm">提交</a>
+                {{/if}}
+                {{#if registered}}
+                    <a href="javascript:void(0);" class="btn btn-danger btn-cancel m-l-sm">
+                        {{#if leader}}取消报名{{else}}退出队伍{{/if}}
+                    </a>
+                {{/if}}
+            </div>
+        {{else}}
             <div class="form-group">
-                <strong>提交后，请队长让所有组员扫描此二维码并使用JAccount登录认证</strong>
-                <div class="qrcode m-t-sm"></div>
+                <div class="form-control text-center">
+                    报名已结束
+                </div>
             </div>
         {{/if}}
-        <div class="form-group text-center">
-            {{#if leader}}
-                <a href="javascript:void(0);" class="btn btn-primary btn-submit m-r-sm">提交</a>
-            {{/if}}
-            {{#if registered}}
-                <a href="javascript:void(0);" class="btn btn-danger btn-cancel m-l-sm">
-                    {{#if leader}}取消报名{{else}}退出队伍{{/if}}
-                </a>
-            {{/if}}
-        </div>
     </div>
 </div>

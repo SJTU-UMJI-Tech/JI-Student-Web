@@ -15,6 +15,7 @@ class Machine_model extends CI_Model
     
     public $season;
     public $member_max;
+    public $deadline;
     
     /**
      * Machine_model constructor.
@@ -25,6 +26,14 @@ class Machine_model extends CI_Model
         $this->Site_model->load_site_config('machine');
         $this->season = $this->Site_model->site_config['enrollment_machine_season'];
         $this->member_max = $this->Site_model->site_config['enrollment_machine_member_max'];
+        $this->deadline = $this->Site_model->site_config['enrollment_machine_deadline'];
+    }
+    
+    function is_time_valid()
+    {
+        $deadline = strtotime($this->deadline);
+        $now = time();
+        return $now <= $deadline;
     }
     
     function get_group_by_id($id)
@@ -53,8 +62,19 @@ class Machine_model extends CI_Model
         return $query->result();
     }
     
+    function reset_member_group($member_id, $group_id)
+    {
+        if ($group_id <= 0) return;
+        if ($this->get_user_group_by_id($member_id) == $group_id)
+        {
+            $this->db->update($this::TABLE_USER, array('group_id' => 0),
+                              array('USER_ID' => $member_id, 'season' => $this->season));
+        }
+    }
+    
     function verify($USER_ID, $new_group_id)
     {
+        if (!$this->is_time_valid()) return false;
         $group = $this->get_group_by_id($new_group_id);
         if ($group->id <= 0) return false;
         $member_list = explode(',', $group->member);
@@ -78,18 +98,9 @@ class Machine_model extends CI_Model
         return false;
     }
     
-    function reset_member_group($member_id, $group_id)
-    {
-        if ($group_id <= 0) return;
-        if ($this->get_user_group_by_id($member_id) == $group_id)
-        {
-            $this->db->update($this::TABLE_USER, array('group_id' => 0),
-                              array('USER_ID' => $member_id, 'season' => $this->season));
-        }
-    }
-    
     function submit($USER_ID, $class_id, $member_list)
     {
+        if (!$this->is_time_valid()) return '报名已结束';
         $group_id = $this->get_user_group_by_id($USER_ID);
         if (count($member_list) > $this->member_max) return '队员人数超过上限';
         foreach ($member_list as $member_id)
@@ -100,7 +111,7 @@ class Machine_model extends CI_Model
         $data = array(
             'class_id' => $class_id,
             'member'   => implode(',', $member_list),
-            'state'    => 0
+            'state'    => 0,
         );
         if ($group_id > 0)
         {
@@ -122,6 +133,7 @@ class Machine_model extends CI_Model
         {
             // 没有组
             $data['leader_id'] = $USER_ID;
+            $data['season'] = $this->season;
             $this->db->insert($this::TABLE_GROUP, $data);
             $new_group_id = $this->db->insert_id();
             if (($group_id == 0))
@@ -146,6 +158,7 @@ class Machine_model extends CI_Model
     
     function cancel($USER_ID)
     {
+        if (!$this->is_time_valid()) return false;
         $group_id = $this->get_user_group_by_id($USER_ID);
         if ($group_id <= 0) return false;
         $group = $this->get_group_by_id($group_id);
