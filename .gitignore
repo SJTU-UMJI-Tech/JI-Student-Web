@@ -32,5 +32,11 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 /uploads/*
 !uploads/.gitkeep
-!uploads/*/.gitkeep
+!uploads/avatar/.gitkeep
+!uploads/scholarships/.gitkeep
+!uploads/temp/.gitkeep
+
+/js/templates/*
+/js/app.*.js
+
 /deployment/mysql/dump.sql

@@ -49,7 +49,7 @@ builder.addFonts('node_modules/editor.md/fonts');
 builder.addBower('footable', 'footable/compiled/footable', 'jquery', 'footable/compiled/footable.bootstrap');
 builder.addBower('qrcodejs','qrcode.js/qrcode');
 
-builder.addFile('inspinia', 'js/inspinia', ['bootstrap', 'metisMenu', 'slimscroll']);
+builder.addFile('inspinia', 'js/ji/inspinia', ['bootstrap', 'metisMenu', 'slimscroll']);
 
 builder.build({
     root_dir   : '',
