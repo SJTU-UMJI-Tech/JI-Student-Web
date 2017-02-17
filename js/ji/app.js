@@ -1,73 +1,46 @@
 /**
  * Created by liu on 17-1-30.
  */
-function initJIRequire(rootUrl) {
+"use strict";
+define([
+    'require', 'exports', 'module',
+    'jquery', 'bootstrap', 'handlebars.runtime', 'inspinia',
+    'templates/common/header', 'templates/common/navbar'
+], function (require, exports, module) {
     
-    'use strict';
+    const $          = require('jquery'),
+          Handlebars = require('handlebars.runtime');
     
-    var MIN_SUFFIX = '.min';
-    
-    function formCSSPath(path) {
-        return 'css!' + rootUrl + path;
-    }
-    
-    function nodeCSS(path, no_min) {
-        return 'css!' + rootUrl + 'node_modules/' + path + (no_min ? '' : MIN_SUFFIX) + '.css';
-    }
-    
-    function node(path, no_min) {
-        return 'node_modules/' + path + (no_min ? '' : MIN_SUFFIX);
-    }
-    
-    requirejs.config({
-        baseUrl: rootUrl,// + 'js/',
-        map    : {
-            '*': {
-                'css': node('require-css/css')
-            }
-        },
-        paths  : {
-            'jquery'            : node('jquery/dist/jquery'),
-            'bootstrap'         : node('bootstrap/dist/js/bootstrap'),
-            'metisMenu'         : node('metismenu/dist/metisMenu'),
-            'slimscroll'        : node('jquery-slimscroll/jquery.slimscroll'),
-            'pace'              : node('pace-progress/pace'),
-            'jquery-ui'         : node('jquery-ui-dist/jquery-ui'),
-            'gritter'           : node('gritter/js/jquery.gritter'),
-            'toastr'            : node('toastr/build/toastr'),
-            'chartjs'           : node('chart.js/dist/Chart'),
-            'footable'          : 'js/plugins/footable/footable.all.min',
-            'handlebars'        : node('handlebars/dist/handlebars.amd'),
-            'handlebars.runtime': node('handlebars/dist/handlebars.runtime.amd'),
-            'select2'           : node('select2/dist/select2.full'),
-            'chosen'            : node('chosen-js/chosen.jquery', true),
-            'cropper'           : node('cropper/dist/cropper'),
-            'inspinia'          : 'js/inspinia',
-            
-            
-            'ji-list-view': 'ji/ji-list-view'
-        },
+    /**
+     * @param {object}  options
+     * @param {object}  options.navbar          - The recursive structure of the left navbar
+     * @param {object}  options.info            - The information about user (only set when login)
+     * @param {string}  options.info.avatar     - The url of small avatar of the user
+     * @param {string}  options.info.user_name  - User name in Chinese
+     * @param {string}  options.info.user_type  - User type in English (student/...)
+     * @param {object}  options.url             - The relative url of some related pages
+     * @param {string}  options.url.profile     - User profile page
+     * @param {string}  options.url.login       - Login url
+     * @param {string}  options.url.logout      - Logout url
+     */
+    module.exports = function (options) {
         
-        shim       : {
-            'bootstrap' : ['jquery'],
-            'metisMenu' : ['jquery'],
-            'slimscroll': ['jquery'],
-            'gritter'   : ['jquery', nodeCSS('gritter/css/jquery.gritter', true)],
-            'footable'  : ['jquery', formCSSPath('css/plugins/footable/footable.core.css')],
-            'select2'   : [nodeCSS('select2/dist/css/select2')],
-            'chosen'    : ['jquery', nodeCSS('chosen-js/chosen', true)],
-            'cropper'   : [nodeCSS('cropper/dist/cropper')],
-            'inspinia'  : ['bootstrap', 'metisMenu', 'slimscroll']
-        },
-        waitSeconds: 30
-    });
+        // This helper is useful for generating urls in templates,
+        // since the ROOT_DIR is different in various environments
+        Handlebars.registerHelper('base_url', function (url) {
+            if (!url) url = '';
+            else if (url[0] === '/') url = url.substring(1);
+            return new Handlebars.SafeString(window.BASE_URL + url);
+        });
+        
+        // Generate the left navbar
+        let template = require('templates/common/navbar');
+        $("#ji-life-navbar").html(template(options));
+        
+        // Generate the header navbar
+        template = require('templates/common/header');
+        $("#ji-life-header").html(template(options));
+        
+    }
     
-    require(['pace'], function (pace) {
-        pace.start();
-    });
-    
-    require(['inspinia']);
-    
-    //require([formCSSPath('css/style.css')]);
-}
-
+});

@@ -3,7 +3,7 @@
     "HOME": {
       "name": "Home Page",
       "icon": "fa-home",
-      "href": ""
+      "href": "/"
     },
     "ORG": {
       "name": "Organizations",

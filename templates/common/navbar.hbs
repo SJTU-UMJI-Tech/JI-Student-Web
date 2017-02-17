@@ -1,7 +1,7 @@
 {{#*inline "navbar-rec"}}
     {{#each children}}
         <li class="nav-item {{#if active}}active{{/if}}">
-            <a class="nav-link" href="{{#if href}}{{root_dir}}/{{href}}{{else}}javascript:void(0);{{/if}}">
+            <a class="nav-link" href="{{#if href}}{{base_url href}}{{else}}javascript:void(0);{{/if}}">
                 {{#if icon}}
                     <i class="fa {{icon}} fa-fw"></i>
                 {{/if}}
@@ -29,7 +29,7 @@
     <div class="sidebar-collapse">
         <ul class="nav flex-column metismenu" id="side-menu">
             <li class="nav-header">
-                {{#if login}}
+                {{#with info}}
                     <div class="dropdown profile-element">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <img alt="image" class="img-circle" width="45" src="{{{avatar}}}"/>
@@ -37,7 +37,7 @@
                             <span class="text-muted text-xs">{{{user_type}}}</span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li class="dropdown-item"><a href="{{profile}}">Profile</a></li>
+                            <li class="dropdown-item"><a href="{{base_url ../url/profile}}">Profile</a></li>
                             <li class="dropdown-item"><a href="contacts.html">Contacts</a></li>
                             <li class="dropdown-item"><a href="mailbox.html">Mailbox</a></li>
                             <li class="dropdown-divider"></li>
@@ -49,7 +49,7 @@
                     </div>
                 {{else}}
 
-                {{/if}}
+                {{/with}}
                 <div class="logo-element">
                     JI-LIFE
                 </div>

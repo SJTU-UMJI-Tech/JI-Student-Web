@@ -3,12 +3,18 @@
  */
 ;define([
     'require', 'exports', 'module',
-    'jquery', 'inspinia'
+    'jquery', 'handlebars.runtime','inspinia',
+    'templates/common/settings'
 ], function (require, exports, module) {
-
-    var $ = require('jquery');
+    
+    const $          = require('jquery'),
+          Handlebars = require('handlebars.runtime');
+    
+    let template = require('templates/common/settings');
+    $("#ji-life-settings").html(template({}));
+    
     // Config box
-
+    
     // Enable/disable fixed top navbar
     $('#fixednavbar').click(function () {
         if ($('#fixednavbar').is(':checked')) {

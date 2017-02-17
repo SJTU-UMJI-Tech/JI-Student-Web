@@ -1,0 +1,51 @@
+<nav class="navbar navbar-static-top navbar-toggleable-xl navbar-light bg-faded border-bottom"
+     role="navigation">
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                        class="fa fa-bars"></i>
+                </a>
+                <form role="search" class="navbar-form-custom form-inline" action="search_results.html">
+                    <div class="form-group">
+                        <input type="text" placeholder="Search for something..." class="form-control"
+                               name="top-search" id="top-search">
+                    </div>
+                </form>
+            </li>
+        </ul>
+        <span class="mr-2 navbar-text my-auto">Welcome to JI-LIFE</span>
+        <ul class="navbar-nav navbar-top-links navbar-right">
+            {{#if info}}
+            <li class="nav-item">
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{base_url url/logout}}">
+                    <i class="fa fa-sign-out"></i> Log out
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link right-sidebar-toggle">
+                    <i class="fa fa-tasks"></i>
+                </a>
+            </li>
+            {{else}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{base_url url/login}}">
+                    <i class="fa fa-sign-in"></i> Log in
+                </a>
+            </li>
+            {{/if}}
+        </ul>
+    </div>
+
+
+</nav>
+
+<br>
+
+<div class="alert alert-warning">
+    This site is in alpha version, more functions will be added soon. Please
+    <a href="https://github.com/SJTU-UMJI-Tech/JI-Student-Web/issues" target="_blank">contact</a> the developers
+    if you have any issue.
+</div>

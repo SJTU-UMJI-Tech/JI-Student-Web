@@ -24,27 +24,33 @@
 
 <!-- Initialize -->
 <script type="text/javascript">
+    
+    // Pace should be loaded as early as possible
     require(['pace'], function (pace) {
         pace.start();
     });
+    // Bootstrap 4 needs globalized Tether
     require(['Tether'], function (Tether) {
-        window.Tether = Tether;
+        window.Tether = Tether
     });
-    require(['jquery', 'handlebars.runtime', 'templates/common/navbar'], function ($, Handlebars, template) {
-        Handlebars.registerHelper('root_dir', function () {
-            return new Handlebars.SafeString(window.ROOT_DIR);
-        });
+    
+    require(['ji/app'], function (app) {
         var config = {
             navbar: <?php echo isset($navbar_data) ? $navbar_data : '{}';?>,
+            url   : {
+                profile: 'user/profile',
+                login  : 'user/login',
+                logout : 'user/logout'
+            }
         };
         <?php if ($this->Site_model->is_login()):?>
-        config.login     = true;
-        config.avatar    = '<?php echo $this->Site_model->get_avatar(); ?>';
-        config.user_name = '<?php echo $_SESSION['user_name']; ?>';
-        config.user_type = '<?php echo $_SESSION['user_type']; ?>';
-        config.profile   = '<?php echo base_url('/user/profile'); ?>';
+        config.info = {
+            avatar   : '<?php echo $this->Site_model->get_avatar(); ?>',
+            user_name: '<?php echo $_SESSION['user_name']; ?>',
+            user_type: '<?php echo $_SESSION['user_type']; ?>',
+        };
         <?php endif;?>
-        $("#ji-navbar").html(template(config));
+        app(config);
     });
-    require(['inspinia']);
+
 </script>

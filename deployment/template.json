@@ -5,7 +5,9 @@
     "ibox-article",
     "ibox-editor",
     "modal",
-    "navbar"
+    "navbar",
+    "header",
+    "settings"
   ],
   "gpa": [
     "degree",

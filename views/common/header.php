@@ -40,6 +40,7 @@ function nodeCSS($path, $no_min = false)
     
     <script type="text/javascript">
         window.ROOT_DIR        = '<?php echo ROOT_DIR; ?>';
+        window.BASE_URL        = '<?php echo base_url(); ?>';
         window.JS_SUFFIX       = '<?php echo ENVIRONMENT == 'production' ? '.min' : ''; ?>';
         window.initJIFramework = function (filename, options) {
             require([filename], function (instance) {
@@ -47,8 +48,7 @@ function nodeCSS($path, $no_min = false)
             });
         }
     </script>
-
-
+    
 </head>
 
 
@@ -56,7 +56,7 @@ function nodeCSS($path, $no_min = false)
 <div id="wrapper">
     
     <!-- navbar -->
-    <div id="ji-navbar"></div>
+    <div id="ji-life-navbar"></div>
     
     <?php /*
     
@@ -540,26 +540,7 @@ function nodeCSS($path, $no_min = false)
     
     */ ?>
     
-    <div id="page-wrapper" class="gray-bg dashbard-1">
-        
-        <div class="row border-bottom">
-            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
-                    </a>
-                    <form role="search" class="navbar-form-custom" action="search_results.html">
-                        <div class="form-group">
-                            <input type="text" placeholder="Search for something..." class="form-control"
-                                   name="top-search" id="top-search">
-                        </div>
-                    </form>
-                </div>
-                <ul class="nav navbar-top-links navbar-right">
-                    <?php if ($this->Site_model->is_login()): ?>
-                        <li>
-                            <span class="m-r-sm text-muted welcome-message">Welcome to JI-LIFE</span>
-                        </li>
-                        <?php /*
+    <?php /*
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                                 <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
@@ -662,38 +643,8 @@ function nodeCSS($path, $no_min = false)
                             </ul>
                         </li>
                         */ ?>
-                        
-                        <li>
-                            <a href="<?php echo base_url('user/logout?uri=' .
-                                                         $this->Site_model->get_relative_url()); ?>">
-                                <i class="fa fa-sign-out"></i> Log out
-                            </a>
-                        </li>
-                        <li>
-                            <a class="right-sidebar-toggle">
-                                <i class="fa fa-tasks"></i>
-                            </a>
-                        </li>
-                    <?php else: ?>
-                        <li>
-                            <a href="<?php echo base_url('user/login?uri=' .
-                                                         $this->Site_model->get_relative_url()); ?>">
-                                <i class="fa fa-sign-in"></i> Log in
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            
-            </nav>
-        </div>
-        
-        <br>
-        
-        <div class="alert alert-warning">
-            This site is in alpha version, more functions will be added soon. Please
-            <a href="https://github.com/SJTU-UMJI-Tech/JI-Student-Web/issues" target="_blank">contact</a> the developers
-            if you have any issue.
-        </div>
     
-       
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        
+        <div id="ji-life-header"></div>
         
