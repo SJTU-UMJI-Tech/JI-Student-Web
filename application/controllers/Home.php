@@ -17,6 +17,12 @@ class Home extends Front_Controller
         $this->data['page_name'] = 'UM-SJTU JI LIFE';
         $this->add_nav('HOME')->form_navbar();
         $obj = $this->Site_model->get_object('jbxx', 'User_obj', array('USER_ID' => '515370910207'));
+        
+        $this->load->model('ACL_model');
+        $this->ACL_model->init();
+        echo $this->ACL_model->isAllowed('super_admin','gpa');
+    
+    
         $this->load->view('home', $this->data);
     }
     
