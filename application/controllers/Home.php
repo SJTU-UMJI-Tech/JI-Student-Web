@@ -19,10 +19,9 @@ class Home extends Front_Controller
         $obj = $this->Site_model->get_object('jbxx', 'User_obj', array('USER_ID' => '515370910207'));
         
         $this->load->model('ACL_model');
-        $this->ACL_model->init();
-        echo $this->ACL_model->isAllowed('super_admin','gpa');
-    
-    
+        $this->ACL_model->generate_config();
+        var_dump($this->ACL_model->isAllowed('gpa', 'r'));
+        
         $this->load->view('home', $this->data);
     }
     

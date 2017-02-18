@@ -3,6 +3,7 @@
 use Zend\Permissions\Acl\Acl as Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
+use Zend\Permissions\Acl\Exception\InvalidArgumentException as InvalidArgumentException;
 
 /**
  * Class ACL_model
@@ -27,11 +28,13 @@ class ACL_model extends CI_Model
     const TABLE_GROUP = 'acl_group';
     /** @var string 群组可访问资源表 */
     const TABLE_ACCESS = 'acl_access';
+    /** @var string 用户对应群组表 */
+    const TABLE_USER_GROUP = 'acl_user_group';
     
-    /**
-     * @var Acl 权限控制实例
-     */
+    /** @var Acl 权限控制实例 */
     private $acl;
+    /** @var array 用户角色 */
+    private $user_role;
     
     /**
      * Privilege_model constructor.
@@ -41,6 +44,7 @@ class ACL_model extends CI_Model
     function __construct()
     {
         parent::__construct();
+        $this->set_user_role();
         if (file_exists($this::CONFIG_FILE))
         {
             $data = file_get_contents($this::CONFIG_FILE);
@@ -50,13 +54,13 @@ class ACL_model extends CI_Model
                 return;
             }
         }
-        $this->init();
+        $this->generate_config();
     }
     
     /**
      * 使用数据库设置生成一个权限控制文件
      */
-    public function init()
+    public function generate_config()
     {
         $this->acl = new Acl();
         // 初始化资源表
@@ -88,15 +92,42 @@ class ACL_model extends CI_Model
     }
     
     /**
+     * 从数据库获取当前用户的权限
+     */
+    public function set_user_role()
+    {
+        $this->user_role = array();
+        if ($this->Site_model->is_login())
+        {
+            $query = $this->db->select('group')->where(array('USER_ID' => $_SESSION['user_id']))
+                              ->get($this::TABLE_USER_GROUP);
+            foreach ($query->result() as &$item) $this->user_role[] = $item->group;
+            if ($_SESSION['user_type'] == 'student') $this->user_role[] = 'student';
+        }
+        if (empty($this->user_role)) $this->user_role [] = 'guest';
+        print_r($this->user_role);
+    }
+    
+    /**
      * 对 Acl 的 isAllowed() 进行封装，方便调用
-     * @param  string $role
      * @param  string $resource
      * @param  string $privilege
      * @return bool
      */
-    public function isAllowed($role = NULL, $resource = NULL, $privilege = NULL)
+    public function isAllowed($resource = NULL, $privilege = NULL)
     {
-        return $this->acl->isAllowed($role, $resource, $privilege);
+        // 捕捉未注册的Resource产生的异常并返回false
+        try
+        {
+            foreach ($this->user_role as &$role)
+            {
+                if ($this->acl->isAllowed($role, $resource, $privilege)) return true;
+            }
+            return false;
+        } catch (InvalidArgumentException $e)
+        {
+            return false;
+        }
     }
 }
 

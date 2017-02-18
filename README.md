@@ -1,4 +1,5 @@
 # JI-LIFE
+A website for ALL students in JI
 
 ## Requirements
 PHP >= v5.4  
