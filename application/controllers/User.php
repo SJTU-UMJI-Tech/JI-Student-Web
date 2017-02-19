@@ -86,6 +86,7 @@ class User extends Front_Controller
             $_SESSION['user_type'] = $user->user_type;
             $_SESSION['avatar_md5'] = $user->avatar_md5;
         }
+        $this->ACL_model->set_user_role();
         //$_SESSION['avatar'] = file_exists('./uploads/avatar/' . $_SESSION['user_id'] . '.png');
     }
     
@@ -94,7 +95,6 @@ class User extends Front_Controller
         /** In the development mode, we will use ji-account api to login */
         if (ENVIRONMENT == 'development')
         {
-            
             $result = $this->input->get('result');
             if ($result == 'success')
             {
@@ -115,13 +115,11 @@ class User extends Front_Controller
             'uri'       => $this->input->get('uri'),
             'auth_type' => $this->input->get('auth_type')
         );
-        print_r($redirect_query);
         
         
         if ($this::OAUTH_VER >= 2.0)
         {
             $data = base64_encode(json_encode($redirect_query));
-            echo $data;
             $redirect_uri = base_url('user/auth2?data=' . $data);
             $query = array(
                 'response_type' => 'code',

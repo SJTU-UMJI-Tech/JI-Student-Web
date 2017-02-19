@@ -28,12 +28,19 @@ abstract class Front_Controller extends CI_Controller
     
     const UPLOAD_DIR = './uploads/';
     
+    /**
+     * Front_Controller constructor.
+     * 所有前端Controller都应继承Front_Controller
+     * 对网站进行整体初始化
+     */
     public function __construct()
     {
         parent::__construct();
+        // 加载站点主模块
         $this->load->model('Site_model');
         //$this->load->switch_view_on();
-        /** 设置语言 */
+        
+        // 设置语言
         if (!isset($_SESSION['language']))
         {
             $_SESSION['language'] = $this->config->item('language');
@@ -42,27 +49,45 @@ abstract class Front_Controller extends CI_Controller
         {
             $this->config->set_item('language', $_SESSION['language']);
         }
+        //$this->load->language('ta_main');
         
+        
+        // 开启方便调试的profiler
         if (ENVIRONMENT == 'development')
         {
             $this->output->enable_profiler(true);
         }
         
-        
+        // 加载ACL模块
+        $this->load->model('ACL_model');
+        // 加载数据库对象模块
         $this->load->library('My_obj');
+        // 从数据库加载站点设置
         $this->Site_model->load_site_config();
-        //$this->load->language('ta_main');
+        // 初始化页面和侧边栏数据
         $this->data = array(
             'type' => 'default'
         );
         $this->navigation = array();
     }
     
+    /**
+     * 对Site_model->site_config进行封装方便调用
+     * @param $key
+     * @return string
+     */
     public function get_site_config($key)
     {
         return $this->Site_model->site_config[$key];
     }
     
+    /**
+     * @TODO 移除这个函数
+     * @deprecated
+     * @param $options
+     * @param $object
+     * @return mixed
+     */
     protected function fill_option(&$options, $object)
     {
         foreach ($options as $index => $option)
@@ -82,6 +107,15 @@ abstract class Front_Controller extends CI_Controller
         return $options;
     }
     
+    /**
+     * @TODO 移除这个函数
+     * @deprecated
+     * @param $table
+     * @param $id
+     * @param $options
+     * @param $data
+     * @return string
+     */
     protected function process_option($table, &$id, $options, $data)
     {
         $files = array();
@@ -170,6 +204,10 @@ abstract class Front_Controller extends CI_Controller
         return 'success';
     }
     
+    /**
+     * 重定向登陆
+     * 对一些状态进行判断以免循环调用时造成死循环
+     */
     protected function redirect_login()
     {
         //if (ENVIRONMENT == 'development') return;
@@ -185,6 +223,28 @@ abstract class Front_Controller extends CI_Controller
         }
     }
     
+    /**
+     * 根据ACL验证权限
+     * 无权限且未登录则调用$this->redirect_login()
+     * 无权限且已登陆则调用$this->__redirect()
+     * @param  string $resource
+     * @param  string $privilege
+     */
+    protected function redirect_acl($resource = NULL, $privilege = NULL)
+    {
+        if ($this->ACL_model->isAllowed($resource, $privilege)) return;
+        if ($this->Site_model->is_login()) $this->redirect();
+        else $this->redirect_login();
+    }
+    
+    /**
+     * @TODO 移除这个函数
+     * @deprecated
+     * @param       $privilege
+     * @param bool  $redirect
+     * @param array $extra
+     * @return bool
+     */
     protected function validate_privilege($privilege, $redirect = true, $extra = array())
     {
         $this->load->model('Privilege_model');
@@ -211,12 +271,21 @@ abstract class Front_Controller extends CI_Controller
         return true;
     }
     
+    /**
+     * 对侧边导航栏添加一层导航
+     * @param $str
+     * @return $this
+     */
     protected function add_nav($str)
     {
         $this->navigation[] = $str;
         return $this;
     }
     
+    /**
+     * 将侧边导航栏数据写入$this->data['navbar_data']
+     * @return $this
+     */
     protected function form_navbar()
     {
         $this->load->model('Navbar_model');
@@ -233,5 +302,18 @@ abstract class Front_Controller extends CI_Controller
         $this->data['navbar'] = $this->Navbar_model->generate_navbar($nav);
         $this->data['navbar_data'] = json_encode($nav);
         return $this;
+    }
+    
+    /**
+     * 对前端框架进行初始化，并调用views/common/page
+     * @param string $js
+     * @param array  $data
+     */
+    protected function __view($js, &$data = array())
+    {
+        $this->form_navbar();
+        $this->data['js'] = $js;
+        $this->data['data'] = json_encode($data);
+        $this->load->view('common/page', $this->data);
     }
 }

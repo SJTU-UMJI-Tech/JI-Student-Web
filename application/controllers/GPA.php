@@ -90,8 +90,11 @@ class GPA extends Front_Controller
     
     public function degree()
     {
-        $this->redirect();
-        $this->add_nav('degree')->form_navbar();
+        //$this->redirect();
+        
+        $this->redirect_acl('gpa', 'read');
+        
+        $this->add_nav('degree');
         
         $score = $this->GPA_model->get_user_score($_SESSION['user_id']);
         $courses = $this->Site_model->read_config('course.json');
@@ -101,11 +104,7 @@ class GPA extends Front_Controller
             'courses' => json_decode($courses, true)
         );
         
-        $this->data['js'] = 'ji/gpa/degree';
-        $this->data['data'] = json_encode($data);
-        
-        $this->load->view('common/page', $this->data);
-        
+        $this->__view('ji/gpa/degree', $data);
     }
     
     public function update()

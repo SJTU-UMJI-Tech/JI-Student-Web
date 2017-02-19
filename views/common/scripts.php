@@ -39,7 +39,7 @@
             navbar: <?php echo isset($navbar_data) ? $navbar_data : '{}';?>,
             url   : {
                 profile: 'user/profile',
-                login  : 'user/login',
+                login  : 'user/login?uri=<?php echo $this->Site_model->get_relative_url(); ?>',
                 logout : 'user/logout'
             }
         };
