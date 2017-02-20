@@ -7,18 +7,21 @@ class GPA extends Front_Controller
         parent::__construct();
         $this->load->model('GPA_model');
         $this->add_nav('GPA');
+        $this->name = 'gpa';
     }
     
     protected function redirect()
     {
-        $this->redirect_login();
-        $user = $this->GPA_model->get_user($_SESSION['user_id']);
-        if (!$user || $user->state <= 0) $this->__redirect('GPA/terms');
+        $this->__redirect('GPA/terms');
+        //$this->redirect_login();
+        //$user = $this->GPA_model->get_user($_SESSION['user_id']);
+        //if (!$user || $user->state <= 0) $this->__redirect('GPA/terms');
     }
     
     public function terms()
     {
-        $this->redirect_login();
+        $this->redirect_acl('read','site');
+        
         if ($this->input->get('confirm') == 1)
         {
             $this->GPA_model->update_scoreboard($_SESSION['user_id']);
@@ -32,17 +35,15 @@ class GPA extends Front_Controller
             'terms_body'  => json_decode($terms_body, true),
             'confirm_url' => base_url('GPA/terms?confirm=1')
         );
-        
-        $this->data['data'] = json_encode($data);
-        $this->data['js'] = 'ji/gpa/terms';
         $this->data['article'] = true;
         
-        $this->load->view('common/page', $this->data);
+        $this->__view('ji/gpa/terms', $data);
     }
     
     public function index()
     {
-        $this->redirect();
+        $this->redirect_acl('read');
+        
         $scoreboard = $this->GPA_model->get_scoreboard();
         $this->add_nav('board')->form_navbar();
         
@@ -50,29 +51,25 @@ class GPA extends Front_Controller
             'scoreboard' => &$scoreboard
         );
         
-        $this->data['data'] = json_encode($data);
-        $this->data['js'] = 'ji/gpa/scoreboard';
-        
-        $this->load->view('common/page', $this->data);
+        $this->__view('ji/gpa/scoreboard', $data);
     }
     
     public function graph_score()
     {
-        if (!$this->Site_model->is_login())
+        if (!$this->validate_acl('read'))
         {
+            echo json_encode('');
             exit();
         }
         $course_id = $this->input->get('id');
         echo json_encode($this->GPA_model->get_course_score($course_id));
         exit();
-        //$this->data['course_id'] = $course_id;
     }
     
     public function graph()
     {
-        $this->redirect();
-        
-        $this->add_nav('graph')->form_navbar();
+        $this->redirect_acl('read');
+        $this->add_nav('graph');
         
         $score = $this->GPA_model->get_user_score($_SESSION['user_id']);
         $courses = $this->Site_model->read_config('course.json');
@@ -82,18 +79,12 @@ class GPA extends Front_Controller
             'courses' => json_decode($courses, true)
         );
         
-        $this->data['data'] = json_encode($data);
-        $this->data['js'] = 'ji/gpa/graph';
-        
-        $this->load->view('common/page', $this->data);
+        $this->__view('ji/gpa/graph', $data);
     }
     
     public function degree()
     {
-        //$this->redirect();
-        
-        $this->redirect_acl('gpa', 'read');
-        
+        $this->redirect_acl('read');
         $this->add_nav('degree');
         
         $score = $this->GPA_model->get_user_score($_SESSION['user_id']);
@@ -109,9 +100,9 @@ class GPA extends Front_Controller
     
     public function update()
     {
-        if (!$this->Site_model->is_login())
+        if (!$this->validate_acl('read'))
         {
-            echo 'Not login';
+            echo 'Access Permission Error';
             exit();
         }
         $user = $this->GPA_model->get_user($_SESSION['user_id']);
@@ -204,7 +195,7 @@ class GPA extends Front_Controller
     
     public function update_all()
     {
-        $this->redirect();
+        $this->redirect_acl('admin');
         $this->GPA_model->update_scoreboard_all();
     }
 }

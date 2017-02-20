@@ -7,9 +7,11 @@ defined('VERSION') OR define('VERSION', '0.2.0');
 
 abstract class Front_Controller extends CI_Controller
 {
-    //public $site_config;
     public $data;
     public $navigation;
+    
+    /** @var string $name 验证权限时使用的资源名 */
+    public $name = NULL;
     
     abstract protected function redirect();
     
@@ -108,8 +110,7 @@ abstract class Front_Controller extends CI_Controller
     }
     
     /**
-     * @TODO 移除这个函数
-     * @deprecated
+     * @TODO 统一json返回格式
      * @param $table
      * @param $id
      * @param $options
@@ -224,51 +225,29 @@ abstract class Front_Controller extends CI_Controller
     }
     
     /**
-     * 根据ACL验证权限
+     * 根据ACL验证权限并重定向
      * 无权限且未登录则调用$this->redirect_login()
      * 无权限且已登陆则调用$this->__redirect()
-     * @param  string $resource
      * @param  string $privilege
+     * @param  string $resource
      */
-    protected function redirect_acl($resource = NULL, $privilege = NULL)
+    protected function redirect_acl($privilege = NULL, $resource = NULL)
     {
-        if ($this->ACL_model->isAllowed($resource, $privilege)) return;
+        if ($this->validate_acl($privilege, $resource)) return;
         if ($this->Site_model->is_login()) $this->redirect();
         else $this->redirect_login();
     }
     
     /**
-     * @TODO 移除这个函数
-     * @deprecated
-     * @param       $privilege
-     * @param bool  $redirect
-     * @param array $extra
+     *
+     * @param string $privilege
+     * @param string $resource
      * @return bool
      */
-    protected function validate_privilege($privilege, $redirect = true, $extra = array())
+    protected function validate_acl($privilege = NULL, $resource = NULL)
     {
-        $this->load->model('Privilege_model');
-        $extra += array($this->data['type'] => $privilege);
-        if (!$this->Privilege_model->has_privilege($_SESSION['user_id'], $extra))
-        {
-            if ($redirect)
-            {
-                if ($this->input->get('logout') == '1')
-                {
-                    redirect(base_url());
-                }
-                else if (!$_SESSION['user_id'])
-                {
-                    redirect('user/login?uri=' . $this->Site_model->get_relative_url());
-                }
-                else
-                {
-                    $this->redirect();
-                }
-            }
-            return false;
-        }
-        return true;
+        if ($resource == NULL) $resource = $this->name;
+        return $this->ACL_model->isAllowed($resource, $privilege);
     }
     
     /**

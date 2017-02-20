@@ -105,7 +105,7 @@ class ACL_model extends CI_Model
             if ($_SESSION['user_type'] == 'student') $this->user_role[] = 'student';
         }
         if (empty($this->user_role)) $this->user_role [] = 'guest';
-        print_r($this->user_role);
+        //print_r($this->user_role);
     }
     
     /**

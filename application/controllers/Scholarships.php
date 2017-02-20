@@ -31,6 +31,7 @@ class Scholarships extends Front_Controller
             array('name' => 'attachment', 'label' => 'Attachment', 'type' => 'file')
         );
         $this->add_nav('SCHOLAR');
+        $this->name = 'scholarships';
     }
     
     protected function redirect()
@@ -106,7 +107,7 @@ class Scholarships extends Front_Controller
     
     public function check()
     {
-        $this->validate_privilege('read');
+        //$this->validate_privilege('read');
         $id = $this->input->get('id');
         $scholarships = $this->Scholarships_model->get_by_id($id);
         if ($scholarships->is_error())
@@ -161,7 +162,7 @@ class Scholarships extends Front_Controller
     public function ajax_edit()
     {
         error_reporting(0);
-        $this->validate_privilege('admin_write', false);
+        //$this->validate_privilege('admin_write', false);
         $data = json_decode($this->input->post('data'), true);
         
         $id = $this->input->post('id');
