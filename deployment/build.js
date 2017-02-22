@@ -59,7 +59,7 @@ builder.build({
 
 builder.build({
     root_dir   : '',
-    filePath   : 'js/app.test',
+    filePath   : 'js/app.testing',
     environment: 'production'
 });
 

@@ -18,13 +18,15 @@
 
 <?php if (ENVIRONMENT == 'production'): ?>
     <script src="<?php echo ROOT_DIR; ?>/js/app.production.min.js?v=<?php echo time(); ?>"></script>
+<?php elseif (ENVIRONMENT == 'testing'): ?>
+    <script src="<?php echo ROOT_DIR; ?>/js/app.testing.min.js?v=<?php echo time(); ?>"></script>
 <?php else: ?>
     <script src="<?php echo ROOT_DIR; ?>/js/app.development.js?v=<?php echo time(); ?>"></script>
 <?php endif; ?>
 
 <!-- Initialize -->
 <script type="text/javascript">
-    
+
     // Pace should be loaded as early as possible
     require(['pace'], function (pace) {
         pace.start();
@@ -33,7 +35,7 @@
     require(['Tether'], function (Tether) {
         window.Tether = Tether
     });
-    
+
     require(['ji/app'], function (app) {
         var config = {
             navbar: <?php echo isset($navbar_data) ? $navbar_data : '{}';?>,
