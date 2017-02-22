@@ -65,7 +65,7 @@ class ACL_model extends CI_Model
         $this->acl = new Acl();
         // 初始化资源表
         $query = $this->db->select('name')->get($this::TABLE_RESOURCE);
-        foreach ($query->result() as &$item)
+        foreach ($query->result() as $item)
         {
             $this->acl->addResource(new Resource($item->name));
         }
@@ -74,14 +74,14 @@ class ACL_model extends CI_Model
                   ->allow('super_admin', NULL, NULL);
         // 初始化组
         $query = $this->db->select('name,parents')->get($this::TABLE_GROUP);
-        foreach ($query->result() as &$item)
+        foreach ($query->result() as $item)
         {
             $parents = $item->parents ? explode(',', $item->parents) : NULL;
             $this->acl->addRole(new Role($item->name), $parents);
         }
         // 初始化组权限
         $query = $this->db->select('group,resource,access')->get($this::TABLE_ACCESS);
-        foreach ($query->result() as &$item)
+        foreach ($query->result() as $item)
         {
             // NULL表示赋予所有权限
             $access = $item->access ? explode(',', $item->access) : NULL;
@@ -101,7 +101,7 @@ class ACL_model extends CI_Model
         {
             $query = $this->db->select('group')->where(array('USER_ID' => $_SESSION['user_id']))
                               ->get($this::TABLE_USER_GROUP);
-            foreach ($query->result() as &$item) $this->user_role[] = $item->group;
+            foreach ($query->result() as $item) $this->user_role[] = $item->group;
             if ($_SESSION['user_type'] == 'student') $this->user_role[] = 'student';
         }
         if (empty($this->user_role)) $this->user_role [] = 'guest';
