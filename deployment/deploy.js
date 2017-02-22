@@ -8,8 +8,8 @@
 require('shelljs/global');
 
 if (process.argv.length > 2) {
-    var env = process.argv[2] === 'production';
-    var dir = './deployment/' + (env ? 'production/' : 'development/');
+    var env = process.argv[2];
+    var dir = `./deployment/${env}/`;
 }
 
 cp(dir + '.htaccess', './.htaccess');
