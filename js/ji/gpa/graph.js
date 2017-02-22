@@ -67,11 +67,6 @@
                     "id"  : "modal-agree-btn-close", "text": "Close",
                     "type": "white", "close": true
                 }
-            }, {
-                "button": {
-                    "id"  : "modal-agree-btn-confirm", "text": "Confirm",
-                    "type": "primary", "href": "<?php echo base_url('GPA/terms?confirm=1');?>"
-                }
             }]
         };
         $body.append(template(config));
@@ -100,6 +95,7 @@
             $("#modal-graph").modal();
             const id = $(this).children("[type=id]").data('id');
             $("#modal-graph").find(".modal-title").html('Analyze - ' + id);
+            $("#modal-graph").find(".modal-body").html('');
             $.ajax({
                 url     : window.ROOT_DIR + '/GPA/graph_score',
                 type    : 'GET',
@@ -127,11 +123,11 @@
                 html = ['<div class="row collapsed">',
                     '<div class="graph-line-wrapper col-xs-12 text-center">',
                     '<strong>Line Graph</strong><br>',
-                    '<canvas class="graph-line"></canvas>',
+                    '<canvas class="graph-line" height="150"></canvas>',
                     '</div>',
                     '<div class="graph-pie-wrapper col-xs-offset-2 col-xs-8 text-center">',
                     '<strong>Pie Graph</strong><br>',
-                    '<canvas class="graph-pie"></canvas>',
+                    '<canvas class="graph-pie" height="200"></canvas>',
                     '</div>',
                     '</div>'].join('');
             }
