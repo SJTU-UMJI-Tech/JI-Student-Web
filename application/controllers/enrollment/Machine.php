@@ -26,8 +26,8 @@ class Machine extends Front_Controller
             //echo 'yes';
             $this->load->model('User_model');
             $leader = $this->User_model->get_user($group->leader_id);
-            $member_list = explode(',', $group->member);
-            $member_info = $this->Machine_model->get_member_info($member_list, $group->id);
+            $member_list = $group->member ? explode(',', $group->member) : array();
+            $member_info = $group->member ? $this->Machine_model->get_member_info($member_list, $group->id) : array();
             $data = array(
                 'registered'  => true,
                 'user_name'   => $leader->user_name,
@@ -53,13 +53,15 @@ class Machine extends Front_Controller
                 'leader'      => true
             );
         }
-        
         $data['member_max'] = $this->Machine_model->member_max;
         $data['season'] = $this->Machine_model->season;
+        $data['season_name'] = $this->Machine_model->season_name;
+        $data['introduction'] = file_get_contents('files/enrollment/machine/' . $data['season'] . '.md');
         $data['deadline'] = $this->Machine_model->deadline;
         $data['submit_url'] = base_url('enrollment/machine/submit');
         $data['cancel_url'] = base_url('enrollment/machine/cancel');
         $data['check_url'] = base_url('enrollment/machine/check');
+        $data['qq_url'] = 'http://qm.qq.com/cgi-bin/qm/qr?k=dPP8xm2dtCNRThv4Fzo9_qnUpVB_ru1d';
         $data['valid'] = $this->Machine_model->is_time_valid();
         if (!$data['valid']) $data['leader'] = false;
         
@@ -104,7 +106,6 @@ class Machine extends Front_Controller
         }
         $class_id = $this->input->get('class_id');
         $member_list = $this->input->get('member_list');
-        $member_list = explode(',', $member_list);
         $this->load->model('enrollment/Machine_model');
         $data['message'] = $this->Machine_model->submit($_SESSION['user_id'], $class_id, $member_list);
         if ($data['message'] == 'ok') $data['status'] = 'ok';

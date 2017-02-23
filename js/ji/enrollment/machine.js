@@ -4,17 +4,21 @@
 "use strict";
 define([
     'require', 'exports', 'module',
-    'jquery', 'handlebars.runtime', 'qrcodejs',
-    'templates/common/ibox', 'templates/enrollment/machine'
+    'jquery', 'handlebars.runtime', 'qrcodejs', 'marked',
+    'templates/common/body', 'templates/common/ibox',
+    'templates/enrollment/machine', 'templates/enrollment/machine-info'
 ], function (require, exports, module) {
     
     const $          = require('jquery'),
-          Handlebars = require('handlebars.runtime');
+          Handlebars = require('handlebars.runtime'),
+          marked     = require('marked');
     
     module.exports = (options) => {
         
-        const template = require('templates/common/ibox');
+        const template = require('templates/common/body');
+        Handlebars.registerPartial('ibox', require('templates/common/ibox'));
         Handlebars.registerPartial('machine', require('templates/enrollment/machine'));
+        Handlebars.registerPartial('machine-info', require('templates/enrollment/machine-info'));
         
         let member_info = {};
         for (let i = 0; i < options.member_info.length; i++) {
@@ -32,26 +36,49 @@ define([
             }
         }
         
-        const config = {
-            "id"   : "machine",
-            "title": "Mechanic Competition",
-            "body" : [{
-                "template": "machine",
-                "data"    : options
-            }]
-        };
+        const config = [{
+            template: "ibox",
+            grid    : "col-12",
+            data    : {
+                "id"  : "machine-info",
+                "body": [{
+                    "template": "machine-info",
+                    "data"    : options
+                }]
+            }
+        }, {
+            template: "ibox",
+            grid    : "col-12",
+            data    : {
+                "id"  : "machine",
+                "body": [{
+                    "template": "machine",
+                    "data"    : options
+                }]
+            }
+        }];
         
         $("#body-wrapper").append(template(config));
         
-        const $qrcode = $(".qrcode");
+        const $main = $("#machine");
+        if (!options.registered) {
+            $main.css('display', 'none');
+        }
+        const $main_info = $("#machine-info");
+        
+        let $qrcode = $main.find(".qrcode-jaccount");
         if ($qrcode.length > 0) {
             new QRCode($qrcode.first()[0], options.group_url);
         }
+        $qrcode = $main.find(".qrcode-qq");
+        if ($qrcode.length > 0) {
+            new QRCode($qrcode.first()[0], options.qq_url);
+        }
         
-        const $main = $("#machine");
+        $main_info.find(".text-intro").html(marked(options.introduction));
         
-        $main.find(".btn-expand").on('click', function () {
-            $main.find(".main-form").show().collapse();
+        $main_info.find(".btn-expand").on('click', function () {
+            $main.show().collapse();
         });
         
         $main.find(".btn-add").on('click', function () {

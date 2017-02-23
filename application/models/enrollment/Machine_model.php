@@ -14,6 +14,7 @@ class Machine_model extends CI_Model
     const TABLE_USER  = 'enrollment_machine_user';
     
     public $season;
+    public $season_name;
     public $member_max;
     public $deadline;
     
@@ -25,6 +26,7 @@ class Machine_model extends CI_Model
         parent::__construct();
         $this->Site_model->load_site_config('machine');
         $this->season = $this->Site_model->site_config['enrollment_machine_season'];
+        $this->season_name = $this->Site_model->site_config['enrollment_machine_season_name'];
         $this->member_max = $this->Site_model->site_config['enrollment_machine_member_max'];
         $this->deadline = $this->Site_model->site_config['enrollment_machine_deadline'];
     }
@@ -57,7 +59,6 @@ class Machine_model extends CI_Model
     {
         $query = $this->db->select('user.USER_ID, user.user_name, (group_id=' . $group_id . ') AS verified')
                           ->from($this::TABLE_USER)->where_in('user.USER_ID', $members)
-                          ->where(array('season' => $this->season))
                           ->join('user', $this::TABLE_USER . '.USER_ID=user.USER_ID', 'right')->get();
         return $query->result();
     }
@@ -102,15 +103,16 @@ class Machine_model extends CI_Model
     {
         if (!$this->is_time_valid()) return '报名已结束';
         $group_id = $this->get_user_group_by_id($USER_ID);
-        if (count($member_list) > $this->member_max) return '队员人数超过上限';
-        foreach ($member_list as $member_id)
+        $member_arr = $member_list ? explode(',', $member_list) : array();
+        if (count($member_arr) > $this->member_max) return '队员人数超过上限';
+        foreach ($member_arr as $member_id)
         {
             if (!preg_match('/^(\d{12}|\d{10})$/', $member_id)) return '队员学号格式错误';
             if ($member_id == $USER_ID) return '队员学号与队长相同';
         }
         $data = array(
             'class_id' => $class_id,
-            'member'   => implode(',', $member_list),
+            'member'   => $member_list,
             'state'    => 0,
         );
         if ($group_id > 0)
@@ -122,7 +124,7 @@ class Machine_model extends CI_Model
             $old_member_list = explode(',', $group->member);
             foreach ($old_member_list as $member_id)
             {
-                if (!in_array($member_id, $member_list))
+                if (!in_array($member_id, $member_arr))
                 {
                     $this->reset_member_group($member_id, $group_id);
                 }

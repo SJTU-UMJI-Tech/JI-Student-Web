@@ -46,8 +46,13 @@ builder.addAppDir('node_modules/editor.md/plugins', 'editor.md/plugins');
 builder.addNode('editor.md/languages/en', 'editor.md/languages/en');
 builder.addFonts('node_modules/editor.md/fonts');
 
+builder.addNode('xterm', 'xterm/dist/xterm', '', 'xterm/dist/xterm');
+builder.addNode('xterm/fullscreen/fullscreen', 'xterm/dist/addons/fullscreen/fullscreen', 'xterm', 'xterm/dist/addons/fullscreen/fullscreen');
+builder.addNode('xterm/fit/fit', 'xterm/dist/addons/fit/fit', 'xterm');
+
+
 builder.addBower('footable', 'footable/compiled/footable', 'jquery', 'footable/compiled/footable.bootstrap');
-builder.addBower('qrcodejs','qrcode.js/qrcode');
+builder.addBower('qrcodejs', 'qrcode.js/qrcode');
 
 builder.addFile('inspinia', 'js/ji/inspinia', ['bootstrap', 'metisMenu', 'slimscroll']);
 

@@ -25,6 +25,7 @@
     "profile"
   ],
   "enrollment": [
-    "machine"
+    "machine",
+    "machine-info"
   ]
 }
