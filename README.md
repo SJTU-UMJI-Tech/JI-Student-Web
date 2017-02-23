@@ -53,6 +53,7 @@ All students in JI are welcomed to contribute in this project. For development r
 + [clean-css](https://github.com/jakubpawlowicz/clean-css) Fast and efficient CSS optimizer for node.js and the Web
 + [code-prettify](https://github.com/google/code-prettify) An embeddable script that makes source-code snippets in HTML prettier.
 + [CodeIgniter](https://github.com/bcit-ci/CodeIgniter) Open Source PHP Framework (originally from EllisLab)
++ [console](https://github.com/symfony/console) The Console component eases the creation of beautiful and testable command line interfaces.
 + [cropper](https://github.com/fengyuanchen/cropper) A simple jQuery image cropping plugin.
 + [editor.md](https://github.com/pandao/editor.md) The open source embeddable online markdown editor (component).
 + [flatpickr](https://github.com/chmln/flatpickr) lightweight and powerful datetimepicker with no dependencies
@@ -81,4 +82,5 @@ All students in JI are welcomed to contribute in this project. For development r
 + [toastr](https://github.com/CodeSeven/toastr) Simple javascript toast notifications
 + [UglifyJs](https://github.com/mishoo/UglifyJS) JavaScript parser / mangler / compressor / beautifier library for NodeJS
 + [underscore](https://github.com/jashkenas/underscore) JavaScript's utility _ belt
++ [xterm.js](https://github.com/sourcelair/xterm.js) Full xterm terminal, in your browser
 + [zend-permissions-acl](https://github.com/zendframework/zend-permissions-acl) Provides a lightweight and flexible access control list (ACL) implementation for privileges management.

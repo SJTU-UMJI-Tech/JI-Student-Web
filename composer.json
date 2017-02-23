@@ -13,7 +13,7 @@
 		"phpoffice/phpexcel": "^1.8",
 		"zendframework/zend-permissions-acl": "~2.5.0",
 		"symfony/console": "~2.8.0",
-		"league/oauth2-server": "^5.1"
+		"league/oauth2-client": "^0.12.0"
 	},
 	"repositories": {
 		"packagist": {
