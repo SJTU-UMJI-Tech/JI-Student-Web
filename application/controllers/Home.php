@@ -16,11 +16,11 @@ class Home extends Front_Controller
     {
         $this->data['page_name'] = 'UM-SJTU JI LIFE';
         $this->add_nav('HOME')->form_navbar();
-        $obj = $this->Site_model->get_object('jbxx', 'User_obj', array('USER_ID' => '515370910207'));
+        //$obj = $this->Site_model->get_object('jbxx', 'User_obj', array('USER_ID' => '515370910207'));
         
         $this->load->model('ACL_model');
         $this->ACL_model->generate_config();
-        var_dump($this->ACL_model->isAllowed('gpa', 'r'));
+        //var_dump($this->ACL_model->isAllowed('gpa', 'r'));
         
         $this->load->view('home', $this->data);
     }

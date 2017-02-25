@@ -6,6 +6,7 @@ class Machine extends Front_Controller
     {
         parent::__construct();
         $this->add_nav('ENROLL')->add_nav('machine');
+        $this->name = 'enrollment/machine';
     }
     
     protected function redirect()
@@ -56,7 +57,7 @@ class Machine extends Front_Controller
         $data['member_max'] = $this->Machine_model->member_max;
         $data['season'] = $this->Machine_model->season;
         $data['season_name'] = $this->Machine_model->season_name;
-        $data['introduction'] = file_get_contents('files/enrollment/machine/' . $data['season'] . '.md');
+        $data['introduction'] = file_get_contents('files/enrollment/machine/' . $data['season'] . '/intro.md');
         $data['deadline'] = $this->Machine_model->deadline;
         $data['submit_url'] = base_url('enrollment/machine/submit');
         $data['cancel_url'] = base_url('enrollment/machine/cancel');
@@ -146,6 +147,21 @@ class Machine extends Front_Controller
                 '</script>';
         echo $html;
         exit();
+    }
+    
+    public function export()
+    {
+        $this->redirect_acl('admin');
+        $this->load->model('enrollment/Machine_model');
+        
+        $season = $this->input->get('season');
+        if (!$season) $season = $this->Machine_model->season;
+        
+        $filename = $this->Machine_model->export_result($season);
+        $data = array(
+            'file_url' => base_url($filename)
+        );
+        $this->__view('ji/enrollment/machine_export', $data);
     }
     
 }

@@ -31,6 +31,9 @@ class Machine_model extends CI_Model
         $this->deadline = $this->Site_model->site_config['enrollment_machine_deadline'];
     }
     
+    /**
+     * @return bool
+     */
     function is_time_valid()
     {
         $deadline = strtotime($this->deadline);
@@ -38,6 +41,10 @@ class Machine_model extends CI_Model
         return $now <= $deadline;
     }
     
+    /**
+     * @param int $id
+     * @return My_obj
+     */
     function get_group_by_id($id)
     {
         $group = $this->Site_model->get_object($this::TABLE_GROUP, 'My_obj', array(
@@ -48,6 +55,10 @@ class Machine_model extends CI_Model
         return $group;
     }
     
+    /**
+     * @param int $USER_ID
+     * @return int
+     */
     function get_user_group_by_id($USER_ID)
     {
         $query = $this->db->get_where($this::TABLE_USER, array('USER_ID' => $USER_ID, 'season' => $this->season));
@@ -55,6 +66,11 @@ class Machine_model extends CI_Model
         return -1;
     }
     
+    /**
+     * @param array $members
+     * @param int   $group_id
+     * @return array
+     */
     function get_member_info($members, $group_id)
     {
         $query = $this->db->select('user.USER_ID, user.user_name, (group_id=' . $group_id . ') AS verified')
@@ -63,6 +79,10 @@ class Machine_model extends CI_Model
         return $query->result();
     }
     
+    /**
+     * @param int $member_id
+     * @param int $group_id
+     */
     function reset_member_group($member_id, $group_id)
     {
         if ($group_id <= 0) return;
@@ -73,6 +93,11 @@ class Machine_model extends CI_Model
         }
     }
     
+    /**
+     * @param int $USER_ID
+     * @param int $new_group_id
+     * @return bool
+     */
     function verify($USER_ID, $new_group_id)
     {
         if (!$this->is_time_valid()) return false;
@@ -99,6 +124,12 @@ class Machine_model extends CI_Model
         return false;
     }
     
+    /**
+     * @param int    $USER_ID
+     * @param int    $class_id
+     * @param string $member_list
+     * @return string
+     */
     function submit($USER_ID, $class_id, $member_list)
     {
         if (!$this->is_time_valid()) return '报名已结束';
@@ -158,6 +189,10 @@ class Machine_model extends CI_Model
         return 'ok';
     }
     
+    /**
+     * @param int $USER_ID
+     * @return bool
+     */
     function cancel($USER_ID)
     {
         if (!$this->is_time_valid()) return false;
@@ -181,6 +216,92 @@ class Machine_model extends CI_Model
             $this->reset_member_group($USER_ID, $group_id);
         }
         return true;
+    }
+    
+    /**
+     * @param string $season
+     */
+    function export_result($season)
+    {
+        $this->load->model('User_model');
+        
+        $workbook = new PHPExcel();
+        $worksheet = $workbook->setActiveSheetIndex(0);
+        $worksheet->setCellValue('A1', '编号')
+                  ->setCellValue('B1', '班级')
+                  ->setCellValue('C1', '姓名')
+                  ->setCellValue('D1', '学号')
+                  ->setCellValue('E1', '手机');
+        
+        // 设置首行居中
+        foreach (array('A1', 'B1', 'C1', 'D1', 'E1') as $cell)
+            $worksheet->getStyle($cell)->getAlignment()
+                      ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        
+        // 设置列宽度
+        $worksheet->getColumnDimension('A')->setWidth(5);
+        $worksheet->getColumnDimension('B')->setWidth(15);
+        $worksheet->getColumnDimension('C')->setWidth(15);
+        $worksheet->getColumnDimension('D')->setWidth(20);
+        $worksheet->getColumnDimension('E')->setWidth(20);
+        
+        $current_row = 2;
+        $query = $this->db->get_where($this::TABLE_GROUP, array('season' => $season, 'state' => 0));
+        foreach ($query->result() as $index => $group)
+        {
+            // 设置队长
+            $leader = $this->User_model->get_user($group->leader_id);
+            $data = array(
+                'A' => $index + 1,
+                'B' => $group->class_id,
+                'C' => $leader->user_name . ' (队长)',
+                'D' => $leader->USER_ID,
+                'E' => $leader->mobile
+            );
+            foreach ($data as $column => $value)
+            {
+                $style = $worksheet->getCell($column . $current_row)
+                                   ->setValue($value)->getStyle();
+                $style->getAlignment()
+                      ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)
+                      ->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                $style->getNumberFormat()->setFormatCode('0');
+            }
+            
+            $group_first_row = $current_row++;
+            
+            // 设置队员
+            if ($group->member)
+            {
+                $member_arr = explode(',', $group->member);
+                $member_info = $this->get_member_info($member_arr, $group->id);
+                foreach ($member_info as $user)
+                {
+                    if ($user->verified)
+                    {
+                        $style = $worksheet->getCell('C' . $current_row)
+                                           ->setValue($user->user_name)->getStyle();
+                        $style->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                        $style->getNumberFormat()->setFormatCode('0');
+                        $style = $worksheet->getCell('D' . $current_row)
+                                           ->setValue($user->USER_ID)->getStyle();
+                        $style->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+                        $style->getNumberFormat()->setFormatCode('0');
+                        $current_row++;
+                    }
+                }
+            }
+            
+            $worksheet->mergeCells('A' . $group_first_row . ':A' . ($current_row - 1));
+            $worksheet->mergeCells('B' . $group_first_row . ':B' . ($current_row - 1));
+        }
+        
+        $filename = 'files/enrollment/machine/' . $season . '/result.xlsx';
+        
+        $writer = PHPExcel_IOFactory::createWriter($workbook, 'Excel2007');
+        $writer->save($filename);
+        
+        return $filename;
     }
 }
 
