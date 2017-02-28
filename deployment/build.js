@@ -12,8 +12,8 @@ builder.addAppDir('js/templates', 'templates');
 
 builder.addNode('jquery', 'jquery/dist/jquery');
 //builder.addNode('bootstrap', 'bootstrap/dist/js/bootstrap', 'jquery');
-builder.addNode('Tether', 'tether/dist/js/tether');
-builder.addNode('bootstrap', 'bootstrap/dist/js/bootstrap', ['jquery', 'Tether']);
+builder.addNode('tether', 'tether/dist/js/tether');
+builder.addNode('bootstrap', 'bootstrap/dist/js/bootstrap', ['jquery', 'ji/common/tether-loader']);
 builder.addNode('metisMenu', 'metismenu/dist/metisMenu', 'jquery');
 builder.addNode('slimscroll', 'jquery-slimscroll/jquery.slimscroll', 'jquery');
 builder.addNode('pace', 'pace-progress/pace');

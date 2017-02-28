@@ -32,9 +32,9 @@
         pace.start();
     });
     // Bootstrap 4 needs globalized Tether
-    require(['Tether'], function (Tether) {
-        window.Tether = Tether
-    });
+    //require(['Tether'], function (Tether) {
+    //    window.Tether = Tether
+    //});
 
     require(['ji/app'], function (app) {
         var config = {

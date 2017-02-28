@@ -62,6 +62,7 @@ class Machine extends Front_Controller
         $data['submit_url'] = base_url('enrollment/machine/submit');
         $data['cancel_url'] = base_url('enrollment/machine/cancel');
         $data['check_url'] = base_url('enrollment/machine/check');
+        $data['transfer_url'] = base_url('enrollment/machine/transfer');
         $data['qq_url'] = 'http://qm.qq.com/cgi-bin/qm/qr?k=dPP8xm2dtCNRThv4Fzo9_qnUpVB_ru1d';
         $data['valid'] = $this->Machine_model->is_time_valid();
         if (!$data['valid']) $data['leader'] = false;
@@ -132,6 +133,26 @@ class Machine extends Front_Controller
             $data['status'] = 'ok';
             $data['name'] = $user->user_name;
         }
+        echo json_encode($data);
+        exit();
+    }
+    
+    public function transfer()
+    {
+        $data = array(
+            'status' => 'error',
+        );
+        if (!$this->Site_model->is_login())
+        {
+            echo json_encode($data);
+            exit();
+        }
+        $leader_id = $_SESSION['user_id'];
+        $USER_ID = $this->input->get('user_id');
+        $this->load->model('enrollment/Machine_model');
+        $result = $this->Machine_model->transfer($leader_id, $USER_ID);
+        if ($result == 'ok') $data['status'] = 'ok';
+        else $data['message'] = $result;
         echo json_encode($data);
         exit();
     }

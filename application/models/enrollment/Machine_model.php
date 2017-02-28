@@ -218,8 +218,31 @@ class Machine_model extends CI_Model
         return true;
     }
     
+    function transfer($leader_id, $USER_ID)
+    {
+        $group_id = $this->get_user_group_by_id($leader_id);
+        if ($group_id <= 0) return '你没有队伍';
+        $group = $this->get_group_by_id($group_id);
+        if ($group->is_error() || $group->leader_id != $leader_id) return '你不是队长';
+        $member_arr = $group->member ? explode(',', $group->member) : array();
+        if (!in_array($USER_ID, $member_arr)) return '队伍中没有目标队员';
+        $member_group_id = $this->get_user_group_by_id($USER_ID);
+        if ($member_group_id != $group_id) return '目标队员未认证';
+        foreach ($member_arr as $index => $item)
+            if ($item == $USER_ID) array_splice($member_arr, $index, 1);
+        array_unshift($member_arr, $leader_id);
+        $this->db->update($this::TABLE_GROUP,
+                          array(
+                              'leader_id' => $USER_ID,
+                              'member'    => implode(',', $member_arr)
+                          ),
+                          array('id' => $group_id));
+        return 'ok';
+    }
+    
     /**
      * @param string $season
+     * @return string
      */
     function export_result($season)
     {

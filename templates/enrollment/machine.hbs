@@ -44,8 +44,18 @@
                         {{/with}}
                         <td align="center">{{#if verified}}<i class="fa fa-check"></i>{{/if}}</td>
                         {{#if ../leader}}
-                            <td align="center"><a class="btn-delete" href="javascript:void(0);"><i
-                                    class="fa fa-trash"></i></a></td>
+                            <td align="center">
+                                <a class="btn-delete mr-1" data-toggle="tooltip" data-placement="top"
+                                                  title="删除" href="javascript:void(0);">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                {{#if verified}}
+                                    <a class="btn-transfer ml-1" data-toggle="tooltip" data-placement="top"
+                                       title="转让队长" href="javascript:void(0);">
+                                        <i class="fa fa-share"></i>
+                                    </a>
+                                {{/if}}
+                            </td>
                         {{/if}}
                     </tr>
                 {{/each}}

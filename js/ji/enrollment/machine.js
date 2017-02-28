@@ -4,7 +4,7 @@
 "use strict";
 define([
     'require', 'exports', 'module',
-    'jquery', 'handlebars.runtime', 'qrcodejs', 'marked',
+    'jquery', 'bootstrap', 'handlebars.runtime', 'qrcodejs', 'marked',
     'templates/common/body', 'templates/common/ibox',
     'templates/enrollment/machine', 'templates/enrollment/machine-info'
 ], function (require, exports, module) {
@@ -105,7 +105,7 @@ define([
                 else $main.find("tbody").append(`<tr data-id="${user_id}"><td>${user_id}</td><td class="td-name"></td><td></td><td align="center"><a class="btn-delete" href="javascript:void(0);"><i class="fa fa-trash"></i></a></td></tr>`);
                 const $tr   = $main.find("tbody tr").last();
                 const $name = $tr.find(".td-name");
-                $tr.find(".btn-delete").on('click', onBtnDelete);
+                $tr.find(".btn-delete").on('click', onBtnDelete).tooltip();
                 $.ajax({
                     type    : 'GET',
                     url     : options.check_url,
@@ -130,7 +130,27 @@ define([
             if (flag) $element.remove();
         };
         
-        $main.find(".btn-delete").on('click', onBtnDelete);
+        $main.find(".btn-delete").on('click', onBtnDelete).tooltip();
+        $main.find(".btn-transfer").on('click', function (e) {
+            const $element = $(e.target).parents("tr");
+            const user_id  = $element.data('id');
+            const flag     = confirm(`你确定要把队长转让给学号为 ${user_id} 的队员吗？\n(该操作是不可逆的，请慎重操作)`);
+            if (flag) {
+                $.ajax({
+                    type    : 'GET',
+                    url     : options.transfer_url,
+                    data    : {user_id: user_id,},
+                    dataType: 'json',
+                    success : (data) => {
+                        if (data.status === 'error') {
+                            alert(data.message);
+                        } else {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        }).tooltip();
         
         $main.find(".btn-submit").on('click', function () {
             const class_id  = $main.find(".input-class-id").val();
