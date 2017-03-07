@@ -12,7 +12,10 @@
 
 ### 赛事手册
 
-<a href="../files/enrollment/machine/SP2017/manual_1.3.5.pdf" target="_blank">manual_1.3.5.pdf</a>
++ <a href="../files/enrollment/machine/SP2017/manual_1.3.5.pdf" target="_blank">manual_1.3.5.pdf</a>  
++ <a href="../files/enrollment/machine/SP2017/001.pdf" target="_blank">001_关于工件精度的声明.pdf</a>  
++ <a href="../files/enrollment/machine/SP2017/002.pdf" target="_blank">002_关于赛制调整的公示 .pdf</a>  
++ <a href="../files/enrollment/machine/SP2017/003.pdf" target="_blank">003_关于报销的指导.pdf</a>
 
 ### 报名时间
 即日起至 **2017-3-4 23:59:59**
