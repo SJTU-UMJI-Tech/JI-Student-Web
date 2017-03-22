@@ -177,8 +177,7 @@ class Machine extends Front_Controller
         
         $season = $this->input->get('season');
         if (!$season) $season = $this->Machine_model->season;
-        
-        $filename = $this->Machine_model->export_result($season);
+        $filename = $this->Machine_model->export_result($season, $this->input->get('leader'));
         $data = array(
             'file_url' => base_url($filename)
         );

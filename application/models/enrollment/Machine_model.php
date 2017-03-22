@@ -242,9 +242,10 @@ class Machine_model extends CI_Model
     
     /**
      * @param string $season
+     * @param bool   $leader_only
      * @return string
      */
-    function export_result($season)
+    function export_result($season, $leader_only = false)
     {
         $this->load->model('User_model');
         
@@ -277,7 +278,7 @@ class Machine_model extends CI_Model
             $data = array(
                 'A' => $index + 1,
                 'B' => $group->class_id,
-                'C' => $leader->user_name . ' (队长)',
+                'C' => $leader->user_name . ($leader_only ? '' : ' (队长)'),
                 'D' => $leader->USER_ID,
                 'E' => $leader->mobile
             );
@@ -294,7 +295,7 @@ class Machine_model extends CI_Model
             $group_first_row = $current_row++;
             
             // 设置队员
-            if ($group->member)
+            if ($group->member && !$leader_only)
             {
                 $member_arr = explode(',', $group->member);
                 $member_info = $this->get_member_info($member_arr, $group->id);
@@ -318,7 +319,6 @@ class Machine_model extends CI_Model
             $worksheet->mergeCells('A' . $group_first_row . ':A' . ($current_row - 1));
             $worksheet->mergeCells('B' . $group_first_row . ':B' . ($current_row - 1));
         }
-        
         $filename = 'files/enrollment/machine/' . $season . '/result.xlsx';
         
         $writer = PHPExcel_IOFactory::createWriter($workbook, 'Excel2007');
