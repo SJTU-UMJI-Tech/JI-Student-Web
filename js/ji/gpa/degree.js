@@ -323,7 +323,7 @@
             }
             console.log(ajax_data);
             $.ajax({
-                url    : "<?php echo ROOT_DIR;?>/GPA/update",
+                url    : window.ROOT_DIR + "/GPA/update",
                 method : "POST",
                 //data: JSON.stringify(ajax_data),
                 data   : {data: ajax_data},
