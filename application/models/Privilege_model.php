@@ -53,7 +53,7 @@ class Privilege_model extends CI_Model
 			}
 			else
 			{
-				$query = $this->db->select('USER_ID')->from('jbxx')
+				$query = $this->db->select('USER_ID')->from('user')
 				                  ->where(array('USER_ID' => $user))->get();
 				$usergroup = $query->num_rows() > 0 ? '1,2' : '1';
 			}
