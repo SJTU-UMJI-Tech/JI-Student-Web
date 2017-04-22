@@ -62,6 +62,7 @@
     "compile:build": "node deployment/build.js",
     "deploy:development": "node deployment/deploy.js development",
     "deploy:production": "node deployment/deploy.js production",
-    "deploy:testing": "node deployment/deploy.js testing"
+    "deploy:testing": "node deployment/deploy.js testing",
+    "test": "node test/test.js"
   }
 }
