@@ -43,6 +43,8 @@
     "select2": "^4.0.3",
     "toastr": "^2.1.2",
     "underscore": "^1.8.3",
+    "weui": "^1.1.2",
+    "weui.js": "^1.1.1",
     "xterm": "^2.3.2"
   },
   "devDependencies": {
