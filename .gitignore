@@ -44,4 +44,7 @@ js/app.*.js
 /deployment/mysql/dump.sql
 
 vendor/
-composer.lock
+*.lock
+.sass-cache
+_posts/
+_site/

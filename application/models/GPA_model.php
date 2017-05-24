@@ -128,11 +128,11 @@ class GPA_model extends CI_Model
         $query =
             $this->db->select(array(
                                   'core_gpa', 'core_credit', 'total_gpa',
-                                  'total_credit', 'jbxx.USER_ID', 'jbxx.USER_NAME'
+                                  'total_credit', 'user.USER_ID', 'user.USER_NAME'
                               ))
                      ->from('gpa_scoreboard')->order_by('core_gpa', 'DESC')
                      ->where('total_credit>=16')
-                     ->join('jbxx', 'gpa_scoreboard.USER_ID=jbxx.USER_ID')
+                     ->join('user', 'gpa_scoreboard.USER_ID=user.USER_ID')
                      ->get();
         $result = $query->result();
         foreach ($result as $key => &$value)
