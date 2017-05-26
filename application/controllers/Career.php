@@ -136,7 +136,7 @@ class Career extends Front_Controller
         $data = $this->data;
         $data['category'] = $this->Career_model->get_category();
         print_r($data['category']);
-        $this->load->view('common/weui', $data);
+        $this->load->view('career/wechat_list', $data);
     }
     
 }
