@@ -83,6 +83,7 @@
  * @property Scholarships_model  $Scholarships_model
  * @property Privilege_model     $Privilege_model
  * @property Machine_model       $Machine_model
+ * @property Career_model        $Career_model
  */
 class CI_Controller
 {
@@ -150,6 +151,7 @@ class CI_Controller
  * @property Scholarships_model  $Scholarships_model
  * @property Privilege_model     $Privilege_model
  * @property Machine_model       $Machine_model
+ * @property Career_model        $Career_model
  */
 class CI_Model
 {

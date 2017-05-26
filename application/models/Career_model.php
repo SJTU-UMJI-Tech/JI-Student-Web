@@ -21,8 +21,13 @@ class Career_model extends CI_Model
         parent::__construct();
         //$this->load->library($this::LIBRARY);
     }
-    
-    
+
+    function get_category()
+    {
+        $query = $this->db->select('*')->from('career_wechat_category')->get();
+        $result = $query->result_array();
+        return $result;
+    }
     
 }
 

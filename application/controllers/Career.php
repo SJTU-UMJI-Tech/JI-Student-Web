@@ -7,7 +7,7 @@ class Career extends Front_Controller
         parent::__construct();
         $this->data['type'] = 'career';
         $this->Site_model->load_site_config('career');
-        //$this->load->model('Career_model');
+        $this->load->model('Career_model');
     }
     
     protected function redirect()
@@ -134,6 +134,8 @@ class Career extends Front_Controller
     public function wechat_list()
     {
         $data = $this->data;
+        $data['category'] = $this->Career_model->get_category();
+        print_r($data['category']);
         $this->load->view('common/weui', $data);
     }
     
