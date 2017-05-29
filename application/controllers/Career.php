@@ -123,6 +123,7 @@ class Career extends Front_Controller
         }
         $id = $this->Scholarships_model->edit_by_id($id, $data['Title'], $data['Abstract'], $data['Content']);
         if ($id > 0)
+
         {
             echo '/scholarships/check?id=' . $id;
             exit();
@@ -130,7 +131,7 @@ class Career extends Front_Controller
         echo 'unknown error';
         exit();
     }
-    
+
     public function wechat_list()
     {
         $data = $this->data;
@@ -138,6 +139,49 @@ class Career extends Front_Controller
         //print_r($data['category']);
         $this->output->enable_profiler(false);
         $this->load->view('career/wechat_list', $data);
+        print_r($data);
     }
+
+    public function wechat_list_data()
+    {
+        $data = $this->data;
+        $cmd = $this->input->get('cmd');
+        $data = $this->Career_model->get_data();
+        if ($cmd == 'search')
+        {
+            $category = $this->input->get('category');
+            $keywords = $this->input->get('keyword');
+            $page = $this->input->get('page');
+            if ($page > 100) $page = 100;
+            $per_page = $this->input->get('per_page');
+            $where = array();
+            $limit = ($page - 1) * $per_page;
+            //$data = $this->Scholarships_model->search($keywords, $where, $limit, $offset, $order);
+            $data = $this->Career_model->search($keywords, $where, $limit, $per_page, $category);
+            echo $data;
+        }
+        print_r($data);
+        exit();
+    }
+
+    public function wechat_list_edit()
+    {
+        $data = json_decode($this->input->post('data'), true);
+        $id = $this->input->post('id');
+        if ($id > 0)
+        {
+            $career = $this->Career_model->get_by_id($id);
+            if ($career->is_error())
+            {
+                echo 'validation failed';
+                exit();
+            }
+        }
+        $category = $this->input->post('category');
+        $title = $this->input->get('title');
+        $abstract = $this->input->get('abstract');
+    }
+
+
     
 }

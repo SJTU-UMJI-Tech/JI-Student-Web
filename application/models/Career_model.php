@@ -28,6 +28,28 @@ class Career_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
+
+    function get_data()
+    {
+        $query = $this->db->select('*')->from('career_wechat_data')->get();
+        $result = $query->result_array();
+        return $result;
+    }
+
+    public function get_by_id($id)
+    {
+        return $this->Site_model->get_object($this::TABLE, $this::LIBRARY, array('id' => $id));
+    }
+
+    public function search($keywords, $where, $limit, $offset, $order)
+    {
+        $fields = array('title', 'abstract');
+        $orders = array('start_date' => $order != 'Oldest' ? 'DESC' : 'ASC');
+        $result = $this->Site_model->search_object($this::TABLE, $this::LIBRARY, $fields, $keywords,
+            $where, $orders, $limit, $offset);
+        //print_r($result);
+        return $result;
+    }
     
 }
 
