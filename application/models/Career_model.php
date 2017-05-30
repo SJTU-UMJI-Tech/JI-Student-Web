@@ -41,7 +41,7 @@ class Career_model extends CI_Model
         return $this->Site_model->get_object($this::TABLE, $this::LIBRARY, array('id' => $id));
     }
 
-    public function search($keywords, $where, $limit, $offset, $order)
+    public function search($keywords, $where, $limit, $offset)
     {
         $fields = array('title', 'abstract');
         $orders = array('start_date' => $order != 'Oldest' ? 'DESC' : 'ASC');
@@ -50,6 +50,23 @@ class Career_model extends CI_Model
         //print_r($result);
         return $result;
     }
-    
+    public function edit_by_id($id, $title, $abstract, $content)
+    {
+        $data = array(
+            'title'    => $this->Site_model->html_purify($title),
+            'abstract' => $this->Site_model->html_purify($abstract),
+            'content'  => $this->Site_model->html_purify($content)
+        );
+        if ($id > 0)
+        {
+            $this->db->update($this::TABLE, $data, array('id' => $id));
+            return $id;
+        }
+        else
+        {
+            $this->db->insert($this::TABLE, $data);
+            return $this->db->insert_id();
+        }
+    }
 }
 
