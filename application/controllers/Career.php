@@ -184,5 +184,5 @@ class Career extends Front_Controller
 }
 
 
-    
+
 
