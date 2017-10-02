@@ -17,7 +17,7 @@
     "url": "https://github.com/SJTU-UMJI-Tech/JI-Student-Web.git"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "^4.0.0-beta",
     "bootstrap-touchspin": "^3.1.1",
     "chart.js": "^2.5.0",
     "chosen-js": "^1.6.2",
@@ -37,6 +37,7 @@
     "marked": "^0.3.6",
     "metismenu": "^2.6.2",
     "pace-progress": "^1.0.2",
+    "popper.js": "^1.12.5",
     "raphael": "^2.2.7",
     "require-css": "^0.1.8",
     "requirejs": "^2.3.2",
@@ -44,8 +45,8 @@
     "toastr": "^2.1.2",
     "underscore": "^1.8.3",
     "weui": "^1.1.2",
-    "weui.js": "^1.1.1",
-    "xterm": "^2.3.2"
+    "weui.js": "^1.1.2",
+    "xterm": "^2.9.2"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
