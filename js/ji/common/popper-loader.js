@@ -3,8 +3,8 @@
  */
 define([
     'require', 'exports', 'module',
-    'tether'
+    'popper'
 ], function (require, exports, module) {
-    window.Tether  = require('tether');
-    module.exports = window.Tether;
+    window.Popper  = require('popper');
+    module.exports = window.Popper;
 });
