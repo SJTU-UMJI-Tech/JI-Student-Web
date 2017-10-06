@@ -41,6 +41,12 @@ This script copy different files for different usages and then you can upload th
 
 Remember to set the mode of folders `js`, `css`, `node_modules`, `bower_modules` to `755`,  and that of folder `uploads` to `777`, or some functions won't work on Linux Server.
 
+Apache2 on Ubuntu doesn't have rewrite engine open, use the command to enable it.
+```
+sudo a2enmod rewrite
+sudo service apache2 restart
+```
+
 ## Contribution
 
 All students in JI are welcomed to contribute in this project. For development reference, see the WIKI.

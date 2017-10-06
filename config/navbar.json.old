@@ -61,6 +61,92 @@
         }
       }
     },
+    "CPC": {
+      "icon": "fa-flag",
+      "name": "CPC",
+      "children": {
+        "about": {
+          "icon": "fa-id-card-o",
+          "name": "About us"
+        },
+        "theory": {
+          "icon": "fa-file-word-o",
+          "name": "Theories"
+        },
+        "stat": {
+          "icon": "fa-file-excel-o",
+          "name": "Statistics"
+        },
+        "doc": {
+          "icon": "fa-file-pdf-o",
+          "name": "Documents"
+        }
+      }
+    },
+    "AC": {
+      "icon": "fa-info-circle",
+      "name": "Advising",
+      "children": {
+        "about": {
+          "icon": "fa-id-card-o",
+          "name": "About Us"
+        },
+        "member": {
+          "icon": "fa-users",
+          "name": "Members"
+        },
+        "cal": {
+          "icon": "fa-calendar",
+          "name": "Calendar"
+        },
+        "event": {
+          "icon": "fa-calendar-minus-o",
+          "name": "Events"
+        },
+        "book": {
+          "icon": "fa-calendar-check-o",
+          "name": "Booking"
+        },
+        "create": {
+          "icon": "fa-pencil-square-o",
+          "name": "Create Events"
+        }
+      }
+    },
+    "CAREER": {
+      "icon": "fa-tty",
+      "name": "Career",
+      "children": {
+        "about": {
+          "icon": "fa-id-card-o",
+          "name": "About Us"
+        },
+        "announce": {
+          "icon": "fa-newspaper-o",
+          "name": "Announcement"
+        },
+        "job": {
+          "icon": "fa-handshake-o",
+          "name": "Job&Internship"
+        },
+        "workshop": {
+          "icon": "fa-object-group",
+          "name": "Workshop&Activity"
+        },
+        "career": {
+          "icon": "fa-id-badge",
+          "name": "Career Mentors"
+        },
+        "res": {
+          "icon": "fa-book",
+          "name": "Resources"
+        },
+        "new": {
+          "icon": "fa-pencil-square-o",
+          "name": "New Announcement"
+        }
+      }
+    },
     "SCHOLAR": {
       "icon": "fa-trophy",
       "name": "Scholarships",
