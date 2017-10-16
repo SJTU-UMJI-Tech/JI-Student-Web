@@ -30,16 +30,27 @@ The script does these things:
 
 To start development, run  
 ```
-npm run deploy:development
+sudo npm run deploy:development
 ```
 To start production, run  
 ```
-npm run deploy:production
+sudo npm run deploy:production
 ```  
 
 This script copy different files for different usages and then you can upload the whole project to the FTP server. You may change the content of files in deployment/development|production for certain purposes.
 
 Remember to set the mode of folders `js`, `css`, `node_modules`, `bower_modules` to `755`,  and that of folder `uploads` to `777`, or some functions won't work on Linux Server.
+
+Edit 000-default.conf in etc/apache2/sites-enabled and change the DocumentRoot to your working directory, for example, "var/www/ipp". Then, add
+```
+<Directory /var/www/ipp>
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+</Directory>
+```
+to the end of file.
 
 Apache2 on Ubuntu doesn't have rewrite engine open, use the command to enable it.
 ```
