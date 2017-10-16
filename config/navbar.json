@@ -123,6 +123,17 @@
           "href": "enrollment/machine"
         }
       }
+    },
+    "ORDER": {
+      "name": "Ordering",
+      "icon": "fa-check-square-o",
+      "children": {
+        "water": {
+          "name": "Water",
+          "icon": "fa-tint",
+          "href": "ordering/water"
+        }
+      }
     }
   },
   "version": "0.0.1"
