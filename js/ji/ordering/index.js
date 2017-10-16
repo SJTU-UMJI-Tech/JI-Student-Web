@@ -6,38 +6,53 @@
     'jquery', 'handlebars.runtime',
     'templates/common/body', 'templates/common/ibox',
     'templates/common/ibox-article', 'templates/common/modal',
-    'templates/ordering/water'
+    'templates/ordering/profile'
 ], function (require, exports, module) {
-
+    
     const $ = require('jquery');
     const Handlebars = require('handlebars.runtime');
-
+    
     module.exports = function (options) {
-    
+        
         $("#body-wrapper").append('<div class="alert alert-danger">The water order system is under test, version alpha 1</div>');
-    
+        
+        const generate_list = (min, max) => {
+            let arr = new Array(max - min + 1);
+            for (let i = min; i <= max; i++) {
+                if (max >= 10 && i < 10) arr[i - min] = "0" + i;
+                else arr[i - min] = i;
+            }
+            return arr;
+        };
+        
         //Handlebars.registerPartial('ibox', require('templates/common/ibox'));
         //Handlebars.registerPartial('article', require('templates/common/ibox-article'));
-    
+        
         let template = require('templates/common/ibox');
-        Handlebars.registerPartial('water', require('templates/ordering/water'));
-    
+        Handlebars.registerPartial('profile', require('templates/ordering/profile'));
+        
         let config = {
             "id": "water",
-            "title": "Order water",
+            "title": "Profile",
             "tools": [
                 {"collapse": true},
             ],
             "body": [{
-                "template": "water",
+                "template": "profile",
                 "data": {
-                    // data: table_data,
-                    // courses: courses,
-                    // letter: grade_list
+                    building: ["D20", "D21", "D22"],
+                    floor: generate_list(1, 6),
+                    room: generate_list(1, 21),
+                    url: options.url
                 }
             }]
         };
         $("#body-wrapper").append(template(config));
+        
+        $("select[title=building]").val(options.profile.building);
+        $("select[title=floor]").val(options.profile.floor);
+        $("select[title=room]").val(options.profile.room);
+        
         
         /*var config = {
             "id": "article-body",
@@ -79,7 +94,7 @@
             }]
         };
         $("#body-wrapper").append(template(config));*/
-
+        
     }
-
+    
 });

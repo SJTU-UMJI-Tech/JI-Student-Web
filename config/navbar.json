@@ -128,6 +128,11 @@
       "name": "Ordering",
       "icon": "fa-check-square-o",
       "children": {
+        "information": {
+          "name": "Information",
+          "icon": "fa-info",
+          "href": "ordering"
+        },
         "water": {
           "name": "Water",
           "icon": "fa-tint",

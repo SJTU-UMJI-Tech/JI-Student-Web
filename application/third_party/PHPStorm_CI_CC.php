@@ -84,6 +84,7 @@
  * @property Privilege_model     $Privilege_model
  * @property Machine_model       $Machine_model
  * @property Career_model        $Career_model
+ * @property Ordering_model      $Ordering_model
  */
 class CI_Controller
 {
@@ -152,6 +153,7 @@ class CI_Controller
  * @property Privilege_model     $Privilege_model
  * @property Machine_model       $Machine_model
  * @property Career_model        $Career_model
+ * @property Ordering_model      $Ordering_model
  */
 class CI_Model
 {
