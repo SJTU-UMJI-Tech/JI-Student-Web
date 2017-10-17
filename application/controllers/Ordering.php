@@ -31,7 +31,7 @@ class Ordering extends Front_Controller
             $profile = $this->Ordering_model->get_address($_SESSION['user_id']);
         }
         
-        $this->form_navbar();
+        $this->add_nav('information')->form_navbar();
         $data = array(
             'profile' => $profile ? $profile : array(),
             'url'     => base_url('ordering')

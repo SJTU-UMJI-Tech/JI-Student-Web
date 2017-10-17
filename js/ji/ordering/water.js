@@ -13,15 +13,15 @@
     const Handlebars = require('handlebars.runtime');
 
     module.exports = function (options) {
-    
+
         $("#body-wrapper").append('<div class="alert alert-danger">The water order system is under test, version alpha 1</div>');
-    
+
         //Handlebars.registerPartial('ibox', require('templates/common/ibox'));
         //Handlebars.registerPartial('article', require('templates/common/ibox-article'));
-    
+
         let template = require('templates/common/ibox');
         Handlebars.registerPartial('water', require('templates/ordering/water'));
-    
+
         let config = {
             "id": "water",
             "title": "Order water",
@@ -31,14 +31,17 @@
             "body": [{
                 "template": "water",
                 "data": {
-                    // data: table_data,
-                    // courses: courses,
-                    // letter: grade_list
+                    "orders": [{
+                        "paid": true,
+                        "num": 10,
+                        "time": "2017-10-17 12:00",
+                        "address": "D20-405"
+                    }]
                 }
             }]
         };
         $("#body-wrapper").append(template(config));
-        
+
         /*var config = {
             "id": "article-body",
             "body": [{

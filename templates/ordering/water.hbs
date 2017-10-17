@@ -1,0 +1,52 @@
+<style>
+    .footable-row-detail-inner {
+        margin-left: 20px;
+    }
+</style>
+
+<table class="footable table table-stripped"
+       data-paging="true" data-paging-size="15"
+       data-filtering="true" data-filter-delay="350">
+    <thead>
+    <tr>
+        <!--<th class="text-center" width="10%">Course ID</th>-->
+        <th class="text-center" width="15%">Status</th>
+        <th class="text-center" width="15%">Num</th>
+        <th class="text-center" data-hide="phone" width="40%">Time</th>
+        <th class="text-center" data-hide="phone" width="30%">Address</th>
+        <!--<th data-hide="phone,tablet"></th>-->
+    </tr>
+    </thead>
+    <tbody>
+    {{#each orders}}
+        <tr class="tr-order">
+            <!--<td>{{#with No}}{{this}}{{/with}}</td>-->
+            <!--<td type="id" {{#with id}}data-id="{{this}}"{{/with}} class="text-center">-->
+                <!--{{#with id}}{{this}}{{/with}}-->
+            <!--</td>-->
+            <td class="text-center">
+                {{#if paid}}
+                    <span class="label label-primary">Paid</span>
+                {{else if fail}}
+                    <span class="label label-danger">Failed</span>
+                {{else if select}}
+                    <span class="label label-info">Selected</span>
+                {{else if equal}}
+                    <span class="label label-default">Unnecessary</span>
+                {{/if}}
+            </td>
+            <td class="text-center">{{#with num}}{{this}}{{/with}}</td>
+            <td class="text-center">{{#with time}}{{this}}{{/with}}</td>
+            <td class="text-center">{{#with address}}{{this}}{{/with}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="5">
+            <ul class="pagination pull-right"></ul>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+
