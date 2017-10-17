@@ -1,5 +1,5 @@
 # JI-LIFE
-[![Build Status](https://travis-ci.org/SJTU-UMJI-Tech/JI-Student-Web.svg?branch=master)](https://travis-ci.org/SJTU-UMJI-Tech/JI-Student-Web)
+[![Build Status](https://travis-ci.org/SJTU-UMJI-Tech/JI-Student-Web.svg?branch=inspinia)](https://travis-ci.org/SJTU-UMJI-Tech/JI-Student-Web)
 
 A website for ALL students in JI
 
