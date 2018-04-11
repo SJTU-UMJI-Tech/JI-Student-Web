@@ -67,7 +67,8 @@
       "children": {
         "about": {
           "icon": "fa-id-card-o",
-          "name": "About Us"
+          "name": "About Us",
+          "href": "scholarships"
         },
         "all": {
           "icon": "fa-trophy",

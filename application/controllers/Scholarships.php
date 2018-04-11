@@ -19,7 +19,9 @@ class Scholarships extends Front_Controller
                 'type'    => 'dropdown',
                 'option'  => array(
                     'undergraduate' => 'Undergraduates',
+                 //  add freshman and sophomore, junior and senior ....
                     'graduate'      => 'Graduates',
+                 //  also add grades
                     'all'           => 'Both'
                 ),
                 'default' => 'all'
@@ -48,8 +50,24 @@ class Scholarships extends Front_Controller
         //	'new' => $this->validate_privilege('write')
         //);
         //$this->load->view('common/home', $data);
-        
-        
+        $this->redirect_acl('read','site');
+
+        if ($this->input->get('confirm') == 1)
+        {
+            //$this->Scholarships_model->update_scoreboard($_SESSION['user_id']);
+            //$this->Scholarships_model->set_user_state($_SESSION['user_id'], 1);
+            $this->__redirect('GPA/degree');
+        }
+        $terms_body = $this->Site_model->read_config('scholarships/index.json');
+        $this->form_navbar();
+
+        $data = array(
+            'terms_body'  => json_decode($terms_body, true),
+            'confirm_url' => base_url('scholarships?confirm=1')
+        );
+        $this->data['article'] = true;
+
+        $this->__view('ji/scholarships/index', $data);
     }
     
     public function all()

@@ -1,0 +1,37 @@
+{
+  "title": "JI-LIFE SCHOLARSHIPS MODULE",
+  "text": [
+    {
+      "title": "h2",
+      "hr": true,
+      "content": "About Us"
+    },
+    {
+      "title": "h3",
+      "content": "Introduction"
+    },
+    "JI-LIFE SCHOLARSHIP MODULE offers the information of all current scholarships open for application and the application process can easily be monitored by applicators here.",
+    {
+      "title": "h3",
+      "content": "Privacy Terms"
+    },
+    "JI-LIFE SCHOLARSHIP MODULE may collect personal information:",
+    {
+      "enum": true,
+      "content": [
+        "when you register with Jaccount, when you use <strong>JI-LIFE SCHOLARSHIP MODULE</strong>",
+        "when you upload files for application"
+      ]
+    },
+    "<strong>JI-LIFE</strong> uses information for the following general purposes: ",
+    {
+      "enum":true,
+      "content":[
+        "to customize the content you see",
+        "to contact you",
+        "to help the school authority to simplify application process"
+      ]
+    },
+    "<strong>JI-LIFE</strong> does not rent, sell, or share personal information about you except for to school authorities."
+  ]
+}
