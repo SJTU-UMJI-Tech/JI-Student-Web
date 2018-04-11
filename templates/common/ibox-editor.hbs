@@ -1,23 +1,29 @@
 <form method="get" class="form-horizontal">
     {{#each data}}
         <div class="form-group">
-            <label><strong>{{name}}:</strong></label>
+            <label><strong>{{title}}:</strong></label>
             {{#if text}}
                 <input type="text" class="form-control"
+                       {{#with name}}data-name="{{this}}"{{/with}}
                        placeholder="{{#with placeholder}}{{this}}{{/with}}"
                        value="{{#with value}}{{this}}{{/with}}">
             {{else if textarea}}
                 <textarea type="text" class="form-control"
+                          {{#with name}}data-name="{{this}}"{{/with}}
                           placeholder="{{#with placeholder}}{{this}}{{/with}}"
                           rows="8" style="resize: none">{{#with value}}{{this}}{{/with}}</textarea>
             {{else if markdown}}
-                <div class="editormd" id="test-editormd"></div>
+                <div class="editormd" id="test-editormd"
+                     {{#with name}}data-name="{{this}}"{{/with}}>
+                </div>
             {{else if datetime}}
                 <input type="text" class="flatpickr form-control"
+                       {{#with name}}data-name="{{this}}"{{/with}}
                        placeholder="{{#with placeholder}}{{this}}{{/with}}"
                        value="{{#with value}}{{this}}{{/with}}">
             {{else if spin}}
                 <input type="text" class="touchspin"
+                       {{#with name}}data-name="{{this}}"{{/with}}
                        placeholder="{{#with placeholder}}{{this}}{{/with}}"
                        value="{{#with value}}{{this}}{{/with}}">
             {{else if file}}

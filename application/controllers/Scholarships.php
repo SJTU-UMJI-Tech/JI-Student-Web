@@ -114,7 +114,8 @@ class Scholarships extends Front_Controller
         if ($id > 0 && $scholarships->is_error()) $this->redirect();
         
         $data = array(
-            'data' => &$scholarships
+            'data' => &$scholarships,
+            'ajax_url' => '/scholarships/ajax_edit'
         );
         
         $this->data['js'] = 'ji/scholarships/edit';
@@ -181,8 +182,7 @@ class Scholarships extends Front_Controller
     {
         error_reporting(0);
         //$this->validate_privilege('admin_write', false);
-        $data = json_decode($this->input->post('data'), true);
-        
+        $data = $this->input->post('data');
         $id = $this->input->post('id');
         if ($id > 0)
         {

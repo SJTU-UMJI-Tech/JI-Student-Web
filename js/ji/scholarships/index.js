@@ -19,8 +19,8 @@
                 "template": "article",
                 "data": options.terms_body
             }, {
-                "center": true,
-                "html": '<button id="btn-agree" class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-agree"><i class="fa fa-check"></i>&nbsp;Agree</button>'
+                //"center": true,
+                //"html": '<button id="btn-agree" class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-agree"><i class="fa fa-check"></i>&nbsp;Agree</button>'
             }]
         };
 
