@@ -6,8 +6,8 @@ define([
     'require', 'exports', 'module',
     'jquery', 'marked', 'handlebars.runtime', 'flatpickr', 'touchspin',
     'ji/common/editormd-loader',
-    'ji/scholarships/common', 'ji/common/file-icon',
-    'templates/common/ibox', 'templates/common/ibox-editor'
+    'ji/scholarships/common', 'ji/common/file-icon','templates/common/ibox-article',
+    'templates/common/ibox', 'templates/common/ibox-editor','templates/common/modal','templates/common/body'
 ], function (require, exports, module) {
 
     const $ = require('jquery'),
@@ -149,6 +149,39 @@ define([
                 }
             });
         });
+
+        Handlebars.registerPartial('ibox', require('templates/common/ibox'));
+        Handlebars.registerPartial('article', require('templates/common/ibox-article'));
+
+        var template_alert = require('templates/common/body');
+
+        $("#body-wrapper").append(template_alert(
+            [{
+                grid: 'col-lg-10 offset-lg-1',
+                template: 'ibox',
+                data: config
+            }]));
+
+        template_alert = require('templates/common/modal');
+        config = {
+            "id": "modal-agree",
+            "header": {"title": "Confirmation"},
+            "body": [{
+                "html": "<h3><strong>All the edited terms will be saved.</strong></h3>"
+            }],
+            "footer": [{
+                "button": {
+                    "id": "modal-agree-btn-close", "text": "Close",
+                    "type": "white", "close": true
+                }
+            }, {
+                "button": {
+                    "id": "modal-agree-btn-confirm", "text": "OK",
+                    "type": "primary", "href": "all"
+                }
+            }]
+        };
+        $("#body-wrapper").append(template_alert(config));
 
     }
 });
