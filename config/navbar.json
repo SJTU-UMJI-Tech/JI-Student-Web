@@ -75,21 +75,25 @@
           "name": "All Scholarships",
           "href": "scholarships/all"
         },
-        "under-grad": {
+        "undergraduate": {
           "icon": "fa-hourglass-start",
-          "name": "Undergraduates"
+          "name": "Undergraduates",
+          "href": "scholarships/undergraduate"
         },
-        "grad": {
+        "graduate": {
           "icon": "fa-hourglass-end",
-          "name": "Graduates"
+          "name": "Graduates",
+          "href": "scholarships/graduate"
         },
         "my": {
           "icon": "fa-sign-language",
-          "name": "My Scholarships"
+          "name": "My Scholarships",
+          "href": "scholarships/my"
         },
         "create": {
           "icon": "fa-pencil-square-o",
-          "name": "Create Scholarships"
+          "name": "Create Scholarships",
+          "href": "scholarships/edit"
         }
       }
     },
@@ -126,7 +130,7 @@
         "gomoku": {
           "name": "Gomoku AI",
           "icon": "fa-television",
-          "href": "enrollment/gomoku"
+          "href": "tools/gomoku"
         }
       }
     },

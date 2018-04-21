@@ -3,7 +3,7 @@
  */
 const builder = require('./requirejs-builder');
 builder.init({
-    root_dir       : process.argv.length > 2 ? process.argv[2] : '',
+    root_dir: process.argv.length > 2 ? process.argv[2] : '',
     require_css_dir: 'node_modules/require-css/css'
 });
 
@@ -29,6 +29,23 @@ builder.addNode('cropper', 'cropper/dist/cropper', '', 'cropper/dist/cropper');
 builder.addNode('marked', 'marked/lib/marked');
 builder.addNode('flatpickr', 'flatpickr/dist/flatpickr', '', 'flatpickr/dist/flatpickr');
 builder.addNode('touchspin', 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin', 'bootstrap', 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin');
+
+//builder.addNode('jquery-ui/ui/widget', 'jquery-ui-dist/jquery-ui', 'jquery', 'jquery-ui-dist/jquery-ui');
+builder.addFile('load-image', 'js/load-image/js/load-image');
+builder.addFile('load-image-scale', 'js/load-image/js/load-image-scale');
+builder.addFile('load-image-meta', 'js/load-image/js/load-image-meta');
+builder.addFile('load-image-exif', 'js/load-image/js/load-image-exif');
+builder.addNode('canvas-to-blob', 'blueimp-canvas-to-blob/js/canvas-to-blob');
+builder.addNode('blueimp-tmpl', 'blueimp-tmpl/js/tmpl');
+builder.addFile('jquery.fileupload', 'js/file-upload/js/jquery.fileupload', 'jquery-ui', 'js/file-upload/css/jquery.fileupload');
+builder.addFile('jquery.fileupload-process', 'js/file-upload/js/jquery.fileupload-process', 'jquery.fileupload');
+builder.addFile('jquery.fileupload-audio', 'js/file-upload/js/jquery.fileupload-audio', 'jquery.fileupload-process');
+builder.addFile('jquery.fileupload-image', 'js/file-upload/js/jquery.fileupload-image', 'jquery.fileupload-process');
+builder.addFile('jquery.fileupload-video', 'js/file-upload/js/jquery.fileupload-video', 'jquery.fileupload-process');
+builder.addFile('jquery.fileupload-validate', 'js/file-upload/js/jquery.fileupload-validate', 'jquery.fileupload-process');
+builder.addFile('jquery.fileupload-ui', 'js/file-upload/js/jquery.fileupload-ui', '', 'js/file-upload/css/jquery.fileupload-ui');
+
+//builder.addAppDir('node_modules/blueimp-file-upload/js', 'blueimp-file-upload');
 
 builder.addNode('editormd', 'editor.md/editormd.amd', '', ['editor.md/css/editormd', 'editor.md/lib/codemirror/addon/fold/foldgutter']);
 builder.addNode('prettify', 'google-code-prettify/bin/prettify.min', '', 'google-code-prettify/bin/prettify.min');
@@ -57,19 +74,19 @@ builder.addBower('qrcodejs', 'qrcode.js/qrcode');
 builder.addFile('inspinia', 'js/ji/inspinia', ['bootstrap', 'metisMenu', 'slimscroll']);
 
 builder.build({
-    root_dir   : '',
-    filePath   : 'js/app.development',
+    root_dir: '',
+    filePath: 'js/app.development',
     environment: 'development'
 });
 
 builder.build({
-    root_dir   : '',
-    filePath   : 'js/app.testing',
+    root_dir: '',
+    filePath: 'js/app.testing',
     environment: 'production'
 });
 
 builder.build({
-    root_dir   : '/student',
-    filePath   : 'js/app.production',
+    root_dir: '/student',
+    filePath: 'js/app.production',
     environment: 'production'
 });

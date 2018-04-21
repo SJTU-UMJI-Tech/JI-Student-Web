@@ -17,6 +17,7 @@
     "url": "https://github.com/SJTU-UMJI-Tech/JI-Student-Web.git"
   },
   "dependencies": {
+    "blueimp-file-upload": "^9.21.0",
     "bootstrap": "^4.0.0-beta",
     "bootstrap-touchspin": "^3.1.1",
     "chart.js": "^2.7.0",

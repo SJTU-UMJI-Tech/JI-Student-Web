@@ -5,7 +5,7 @@
 define([
     'require', 'exports', 'module',
     'jquery', 'marked', 'handlebars.runtime', 'flatpickr', 'touchspin',
-    'ji/common/editormd-loader',
+    'ji/common/editormd-loader', 'jquery.fileupload-ui', //'ji/common/fileupload-loader',
     'ji/scholarships/common', 'ji/common/file-icon','templates/common/ibox-article',
     'templates/common/ibox', 'templates/common/ibox-editor','templates/common/modal','templates/common/body'
 ], function (require, exports, module) {
@@ -46,15 +46,16 @@ define([
             "datetime": true,
             "type": "date",
             "title": "Available Date",
+            "name": "start_date",
             "placeholder": "Select a date ...",
             "value": options.data.start_date
         }, {
             "datetime": true,
             "type": "date",
             "title": "Deadline",
-            "name": "deadline",
+            "name": "end_date",
             "placeholder": "Select a date ...",
-            "value": options.data.deadline
+            "value": options.data.end_date
         }, {
             "spin": true,
             "title": "Limits",
@@ -91,7 +92,12 @@ define([
 
         flatpickr(".flatpickr");
         $(".touchspin").TouchSpin();
-
+    
+        $(".file-upload").fileupload({
+            //dataType: 'json',
+            url: '/upload/'
+        });
+        
         console.log(options.data);
 
         let testEditor = editormd("test-editormd", {
@@ -129,7 +135,8 @@ define([
                 'title': $view.find(`[data-name='title']`).val(),
                 'abstract': $view.find(`[data-name='abstract']`).val(),
                 'content': testEditor.getMarkdown(),
-                'deadline': $view.find(`[data-name='deadline']`).val(),
+                'start_date': $view.find(`[data-name='start_date']`).val(),
+                'end_date': $view.find(`[data-name='end_date']`).val(),
             };
             console.log(data);
             $.ajax({
@@ -153,16 +160,16 @@ define([
         Handlebars.registerPartial('ibox', require('templates/common/ibox'));
         Handlebars.registerPartial('article', require('templates/common/ibox-article'));
 
-        var template_alert = require('templates/common/body');
+/*        var template_alert = require('templates/common/body');
 
         $("#body-wrapper").append(template_alert(
             [{
                 grid: 'col-lg-10 offset-lg-1',
                 template: 'ibox',
                 data: config
-            }]));
+            }]));*/
 
-        template_alert = require('templates/common/modal');
+        const template_alert = require('templates/common/modal');
         config = {
             "id": "modal-agree",
             "header": {"title": "Confirmation"},

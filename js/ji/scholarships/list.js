@@ -25,7 +25,8 @@
                 "list": require('templates/scholarships/list'),
                 "item": require('templates/scholarships/list-item')
             },
-            processRow: scholarships.processData
+            processRow: scholarships.processData,
+            key: options.key
         });
         
     }

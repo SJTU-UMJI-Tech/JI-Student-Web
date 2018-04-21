@@ -28,7 +28,8 @@ class Scholarships extends Front_Controller
             ),
             array('name' => 'abstract', 'label' => 'Abstract', 'type' => 'textarea'),
             array('name' => 'amount', 'label' => 'Amount', 'type' => 'text'),
-            array('name' => 'deadline', 'label' => 'Deadline', 'type' => 'date',),
+            array('name' => 'start_date', 'label' => 'Deadline', 'type' => 'date',),
+            array('name' => 'end_date', 'label' => 'Deadline', 'type' => 'date',),
             array('name' => 'content', 'label' => 'Content', 'type' => 'markdown'),
             array('name' => 'attachment', 'label' => 'Attachment', 'type' => 'file')
         );
@@ -75,9 +76,47 @@ class Scholarships extends Front_Controller
         $this->data['page_name'] = 'Scholarships';
         $this->add_nav('all')->form_navbar();
         
-        $this->data['js'] = 'ji/scholarships/list';
+        $data = array(
+            'key' => 'all'
+        );
         
-        $this->load->view('common/page', $this->data);
+        $this->__view('ji/scholarships/list', $data);
+    }
+    
+    public function undergraduate()
+    {
+        $this->data['page_name'] = 'Scholarships';
+        $this->add_nav('undergraduate')->form_navbar();
+    
+        $data = array(
+            'key' => 'undergraduate'
+        );
+    
+        $this->__view('ji/scholarships/list', $data);
+    }
+    
+    public function graduate()
+    {
+        $this->data['page_name'] = 'Scholarships';
+        $this->add_nav('graduate')->form_navbar();
+    
+        $data = array(
+            'key' => 'graduate'
+        );
+    
+        $this->__view('ji/scholarships/list', $data);
+    }
+    
+    public function my()
+    {
+        $this->data['page_name'] = 'Scholarships';
+        $this->add_nav('my')->form_navbar();
+    
+        $data = array(
+            'key' => 'my'
+        );
+        
+        $this->__view('ji/scholarships/list', $data);
     }
     
     public function view()

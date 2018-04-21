@@ -47,6 +47,7 @@
         this.processRow = options.processRow;
         this.listData = {};
         this.listNum = 0;
+        this.key = options.key || 'all';
         
         this.expand();
         
@@ -67,10 +68,10 @@
                 url: this.url.search || './ajax_search',
                 data: {
                     cmd: 'search',
-                    key: 'all',
+                    key: this.key,
                     keywords: '',
                     order: 'Newest',
-                    limit: 2,
+                    limit: 5,
                     offset: this.listNum
                 },
                 dataType: 'json',
