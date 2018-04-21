@@ -122,6 +122,11 @@
           "name": "Machine Race",
           "icon": "fa-car",
           "href": "enrollment/machine"
+        },
+        "gomoku": {
+          "name": "Gomoku AI",
+          "icon": "fa-television",
+          "href": "enrollment/gomoku"
         }
       }
     },

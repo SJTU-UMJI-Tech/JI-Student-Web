@@ -16,4 +16,8 @@ class Tools extends Front_Controller
 	{
 		$this->load->view('tools/exceltolatex');
 	}
+	
+	public function gomoku(){
+	    redirect('http://gomoku.sstia.tech');
+    }
 }
