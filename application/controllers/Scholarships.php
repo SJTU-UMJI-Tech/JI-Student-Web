@@ -129,6 +129,8 @@ class Scholarships extends Front_Controller
         
         if ($scholarships->is_error()) $this->redirect();
         
+        $scholarships->attachment = json_decode(base64_decode($scholarships->attachment));
+    
         $data = array(
             'data'     => &$scholarships,
             'edit_url' => base_url('scholarships/edit?id=' . $id)
@@ -152,7 +154,6 @@ class Scholarships extends Front_Controller
         
         if ($id > 0 && $scholarships->is_error()) $this->redirect();
     
-        //print_r(base64_decode($scholarships->attachment));
         $scholarships->attachment = json_decode(base64_decode($scholarships->attachment));
         
         $data = array(

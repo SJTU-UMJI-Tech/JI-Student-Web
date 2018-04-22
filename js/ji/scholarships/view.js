@@ -9,28 +9,21 @@ define([
     'templates/scholarships/view', 'templates/scholarships/view-sidebar'
 ], function (require, exports, module) {
     
-    const $            = require('jquery'),
-          Handlebars   = require('handlebars.runtime'),
-          marked       = require('marked'),
-          scholarships = require('ji/scholarships/common'),
-          fileicon     = require('ji/common/file-icon');
+    const $ = require('jquery'),
+        Handlebars = require('handlebars.runtime'),
+        marked = require('marked'),
+        scholarships = require('ji/scholarships/common'),
+        fileicon = require('ji/common/file-icon');
     
     module.exports = (options) => {
         
         scholarships.processData(options.data);
+        scholarships.processAttachment(options.data.attachment);
+        options.data.content = marked(options.data.content);
+        fileicon.processArray(options.data.attachment);
         
-        options.data.content     = marked(options.data.content);
-        options.data.attachments = [{
-            name: "file1.txt",
-            url : "#"
-        }, {
-            name: "file2.doc",
-            url : "#"
-        }, {
-            name: "file3",
-            url : "#"
-        }];
-        fileicon.processArray(options.data.attachments);
+        console.log(options.data);
+        
         
         let template = require('templates/common/body');
         Handlebars.registerPartial('ibox', require('templates/common/ibox'));
@@ -39,12 +32,12 @@ define([
         
         // Main Table
         let config = {
-            "id"   : "main-view",
+            "id": "main-view",
             "title": "Scholarships Detail",
             "tools": [],
-            "body" : [{
+            "body": [{
                 "template": "scholarships-view",
-                "data"    : options.data
+                "data": options.data
             }]
         };
         if (options.edit_url) {
@@ -55,13 +48,13 @@ define([
         }
         $("#body-wrapper").append(
             template([{
-                grid    : 'col-lg-9',
+                grid: 'col-lg-9',
                 template: 'ibox',
-                data    : config
+                data: config
             }, {
-                grid    : 'col-lg-3',
+                grid: 'col-lg-3',
                 template: 'scholarships-view-sidebar',
-                data    : options.data
+                data: options.data
             }])
         );
         

@@ -38,18 +38,18 @@ define([
             data.url_view = module.exports.base_url('view');
             data.url_edit = module.exports.base_url('edit');
             
-            for (let i = 0; i < data.attachment.length; i++) {
-                const file = data.attachment[i];
+            return data;
+        },
+        
+        processAttachment: (attachment) => {
+            for (let i = 0; i < attachment.length; i++) {
+                const file = attachment[i];
                 file.size = parseInt(file.size);
                 file.deleteType = 'DELETE';
                 file.deleteUrl = file.url;
                 file.url += '&download=1';
                 file.thumbnailUrl = file.url + '&version=thumbnail';
-                //file.type = 'image/png';
-                //console.log(data.attachment[i]);
             }
-            
-            return data;
         }
     }
     

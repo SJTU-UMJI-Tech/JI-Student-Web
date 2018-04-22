@@ -20,21 +20,10 @@ define([
     module.exports = (options) => {
         
         scholarships.processData(options.data);
-        
-        /*options.data.attachments = [{
-            name: "file1.txt",
-            url: "#"
-        }, {
-            name: "file2.doc",
-            url: "#"
-        }, {
-            name: "file3",
-            url: "#"
-        }];*/
+        scholarships.processAttachment(options.data.attachment);
+        fileicon.processArray(options.data.attachment);
         
         console.log(options.data);
-    
-        fileicon.processArray(options.data.attachment);
         
         let template = require('templates/common/ibox');
         Handlebars.registerPartial('ibox-editor', require('templates/common/ibox-editor'));
