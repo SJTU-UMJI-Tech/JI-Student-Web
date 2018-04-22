@@ -14,9 +14,9 @@ define([
         
         processData: (data) => {
             
-            let start   = new Date(data.start_date).getTime(),
-                end     = new Date(data.end_date).getTime(),
-                now     = new Date().getTime(),
+            let start = new Date(data.start_date).getTime(),
+                end = new Date(data.end_date).getTime(),
+                now = new Date().getTime(),
                 percent = Math.round((now - start) / (end - start) * 100.);
             if (percent > 100) {
                 data.closed = true;
@@ -37,6 +37,17 @@ define([
             
             data.url_view = module.exports.base_url('view');
             data.url_edit = module.exports.base_url('edit');
+            
+            for (let i = 0; i < data.attachment.length; i++) {
+                const file = data.attachment[i];
+                file.size = parseInt(file.size);
+                file.deleteType = 'DELETE';
+                file.deleteUrl = file.url;
+                file.url += '&download=1';
+                file.thumbnailUrl = file.url + '&version=thumbnail';
+                //file.type = 'image/png';
+                //console.log(data.attachment[i]);
+            }
             
             return data;
         }

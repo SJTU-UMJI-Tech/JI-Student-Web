@@ -182,6 +182,7 @@ abstract class Front_Controller extends CI_Controller
                 $parsed = parse_url($url);
                 $query = array();
                 parse_str($parsed['query'], $query);
+                if (isset($query['dir'])) continue;
                 $filename = urldecode($query['file']);
                 if (!isset($query['dir']))
                 {
@@ -193,9 +194,11 @@ abstract class Front_Controller extends CI_Controller
                     rename('./uploads/temp/thumbnail/' . $filename,
                            $dir . 'thumbnail/' . $filename);
                     $query['dir'] = $dir;
+                    unset($query['download']);
                     $url = http_build_query($query, NULL, '&', PHP_QUERY_RFC3986);
                 }
                 $value[$index]['url'] = base_url('upload?' . $url);
+                $value[$index]['name'] = $filename;
             }
             $new_data[$option['name']] = base64_encode(json_encode($value));
         }

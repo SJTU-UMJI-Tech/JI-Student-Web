@@ -151,6 +151,9 @@ class Scholarships extends Front_Controller
         $scholarships = $this->Scholarships_model->get_by_id($id);
         
         if ($id > 0 && $scholarships->is_error()) $this->redirect();
+    
+        //print_r(base64_decode($scholarships->attachment));
+        $scholarships->attachment = json_decode(base64_decode($scholarships->attachment));
         
         $data = array(
             'data' => &$scholarships,
@@ -219,7 +222,7 @@ class Scholarships extends Front_Controller
     
     public function ajax_edit()
     {
-        error_reporting(0);
+        //error_reporting(0);
         //$this->validate_privilege('admin_write', false);
         $data = $this->input->post('data');
         $id = $this->input->post('id');

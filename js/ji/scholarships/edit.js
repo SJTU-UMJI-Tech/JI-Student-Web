@@ -5,23 +5,23 @@
 define([
     'require', 'exports', 'module',
     'jquery', 'marked', 'handlebars.runtime', 'flatpickr', 'touchspin',
-    'ji/common/editormd-loader', 'jquery.fileupload-ui', //'ji/common/fileupload-loader',
-    'ji/scholarships/common', 'ji/common/file-icon','templates/common/ibox-article',
-    'templates/common/ibox', 'templates/common/ibox-editor','templates/common/modal','templates/common/body'
+    'ji/common/editormd-loader', 'jquery.fileupload-ui',
+    'ji/scholarships/common', 'ji/common/file-icon', 'templates/common/ibox-article',
+    'templates/common/ibox', 'templates/common/ibox-editor', 'templates/common/modal', 'templates/common/body'
 ], function (require, exports, module) {
-
+    
     const $ = require('jquery'),
         Handlebars = require('handlebars.runtime'),
         marked = require('marked'),
         editormd = require('editormd'),
         scholarships = require('ji/scholarships/common'),
         fileicon = require('ji/common/file-icon');
-
+    
     module.exports = (options) => {
-
+        
         scholarships.processData(options.data);
-
-        options.data.attachments = [{
+        
+        /*options.data.attachments = [{
             name: "file1.txt",
             url: "#"
         }, {
@@ -30,12 +30,15 @@ define([
         }, {
             name: "file3",
             url: "#"
-        }];
-        fileicon.processArray(options.data.attachments);
-
+        }];*/
+        
+        console.log(options.data);
+    
+        fileicon.processArray(options.data.attachment);
+        
         let template = require('templates/common/ibox');
         Handlebars.registerPartial('ibox-editor', require('templates/common/ibox-editor'));
-
+        
         let data = [{
             "text": true,
             "title": "Title",
@@ -75,6 +78,7 @@ define([
         }, {
             "file": true,
             "title": "Attachments",
+            "name": "attachment",
         }];
         // Main Table
         let config = {
@@ -89,17 +93,22 @@ define([
             }]
         };
         $("#body-wrapper").append(template(config));
-
+        
         flatpickr(".flatpickr");
         $(".touchspin").TouchSpin();
-    
+        
         $(".file-upload").fileupload({
-            //dataType: 'json',
+            dataType: 'json',
             url: '/upload/'
         });
         
-        console.log(options.data);
-
+        const $attachment = $(`.file-upload[data-name='attachment']`);
+        $attachment.fileupload('option', 'done').call(
+            $attachment[0],
+            $.Event('done'),
+            {result: {files: options.data.attachment}}
+        );
+        
         let testEditor = editormd("test-editormd", {
             width: "100%",
             height: 600,
@@ -126,17 +135,30 @@ define([
             //imageFormats        : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             //imageUploadURL      : "./php/upload.php",
         });
-
+        
         const $view = $("#main-view");
         //console.log($view.find(`[data-name='deadline']`).val());
-
+        
         $("#btn-save").on('click', () => {
+            console.log('save');
+            const files = [];
+            $attachment.find('.template-download').each(function () {
+                const $this = $(this).find('a').first();
+                files.push({
+                    size: $(this).data('size'),
+                    type: $(this).data('type'),
+                    url: $this.attr('href'),
+                    name: $this.attr('title'),
+                });
+            });
+            
             const data = {
                 'title': $view.find(`[data-name='title']`).val(),
                 'abstract': $view.find(`[data-name='abstract']`).val(),
                 'content': testEditor.getMarkdown(),
                 'start_date': $view.find(`[data-name='start_date']`).val(),
                 'end_date': $view.find(`[data-name='end_date']`).val(),
+                'attachment': files
             };
             console.log(data);
             $.ajax({
@@ -156,19 +178,19 @@ define([
                 }
             });
         });
-
+        
         Handlebars.registerPartial('ibox', require('templates/common/ibox'));
         Handlebars.registerPartial('article', require('templates/common/ibox-article'));
-
-/*        var template_alert = require('templates/common/body');
-
-        $("#body-wrapper").append(template_alert(
-            [{
-                grid: 'col-lg-10 offset-lg-1',
-                template: 'ibox',
-                data: config
-            }]));*/
-
+        
+        /*        var template_alert = require('templates/common/body');
+        
+                $("#body-wrapper").append(template_alert(
+                    [{
+                        grid: 'col-lg-10 offset-lg-1',
+                        template: 'ibox',
+                        data: config
+                    }]));*/
+        
         const template_alert = require('templates/common/modal');
         config = {
             "id": "modal-agree",
@@ -189,6 +211,6 @@ define([
             }]
         };
         $("#body-wrapper").append(template_alert(config));
-
+        
     }
 });

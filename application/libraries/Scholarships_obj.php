@@ -31,8 +31,10 @@ class Scholarships_obj extends My_obj
     public $start_date;
     /** @var string date */
     public $end_date;
-	/** @var string varchar(100)邮箱 */
+	/** @var string varchar(100) 邮箱 */
 	public $email;
+	/** @var string varchar(500) */
+	public $attachment;
 	/** @var string timestamp   创建时间 */
 	public $CREATE_TIMESTAMP;
 	/** @var string timestamp   更新时间 */
